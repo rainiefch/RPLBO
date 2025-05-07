@@ -11,7 +11,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<<<<<<< Updated upstream
 <?import javafx.scene.text.Font?>
+=======
+>>>>>>> Stashed changes
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.CategoryForm">
    <children>
@@ -40,7 +43,11 @@
                         <Font name="Montserrat Bold" size="40.0" />
                      </font>
                   </Label>
+<<<<<<< Updated upstream
                   <Label fx:id="lblJudul" prefHeight="45.0" prefWidth="228.0" text="Category Name" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+=======
+                  <Label fx:id="lblJudul" text="Judul:" GridPane.rowIndex="1">
+>>>>>>> Stashed changes
                      <GridPane.margin>
                         <Insets bottom="20.0" left="310.0" top="20.0" />
                      </GridPane.margin>
@@ -48,7 +55,11 @@
                         <Font name="Montserrat Bold" size="25.0" />
                      </font>
                   </Label>
+<<<<<<< Updated upstream
                   <Label fx:id="lblDeskripsi" text="Description" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+=======
+                  <Label fx:id="lblDeskripsi" text="Deskripsi:" GridPane.rowIndex="2">
+>>>>>>> Stashed changes
                      <GridPane.margin>
                         <Insets bottom="20.0" left="310.0" top="20.0" />
                      </GridPane.margin>
