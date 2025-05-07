@@ -49,7 +49,7 @@
                                 </ImageView>
                                 <Label text="To-Do to Done" textFill="WHITE">
                                     <font>
-                                        <Font size="36.0" />
+                                        <Font name="Montserrat Bold" size="36.0" />
                                     </font>
                                 </Label>
                             </children>
@@ -85,7 +85,7 @@
                                         </ImageView>
                                         <Label text="Add To-Do" textFill="WHITE">
                                             <font>
-                                                <Font size="24.0" />
+                                                <Font name="System Bold" size="24.0" />
                                             </font>
                                         </Label>
                                     </children>
@@ -102,7 +102,7 @@
                                         </ImageView>
                                         <Label text="Search" textFill="WHITE">
                                             <font>
-                                                <Font size="24.0" />
+                                                <Font name="System Bold" size="24.0" />
                                             </font>
                                         </Label>
                                     </children>
