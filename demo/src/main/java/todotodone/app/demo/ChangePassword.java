@@ -1,4 +1,4 @@
-package todotodone.app;
+package todotodone.app.demo;
 
 public class ChangePassword {
 }

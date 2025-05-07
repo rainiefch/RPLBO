@@ -1,4 +1,4 @@
-package todotodone.app;
+package todotodone.app.demo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
