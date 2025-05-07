@@ -18,6 +18,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.Home">
+<<<<<<< Updated upstream
    <children>
       <GridPane layoutX="-3.0" prefHeight="1080.0" prefWidth="1920.0">
         <columnConstraints>
@@ -273,4 +274,261 @@
          </children>
       </GridPane>
    </children>
+=======
+    <children>
+        <GridPane layoutX="-3.0" prefHeight="1080.0" prefWidth="1920.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.3333129882812" minWidth="10.0" prefWidth="400.6666564941406" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1006.6666564941406" minWidth="10.0" prefWidth="848.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="734.0" minWidth="10.0" prefWidth="672.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <GridPane style="-fx-background-color: maroon;">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="352.0" minHeight="0.0" prefHeight="86.99999618530273" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="901.3333129882812" minHeight="10.0" prefHeight="900.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="577.3333435058594" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <ImageView fitHeight="100.0" fitWidth="100.0">
+                                    <image>
+                                        <Image url="@logo.png" />
+                                    </image>
+                                </ImageView>
+                                <Label text="To-Do to Done" textFill="WHITE">
+                                    <font>
+                                        <Font size="36.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets top="20.0" />
+                            </padding>
+                        </HBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="360.0" style="-fx-background-color: A14141;">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+                                    </VBox.margin>
+                                    <children>
+                                        <ImageView fitHeight="80.0" fitWidth="80.0">
+                                            <image>
+                                                <Image url="@logo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Home" textFill="WHITE">
+                                            <font>
+                                                <Font size="24.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="360.0" style="-fx-background-color: maroon;">
+                                    <children>
+                                        <ImageView fitHeight="80.0" fitWidth="80.0">
+                                            <image>
+                                                <Image url="@logo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Add To-Do" textFill="WHITE">
+                                            <font>
+                                                <Font size="24.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="360.0" style="-fx-background-color: maroon;">
+                                    <children>
+                                        <ImageView fitHeight="80.0" fitWidth="80.0">
+                                            <image>
+                                                <Image url="@logo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Search" textFill="WHITE">
+                                            <font>
+                                                <Font size="24.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="360.0" style="-fx-background-color: maroon;">
+                                    <children>
+                                        <ImageView fitHeight="80.0" fitWidth="80.0">
+                                            <image>
+                                                <Image url="@logo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="Category" textFill="WHITE">
+                                            <font>
+                                                <Font size="24.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="114.0" prefWidth="400.0" style="-fx-background-color: maroon;" GridPane.rowIndex="2">
+                            <children>
+                                <ImageView fitHeight="80.0" fitWidth="80.0">
+                                    <image>
+                                        <Image url="@logo.png" />
+                                    </image>
+                                </ImageView>
+                                <Label text="My Profile" textFill="WHITE">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                            </GridPane.margin>
+                        </HBox>
+                    </children>
+                </GridPane>
+                <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="353.3333435058594" minHeight="0.0" prefHeight="99.66666793823242" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="878.666666507721" minHeight="10.0" prefHeight="118.66667175292969" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="879.6666870117188" minHeight="10.0" prefHeight="853.3333282470703" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="To-Do List">
+                            <font>
+                                <Font name="System Bold" size="48.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="808.0" GridPane.rowIndex="1">
+                            <children>
+                                <TextField prefHeight="56.0" prefWidth="447.0">
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <DropdownButton prefHeight="51.0" prefWidth="130.0" style="-fx-background-color: A14141;">
+                                    <items>
+                                        <MenuItem text="Choice 1" />
+                                        <MenuItem text="Choice 2" />
+                                        <MenuItem text="Choice 3" />
+                                    </items>
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </DropdownButton>
+                                <Button mnemonicParsing="false" text="Button">
+                                    <HBox.margin>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </GridPane.margin>
+                            <children>
+                                <AnchorPane prefHeight="317.0" prefWidth="788.0">
+                                    <children>
+                                        <GridPane layoutX="-3.0" layoutY="-1.0" prefHeight="317.0" prefWidth="788.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="267.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="174.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="161.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="167.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label text="To-Do">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label text="Status" GridPane.columnIndex="1">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label text="Due Date" GridPane.columnIndex="2">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label text="Category" GridPane.columnIndex="3">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Label>
+                                                <DropdownButton prefHeight="51.0" prefWidth="130.0" style="-fx-background-color: A14141;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                    <items>
+                                                        <MenuItem text="Choice 1" />
+                                                        <MenuItem text="Choice 2" />
+                                                        <MenuItem text="Choice 3" />
+                                                    </items>
+                                                </DropdownButton>
+                                                <DropdownButton prefHeight="51.0" prefWidth="130.0" style="-fx-background-color: A14141;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                    <items>
+                                                        <MenuItem text="Choice 1" />
+                                                        <MenuItem text="Choice 2" />
+                                                        <MenuItem text="Choice 3" />
+                                                    </items>
+                                                </DropdownButton>
+                                                <DatePicker GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </padding>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </VBox>
+                    </children>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </GridPane>
+            </children>
+        </GridPane>
+    </children>
+>>>>>>> Stashed changes
 </AnchorPane>
