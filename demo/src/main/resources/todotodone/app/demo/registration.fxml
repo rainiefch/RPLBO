@@ -23,23 +23,23 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="156.71427263532365" minHeight="10.0" prefHeight="18.57143293108259" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="180.71430315290178" minHeight="10.0" prefHeight="106.57143729073661" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="226.71427263532365" minHeight="10.0" prefHeight="90.57146344866072" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="182.99998910086498" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="182.99998910086498" minHeight="10.0" prefHeight="179.42857142857144" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="182.99998910086498" minHeight="10.0" prefHeight="28.14287022181921" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="182.99998910086498" minHeight="10.0" prefHeight="24.85714285714286" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="182.99998910086498" minHeight="10.0" prefHeight="23.14285714285714" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="182.99998910086498" minHeight="10.0" prefHeight="26.42857578822546" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="189.28569466727123" minHeight="10.0" prefHeight="26.428571428571445" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="189.28569466727123" minHeight="10.0" prefHeight="59.14284842354908" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="189.28569466727123" minHeight="4.285723005022305" prefHeight="4.285723005022305" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="189.28569466727123" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="180.71430315290178" minHeight="10.0" prefHeight="144.42855398995536" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="226.71427263532365" minHeight="10.0" prefHeight="142.14287458147322" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="182.99998910086498" minHeight="0.0" prefHeight="67.5714111328125" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="182.99998910086498" minHeight="10.0" prefHeight="36.14287458147322" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="182.99998910086498" minHeight="10.0" prefHeight="41.714276994977695" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="194.85715157645086" minHeight="10.0" prefHeight="34.285688127790195" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="211.2856881277902" minHeight="10.0" prefHeight="38.857099260602695" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="218.42861502511164" minHeight="10.0" prefHeight="33.71432059151789" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="228.9999651227679" minHeight="10.0" prefHeight="45.14285714285711" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="266.28574916294644" minHeight="10.0" prefHeight="119.42855398995539" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="189.28569466727123" minHeight="4.285723005022305" prefHeight="8.000069754464334" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="282.28564453125" minHeight="10.0" prefHeight="282.28564453125" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label fx:id="lblToDoToDone" contentDisplay="CENTER" style="-fx-font-weight: bold;" text="To Do To Done" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                <Label fx:id="lblToDoToDone" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="248.0" style="-fx-font-weight: bold;" text="To Do To Done" textAlignment="CENTER" textFill="#7d1919" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                     <font>
-                        <Font size="32.0" />
+                        <Font name="Montserrat Bold" size="32.0" />
                     </font>
                 </Label>
                 <ImageView fx:id="picture" fitHeight="200.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -50,54 +50,54 @@
                         <Insets top="60.0" />
                     </GridPane.margin>
                 </ImageView>
-                <TextField fx:id="tfUsername" prefHeight="27.0" prefWidth="321.0" text="Enter Username Here" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                <TextField fx:id="tfUsername" prefHeight="50.0" prefWidth="673.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <font>
                         <Font name="Montserrat Bold" size="10.0" />
                     </font>
                 </TextField>
                 <Label fx:id="lblUsername" text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <font>
-                        <Font name="Montserrat Bold" size="11.0" />
+                        <Font size="25.0" />
                     </font>
                 </Label>
                 <Label fx:id="lblPassword" text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <font>
-                        <Font name="Montserrat Bold" size="11.0" />
+                        <Font size="25.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="tfPassword" prefHeight="24.0" prefWidth="321.0" text="Enter password here" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                <PasswordField fx:id="tfPassword" prefHeight="48.0" prefWidth="642.0" text="Enter password here" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <font>
                         <Font size="1.0" />
                     </font>
                 </PasswordField>
                 <Label fx:id="lblWelcome" text="Welcome!" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
-                        <Font name="Montserrat Bold" size="14.0" />
+                        <Font name="Montserrat Bold" size="27.0" />
                     </font>
                 </Label>
                 <Label fx:id="lblConfirmPass" text="Confirm Password:" GridPane.columnIndex="1" GridPane.rowIndex="8">
                     <font>
-                        <Font name="Montserrat Bold" size="11.0" />
+                        <Font size="25.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="pfPassword" prefHeight="25.0" prefWidth="321.0" text="Enter password here" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                <PasswordField fx:id="pfPassword" prefHeight="48.0" prefWidth="645.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                     <font>
                         <Font name="Montserrat Bold" size="10.0" />
                     </font>
                 </PasswordField>
-                <Button fx:id="btnRegister" mnemonicParsing="false" prefHeight="25.0" prefWidth="323.0" style="-fx-background-color: maroon;" text="Register Now!" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                <Button fx:id="btnRegister" mnemonicParsing="false" prefHeight="53.0" prefWidth="638.0" style="-fx-background-color: maroon;" text="Register Now!" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">
                     <font>
-                        <Font name="Montserrat Bold" size="12.0" />
+                        <Font name="Montserrat Bold" size="28.0" />
                     </font>
                 </Button>
-                <Label fx:id="lblSignInHere" alignment="CENTER" prefHeight="17.0" prefWidth="323.0" text="Already have an account? Sign in here." textAlignment="CENTER" textFill="#7d1919" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                <Label fx:id="lblSignInHere" alignment="CENTER" prefHeight="17.0" prefWidth="323.0" style="-fx-alignment: center;" text="Already have an account? Sign in here." textAlignment="CENTER" textFill="#7d1919" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                     <font>
-                        <Font name="Montserrat Bold" size="10.0" />
+                        <Font name="Montserrat Bold" size="18.0" />
                     </font>
                 </Label>
                 <Label fx:id="lblRplbo" text="©RPLBO" textFill="#7d1919" GridPane.columnIndex="1" GridPane.rowIndex="12">
                     <font>
-                        <Font name="System Bold Italic" size="8.0" />
+                        <Font name="System Bold Italic" size="15.0" />
                     </font>
                 </Label>
             </children>
