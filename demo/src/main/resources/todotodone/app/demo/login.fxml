@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="570.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.Login">
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="570.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.Login">
+
     <children>
         <GridPane prefHeight="400.0" prefWidth="571.0">
             <columnConstraints>
@@ -31,12 +33,12 @@
                 <RowConstraints maxHeight="81.8571341378348" minHeight="10.0" prefHeight="81.8571341378348" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label style="-fx-font-weight: bold;" text="To Do To Done" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label fx:id="lblToDoToDone" style="-fx-font-weight: bold;" text="To Do To Done" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Label text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <Label fx:id="lblUsername" text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <GridPane.margin>
                         <Insets left="2.0" />
                     </GridPane.margin>
@@ -44,12 +46,12 @@
                         <Font name="Montserrat Bold" size="11.0" />
                     </font>
                 </Label>
-                <TextField text="Enter Username Here" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                <TextField fx:id="tfUsername" text="Enter Username Here" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <font>
                         <Font name="Montserrat Bold" size="10.0" />
                     </font>
                 </TextField>
-                <Label text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                <Label fx:id="lblPassword" text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <GridPane.margin>
                         <Insets left="2.0" />
                     </GridPane.margin>
@@ -57,8 +59,8 @@
                         <Font name="Montserrat Bold" size="11.0" />
                     </font>
                 </Label>
-                <PasswordField text="Enter password here" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <Button mnemonicParsing="false" prefHeight="21.0" prefWidth="85.0" style="-fx-background-color: maroon;" text="Forgot Password" textFill="WHITE" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                <PasswordField fx:id="pfPassword" text="Enter password here" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <Button fx:id="btnForgotPass" mnemonicParsing="false" prefHeight="21.0" prefWidth="85.0" style="-fx-background-color: maroon;" text="Forgot Password" textFill="WHITE" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="8">
                     <font>
                         <Font name="Montserrat Bold" size="8.0" />
                     </font>
@@ -66,12 +68,12 @@
                         <Insets left="115.0" />
                     </GridPane.margin>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="202.0" style="-fx-background-color: maroon; -fx-font-weight: bold;" text="Sign In" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                <Button fx:id="btnSignIn" mnemonicParsing="false" prefHeight="25.0" prefWidth="202.0" style="-fx-background-color: maroon; -fx-font-weight: bold;" text="Sign In" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9">
                     <font>
                         <Font name="Montserrat Bold" size="12.0" />
                     </font>
                 </Button>
-                <Label alignment="CENTER" style="-fx-alignment: center;" text="Don't have account? Register Here" textAlignment="CENTER" textFill="#7d1919" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                <Label fx:id="lblRegister" alignment="CENTER" style="-fx-alignment: center;" text="Don't have account? Register Here" textAlignment="CENTER" textFill="#7d1919" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="10">
                     <font>
                         <Font name="Montserrat Bold" size="8.0" />
                     </font>
@@ -79,12 +81,12 @@
                         <Insets left="25.0" />
                     </padding>
                 </Label>
-                <Label text="©RPLBO" textFill="#7d1919" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                <Label fx:id="lblRplbo" text="©RPLBO" textFill="#7d1919" GridPane.columnIndex="1" GridPane.rowIndex="12">
                     <font>
                         <Font name="System Bold Italic" size="8.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="70.0" fitWidth="72.0" GridPane.rowIndex="2">
+                <ImageView fx:id="picture" fitHeight="70.0" fitWidth="72.0" GridPane.rowIndex="2">
                     <image>
                         <Image url="@logo.png" />
                     </image>
