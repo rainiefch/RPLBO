@@ -5,6 +5,7 @@ module todotodone.app.demo {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     opens todotodone.app.demo to javafx.fxml;
     exports todotodone.app.demo;
