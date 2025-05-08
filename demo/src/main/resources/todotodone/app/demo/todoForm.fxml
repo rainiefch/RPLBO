@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -25,10 +26,11 @@
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints maxHeight="192.85713413783483" minHeight="10.0" prefHeight="192.85713413783483" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="164.000004359654" minHeight="10.0" prefHeight="92.28572300502233" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="108.59998168945313" minHeight="10.0" prefHeight="54.285709926060264" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="309.42860630580356" minHeight="0.0" prefHeight="309.42860630580356" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="369.71425955636164" minHeight="0.0" prefHeight="74.57139369419644" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="164.000004359654" minHeight="10.0" prefHeight="37.571428571428584" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="164.000004359654" minHeight="10.0" prefHeight="98.5714634486607" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="108.59998168945313" minHeight="10.0" prefHeight="47.85718645368303" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="309.42860630580356" minHeight="0.0" prefHeight="258.14281354631703" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="369.71425955636164" minHeight="0.0" prefHeight="74.57139369419644" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="532.0" minHeight="10.0" prefHeight="94.71432931082597" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="532.0" minHeight="10.0" prefHeight="49.28573172433039" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="532.0" minHeight="10.0" prefHeight="143.85712541852683" vgrow="SOMETIMES" />
@@ -43,7 +45,7 @@
                         <Font name="Montserrat Bold" size="40.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblWaktu" prefHeight="113.0" prefWidth="282.0" text="Due Date" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Label fx:id="lblWaktu" prefHeight="113.0" prefWidth="282.0" text="Due Date" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="200.0" top="20.0" />
                      </GridPane.margin>
@@ -51,8 +53,8 @@
                         <Font name="Montserrat Bold" size="25.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="datePickerWaktu" prefHeight="120.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="lblDeksripsi" text="Description" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                  <DatePicker fx:id="datePickerWaktu" prefHeight="120.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="lblDeksripsi" text="Description" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="200.0" />
                      </GridPane.margin>
@@ -60,12 +62,12 @@
                         <Font name="Montserrat Bold" size="25.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="txtAreaDeskripsi" prefHeight="107.0" prefWidth="954.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextArea fx:id="txtAreaDeskripsi" prefHeight="107.0" prefWidth="954.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets bottom="20.0" right="400.0" top="20.0" />
                      </GridPane.margin>
                   </TextArea>
-                  <Label fx:id="lblUpload" text="Upload File" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                  <Label fx:id="lblUpload" text="Upload File" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="200.0" />
                      </GridPane.margin>
@@ -73,7 +75,7 @@
                         <Font name="Montserrat Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblKategori" text="Category" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                  <Label fx:id="lblKategori" text="Category" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="200.0" top="20.0" />
                      </GridPane.margin>
@@ -81,11 +83,11 @@
                         <Font name="Montserrat Bold" size="25.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cbKategori" prefHeight="120.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <ComboBox fx:id="cbKategori" prefHeight="120.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets bottom="20.0" top="20.0" />
                      </GridPane.margin></ComboBox>
-                  <Button fx:id="lblChoose" mnemonicParsing="false" prefHeight="120.0" prefWidth="300.0" style="-fx-background-color: maroon;" text="Choose File" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                  <Button fx:id="lblChoose" mnemonicParsing="false" prefHeight="120.0" prefWidth="300.0" style="-fx-background-color: maroon;" text="Choose File" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" top="20.0" />
                      </GridPane.margin>
@@ -93,7 +95,7 @@
                         <Font size="27.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: maroon;" text="Add" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                  <Button fx:id="btnAdd" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: maroon;" text="Add" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" top="20.0" />
                      </GridPane.margin>
@@ -101,7 +103,7 @@
                         <Font size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="140.0" />
                      </GridPane.margin>
@@ -111,8 +113,21 @@
                   </Button>
                   <Separator prefWidth="200.0" GridPane.rowIndex="1" />
                   <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Separator prefWidth="200.0" GridPane.rowIndex="6" />
-                  <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Separator prefWidth="200.0" GridPane.rowIndex="7" />
+                  <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label fx:id="lblWaktu1" prefHeight="113.0" prefWidth="282.0" text="Title" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Bold" size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="200.0" top="20.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField prefHeight="125.0" prefWidth="765.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" right="800.0" top="20.0" />
+                     </GridPane.margin>
+                  </TextField>
                </children>
                <opaqueInsets>
                   <Insets />
