@@ -53,7 +53,7 @@
                         <Font name="Montserrat Bold" size="25.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="datePickerWaktu" prefHeight="120.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="dtpDueDate" prefHeight="120.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label fx:id="lblDeksripsi" text="Description" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="200.0" />
@@ -62,7 +62,7 @@
                         <Font name="Montserrat Bold" size="25.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="txtAreaDeskripsi" prefHeight="107.0" prefWidth="954.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <TextArea fx:id="txtDescription" prefHeight="107.0" prefWidth="954.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets bottom="20.0" right="400.0" top="20.0" />
                      </GridPane.margin>
@@ -83,11 +83,11 @@
                         <Font name="Montserrat Bold" size="25.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cbKategori" prefHeight="120.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <ComboBox fx:id="cbCategory" prefHeight="120.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets bottom="20.0" top="20.0" />
                      </GridPane.margin></ComboBox>
-                  <Button fx:id="lblChoose" mnemonicParsing="false" prefHeight="120.0" prefWidth="300.0" style="-fx-background-color: maroon;" text="Choose File" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                  <Button fx:id="btnUploadFile" mnemonicParsing="false" onAction="#onBtnUploadFileClick" prefHeight="120.0" prefWidth="300.0" style="-fx-background-color: maroon;" text="Choose File" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" top="20.0" />
                      </GridPane.margin>
@@ -95,7 +95,7 @@
                         <Font size="27.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: maroon;" text="Add" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onBtnAddClick" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: maroon;" text="Add" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" top="20.0" />
                      </GridPane.margin>
@@ -103,7 +103,7 @@
                         <Font size="25.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="50.0" prefWidth="120.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="140.0" />
                      </GridPane.margin>
@@ -123,7 +123,7 @@
                         <Insets bottom="20.0" left="200.0" top="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField prefHeight="125.0" prefWidth="765.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="txtTitle" prefHeight="125.0" prefWidth="765.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="20.0" right="800.0" top="20.0" />
                      </GridPane.margin>
