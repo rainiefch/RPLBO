@@ -85,12 +85,12 @@
                         <Font name="Montserrat Bold" size="10.0" />
                     </font>
                 </PasswordField>
-                <Button fx:id="btnRegister" mnemonicParsing="false" prefHeight="53.0" prefWidth="638.0" style="-fx-background-color: maroon;" text="Register Now!" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#onBtnRegisterClick" prefHeight="53.0" prefWidth="638.0" style="-fx-background-color: maroon;" text="Register Now!" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">
                     <font>
                         <Font name="Montserrat Bold" size="28.0" />
                     </font>
                 </Button>
-                <Label fx:id="lblSignInHere" alignment="CENTER" prefHeight="17.0" prefWidth="323.0" style="-fx-alignment: center;" text="Already have an account? Sign in here." textAlignment="CENTER" textFill="#7d1919" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
+                <Label fx:id="lblSignInHere" alignment="CENTER" onMouseClicked="#onLblSignInHereClicked" prefHeight="17.0" prefWidth="323.0" style="-fx-alignment: center;" text="Already have an account? Sign in here." textAlignment="CENTER" textFill="#7d1919" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                     <font>
                         <Font name="Montserrat Bold" size="18.0" />
                     </font>
