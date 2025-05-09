@@ -19,10 +19,8 @@ public class TodoForm {
     private Button btnAdd;
 
     @FXML
-    private Button btnCancel;
+    private Button btnCancel, btnUpload, btnDelete;
 
-    @FXML
-    private Button btnUpload;
 
     @FXML
     private ComboBox<String> cbCategory;
@@ -44,39 +42,10 @@ public class TodoForm {
     @FXML
     void initialize() {
         cbCategory.getItems().addAll("Work", "Personal", "Others");
+        btnAdd.setText("Add");
+        btnDelete.setVisible(false);
     }
 
-    @FXML
-    void onBtnAddClick(ActionEvent event) {
-        String title = txtTitle.getText();
-        String category = cbCategory.getValue();
-        String dueDate = dtpDueDate.getValue() != null ? dtpDueDate.getValue().toString() : null;
-        String description = txtDescription.getText();
-        String attachmentPath = selectedFile != null ? selectedFile.getAbsolutePath() : null;
-
-        if (title.isEmpty() || category == null || dueDate == null) {
-            showAlert("Please fill in all required fields.");
-            return;
-        }
-
-        try (Connection conn = DBConnection.getConnection()) {
-            String sql = "INSERT INTO todo (title, status, category, due_date, description, attachment) VALUES (?, 'Pending', ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, title);
-            stmt.setString(2, category);
-            stmt.setString(3, dueDate);
-            stmt.setString(4, description);
-            stmt.setString(5, attachmentPath);
-
-            stmt.executeUpdate();
-            showAlert("To-Do added successfully!");
-            clearForm();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Failed to add To-Do: " + e.getMessage());
-        }
-    }
 
     @FXML
     void onBtnCancelClick(ActionEvent event) {
@@ -152,5 +121,108 @@ public class TodoForm {
         alert.setTitle("Information");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+
+    private Integer editingTodoId = null;
+
+    public boolean isEditing = false;
+
+    public void setTodoData(Home.TodoItem todo) {
+        this.isEditing = true;
+        this.editingTodoId = todo.id;
+
+        txtTitle.setText(todo.title);
+        cbCategory.setValue(todo.category);
+        if (todo.dueDate != null) {
+            dtpDueDate.setValue(java.time.LocalDate.parse(todo.dueDate));
+        }
+        txtDescription.setText(todo.description);
+        if (todo.attachment != null) {
+            selectedFile = new File(todo.attachment);
+            lblChosenFile.setText(selectedFile.getName());
+        }
+
+        btnAdd.setText("Update");
+        btnDelete.setVisible(true);
+    }
+
+
+
+    @FXML
+    void onBtnAddClick(ActionEvent event) {
+        String title = txtTitle.getText();
+        String category = cbCategory.getValue();
+        String dueDate = dtpDueDate.getValue() != null ? dtpDueDate.getValue().toString() : null;
+        String description = txtDescription.getText();
+        String attachmentPath = selectedFile != null ? selectedFile.getAbsolutePath() : null;
+
+        if (title.isEmpty() || category == null || dueDate == null) {
+            showAlert("Please fill in all required fields.");
+            return;
+        }
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql;
+            if (editingTodoId == null) {
+                sql = "INSERT INTO todo (title, status, category, due_date, description, attachment) VALUES (?, 'Pending', ?, ?, ?, ?)";
+            } else {
+                sql = "UPDATE todo SET title=?, category=?, due_date=?, description=?, attachment=? WHERE id_todo=?";
+            }
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, title);
+            stmt.setString(2, category);
+            stmt.setString(3, dueDate);
+            stmt.setString(4, description);
+            stmt.setString(5, attachmentPath);
+
+            if (editingTodoId != null) {
+                stmt.setInt(6, editingTodoId);
+            }
+
+            stmt.executeUpdate();
+            showAlert(editingTodoId == null ? "To-Do added successfully!" : "To-Do updated successfully!");
+            closeForm();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Failed to save To-Do: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void onBtnDeleteClick(ActionEvent event) {
+        if (editingTodoId == null) {
+            showAlert("No To-Do selected for deletion.");
+            return;
+        }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Deletion");
+        confirmAlert.setHeaderText(null);
+        confirmAlert.setContentText("Are you sure you want to delete this To-Do item?");
+
+        confirmAlert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try (Connection conn = DBConnection.getConnection()) {
+                    String sql = "DELETE FROM todo WHERE id_todo=?";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    stmt.setInt(1, editingTodoId);
+                    stmt.executeUpdate();
+                    showAlert("To-Do deleted successfully!");
+                    closeForm();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    showAlert("Failed to delete To-Do: " + e.getMessage());
+                }
+            }
+        });
+    }
+
+
+    private void closeForm() {
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
+        stage.close();
     }
 }

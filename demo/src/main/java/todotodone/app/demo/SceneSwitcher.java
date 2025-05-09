@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class SceneSwitcher {
 
-    // ----------- Main Scene Switchers -----------
 
     public static void switchToLoginForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/login.fxml", "Login");
@@ -30,7 +29,6 @@ public class SceneSwitcher {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/home.fxml"));
             Parent root = loader.load();
 
-            // Set username if lblUsername exists
             Label lblUsername = (Label) root.lookup("#lblUsername");
             if (lblUsername != null) {
                 lblUsername.setText("Welcome, " + username);
@@ -46,7 +44,6 @@ public class SceneSwitcher {
         }
     }
 
-    // ----------- Popup Modals -----------
 
     public static void popTodoForm(Stage ownerStage) {
         showPopup(ownerStage, "/todotodone/app/demo/todoForm.fxml", "Add New To-Do");
@@ -56,7 +53,6 @@ public class SceneSwitcher {
         showPopup(ownerStage, "/todotodone/app/demo/categoryForm.fxml", "Manage Categories");
     }
 
-    // ----------- Utility Methods -----------
 
     private static void switchScene(Stage stage, String fxmlPath, String title) {
         try {

@@ -126,6 +126,11 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <children>
+                        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onBtnDeleteClick" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: grey; visibility: false;" text="Delete" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Button>
                         <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="50.0" prefWidth="120.0" text="Cancel">
                            <font>
                               <Font size="25.0" />
