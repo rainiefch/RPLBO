@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
@@ -130,29 +130,6 @@
                               <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox fx:id="btnCategory" alignment="CENTER_LEFT" onMouseClicked="#onBtnCategoryClick" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <ImageView fitHeight="50.0" fitWidth="50.0">
-                                 <image>
-                                    <Image url="@category.png" />
-                                 </image>
-                                 <effect>
-                                    <ColorAdjust brightness="1.0" />
-                                 </effect>
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <Label prefHeight="34.0" prefWidth="170.0" text="Category" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial" size="28.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                           </VBox.margin>
-                        </HBox>
                      </children>
                   </VBox>
                </children>
@@ -162,35 +139,91 @@
             </GridPane>
             <VBox prefHeight="781.0" prefWidth="487.0" style="-fx-background-color: A14141;" GridPane.columnIndex="2">
                <children>
-                  <Arc fill="DODGERBLUE" length="360.0" radiusX="200.0" radiusY="200.0" startAngle="45.0" stroke="WHITE" strokeType="INSIDE" type="ROUND">
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="45.0" right="20.0" top="30.0" />
-                     </VBox.margin>
-                  </Arc>
-                  <Label text="Work in Progress                          60%" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Bold" size="25.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="30.0" top="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Done                                               20%" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Bold" size="25.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="30.0" top="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Overdue                                         20%" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Bold" size="25.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="30.0" top="20.0" />
-                     </VBox.margin>
-                  </Label>
+                  <GridPane prefHeight="1040.0" prefWidth="432.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="464.0" minHeight="10.0" prefHeight="441.0" vgrow="NEVER" />
+                      <RowConstraints maxHeight="387.0" minHeight="10.0" prefHeight="65.0" vgrow="NEVER" />
+                      <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="488.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Arc fill="DODGERBLUE" length="360.0" radiusX="200.0" radiusY="200.0" startAngle="45.0" stroke="WHITE" strokeType="INSIDE" type="ROUND" />
+                        <Label text="To-Do Progress" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <GridPane prefHeight="183.0" prefWidth="432.0" GridPane.rowIndex="2">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="281.0" />
+                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="210.0" minWidth="10.0" prefWidth="151.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="158.0" minHeight="0.0" prefHeight="59.0" vgrow="NEVER" />
+                              <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="56.0" vgrow="NEVER" />
+                              <RowConstraints maxHeight="303.0" minHeight="10.0" prefHeight="53.0" vgrow="NEVER" />
+                              <RowConstraints maxHeight="339.0" minHeight="10.0" prefHeight="57.0" vgrow="NEVER" />
+                            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="276.0" vgrow="ALWAYS" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Pending">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="0%" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="In Progress" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Done" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Overdue" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="0%" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="0%" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="0%" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
                </children>
                <GridPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -205,8 +238,8 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="354.0" minHeight="0.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="883.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="884.0" minHeight="10.0" prefHeight="884.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="883.0" minHeight="10.0" prefHeight="144.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="884.0" minHeight="10.0" prefHeight="856.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <HBox prefHeight="158.0" prefWidth="1449.0">
@@ -220,7 +253,7 @@
                         </GridPane>
                         <Label prefHeight="55.0" prefWidth="2000.0" text="To-Do List">
                            <font>
-                              <Font name="Montserrat Bold" size="44.0" />
+                              <Font name="System Bold" size="48.0" />
                            </font>
                            <HBox.margin>
                               <Insets />
@@ -233,37 +266,6 @@
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="434.0" prefWidth="1020.0" spacing="10.0" GridPane.rowIndex="1">
-                     <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0">
-                           <image>
-                              <Image url="@search.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets bottom="18.0" left="50.0" top="10.0" />
-                           </HBox.margin>
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                        </ImageView>
-                        <TextField prefHeight="50.0" prefWidth="580.0" promptText="Search">
-                           <HBox.margin>
-                              <Insets bottom="20.0" left="20.0" top="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextField>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="168.0" style="-fx-background-color: A14141;" text="Filter">
-                           <HBox.margin>
-                              <Insets left="10.0" top="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Button>
-                     </children>
                   </HBox>
                   <VBox prefHeight="773.0" prefWidth="998.0" GridPane.rowIndex="2">
                      <children>
@@ -317,6 +319,52 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                   </VBox>
+                  <GridPane prefHeight="154.0" prefWidth="978.0" GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="146.0" prefWidth="998.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="858.0" promptText="Search">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                              <ImageView fx:id="btnSearch" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onBtnSearchClick">
+                                 <image>
+                                    <Image url="@search.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.rowIndex="1">
+                           <children>
+                              <ComboBox fx:id="cbFilterStatus" onAction="#onCbFilterChoose" prefHeight="46.0" prefWidth="272.0" />
+                              <ComboBox fx:id="Category" onAction="#onCbFilterChoose" prefHeight="48.0" prefWidth="258.0" />
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </HBox>
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </GridPane>
                </children>
             </GridPane>
          </children>

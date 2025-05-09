@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -19,14 +21,19 @@ import java.util.List;
 
 public class Home {
 
+    @FXML private ComboBox<String> Category;
     @FXML private HBox btnAdd;
     @FXML private HBox btnCategory;
     @FXML private HBox btnHome;
     @FXML private HBox btnProfile;
-    @FXML private Label lblHome;
+    @FXML private ImageView btnSearch;
+    @FXML private ComboBox<String> cbFilterStatus;
     @FXML private GridPane gridPane;
+    @FXML private Label lblHome;
+    @FXML private TextField txtSearch;
 
     private List<TodoItem> todoItems = new ArrayList<>();
+    private List<TodoItem> filteredTodoItems = new ArrayList<>();
 
     static class TodoItem {
         int id;
@@ -52,18 +59,79 @@ public class Home {
     @FXML
     void initialize() {
         setupGridPane();
+        initializeComboBoxes();
+        setupSearchAndFilter();
         refreshTodos();
+        fetchAllTodos();
+        filterTodos();
     }
 
     private void setupGridPane() {
-
         gridPane.getRowConstraints().clear();
-
         for (int i = 0; i < 3; i++) {
             RowConstraints rc = new RowConstraints();
             rc.setVgrow(javafx.scene.layout.Priority.NEVER);
-            rc.setPrefHeight(40); // Header row height
+            rc.setPrefHeight(40);
             gridPane.getRowConstraints().add(rc);
+        }
+    }
+
+    private void initializeComboBoxes() {
+        // Status filter
+        cbFilterStatus.getItems().clear();
+        cbFilterStatus.getItems().addAll("All Status", "Pending", "In Progress", "Completed", "Overdue");
+        cbFilterStatus.getSelectionModel().selectFirst();
+
+        // Category filter
+        Category.getItems().clear();
+        Category.getItems().addAll("All Category", "Work", "Personal", "Others");
+        Category.getSelectionModel().selectFirst();
+
+
+    }
+
+    private void setupSearchAndFilter() {
+        // Search text field listener
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterTodos();
+        });
+
+        // Search button click handler
+        btnSearch.setOnMouseClicked(event -> filterTodos());
+
+        // Status filter combo box listener
+        cbFilterStatus.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            filterTodos();
+        });
+
+        // Category filter combo box listener
+        Category.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            filterTodos();
+        });
+    }
+
+    private boolean isOverdue(String dueDateStr) {
+        try {
+            java.time.LocalDate dueDate = java.time.LocalDate.parse(dueDateStr);
+            java.time.LocalDate today = java.time.LocalDate.now();
+            return dueDate.isBefore(today);
+        } catch (Exception e) {
+            return false; // If date parsing fails, assume not overdue
+        }
+    }
+
+    private void updateTodoStatus(int todoId, String newStatus) {
+        String sql = "UPDATE todo SET status = ? WHERE id_todo = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, newStatus);
+            stmt.setInt(2, todoId);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Error updating todo status: " + e.getMessage());
         }
     }
 
@@ -75,22 +143,95 @@ public class Home {
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
+            // First collect all todos that need status updates
+            List<TodoItem> todosToUpdate = new ArrayList<>();
+
             while (rs.next()) {
-                todoItems.add(new TodoItem(
+                String status = rs.getString("status");
+                String dueDate = rs.getString("due_date");
+
+                // Create the todo item first
+                TodoItem item = new TodoItem(
                         rs.getInt("id_todo"),
                         rs.getString("title"),
-                        rs.getString("status"),
-                        rs.getString("due_date"),
+                        status,
+                        dueDate,
                         rs.getString("category"),
                         rs.getString("description"),
                         rs.getString("attachment")
-                ));
+                );
+
+                // Check if it needs status update (only for non-completed items with valid due dates)
+                if (!"Completed".equals(status) && dueDate != null && !dueDate.isEmpty() && isOverdue(dueDate)) {
+                    item.status = "Overdue";
+                    todosToUpdate.add(item);
+                }
+
+                todoItems.add(item);
             }
+
+            // Update statuses in batch if needed
+            if (!todosToUpdate.isEmpty()) {
+                updateTodoStatuses(todosToUpdate);
+            }
+
         } catch (SQLException e) {
             System.err.println("Database error: " + e.getMessage());
             e.printStackTrace();
             showError("Error loading todos. Please try again.");
         }
+    }
+
+    private void updateTodoStatuses(List<TodoItem> todos) {
+        String sql = "UPDATE todo SET status = ? WHERE id_todo = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            for (TodoItem item : todos) {
+                stmt.setString(1, "Overdue");
+                stmt.setInt(2, item.id);
+                stmt.addBatch();
+            }
+
+            stmt.executeBatch();
+
+        } catch (SQLException e) {
+            System.err.println("Error updating todo statuses: " + e.getMessage());
+        }
+    }
+
+    private void filterTodos() {
+        String searchText = txtSearch.getText().toLowerCase();
+        String statusFilter = cbFilterStatus.getValue();
+        String categoryFilter = Category.getValue();
+
+        filteredTodoItems.clear();
+
+        for (TodoItem item : todoItems) {
+            boolean matchesSearch = searchText.isEmpty() ||
+                    item.title.toLowerCase().contains(searchText) ||
+                    item.description.toLowerCase().contains(searchText);
+
+            boolean matchesStatus;
+            if (statusFilter == null || statusFilter.equals("All Status")) {
+                matchesStatus = true;
+            } else {
+                matchesStatus = item.status.equals(statusFilter);
+            }
+
+            boolean matchesCategory;
+            if (categoryFilter == null || categoryFilter.equals("All Category")) {
+                matchesCategory = true;
+            } else {
+                matchesCategory = item.category.equals(categoryFilter);
+            }
+
+            if (matchesSearch && matchesStatus && matchesCategory) {
+                filteredTodoItems.add(item);
+            }
+        }
+        displayTodos();
     }
 
     private void displayTodos() {
@@ -102,41 +243,55 @@ public class Home {
             gridPane.getRowConstraints().remove(2);
         }
 
-        if (todoItems.isEmpty()) {
+        if (filteredTodoItems.isEmpty()) {
             showNoItemsMessage();
             return;
         }
 
         int rowIndex = 2;
-        for (TodoItem item : todoItems) {
-
+        for (TodoItem item : filteredTodoItems) {
             RowConstraints rc = new RowConstraints();
             rc.setVgrow(javafx.scene.layout.Priority.NEVER);
             rc.setPrefHeight(40);
             gridPane.getRowConstraints().add(rc);
 
+            // Title
             Label titleLabel = new Label(item.title);
             styleTodoLabel(titleLabel);
             gridPane.add(titleLabel, 0, rowIndex);
             GridPane.setMargin(titleLabel, new Insets(0, 0, 0, 20));
 
+            // Status (as ComboBox)
             ComboBox<String> statusCombo = new ComboBox<>();
-            statusCombo.getItems().addAll("Pending", "In Progress", "Completed");
+            statusCombo.getItems().addAll("Pending", "In Progress", "Completed", "Overdue");
             statusCombo.setValue(item.status);
             styleComboBox(statusCombo);
             gridPane.add(statusCombo, 2, rowIndex);
             GridPane.setMargin(statusCombo, new Insets(0, 0, 0, 0));
 
+            // Add this event listener right after creating the ComboBox
+            statusCombo.setOnAction(event -> {
+                String newStatus = statusCombo.getValue();
+                if (!newStatus.equals(item.status)) {
+                    updateTodoStatus(item.id, newStatus);
+                    item.status = newStatus; // Update local copy
+                    refreshTodos(); // Refresh to show changes
+                }
+            });
+
+            // Due Date
             Label dateLabel = new Label(item.dueDate);
             styleTodoLabel(dateLabel);
             gridPane.add(dateLabel, 4, rowIndex);
             GridPane.setMargin(dateLabel, new Insets(0, 0, 0, 0));
 
+            // Category
             Label categoryLabel = new Label(item.category);
             styleTodoLabel(categoryLabel);
             gridPane.add(categoryLabel, 6, rowIndex);
             GridPane.setMargin(categoryLabel, new Insets(0, 0, 0, 0));
 
+            // Make row clickable
             setupClickHandlersForRow(item, titleLabel, dateLabel, categoryLabel);
 
             rowIndex++;
@@ -153,17 +308,14 @@ public class Home {
         }
     }
 
-
-
-
     private void styleTodoLabel(Label label) {
-        label.setStyle("-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: #ffffff;");
+        label.setStyle("-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: #ffffff; -fx-cursor: hand;");
         label.setMaxWidth(Double.MAX_VALUE);
         label.setPadding(new Insets(5));
     }
 
     private void styleComboBox(ComboBox<String> comboBox) {
-        comboBox.setStyle("-fx-font-size: 16px; -fx-background-color: #ffffff;");
+        comboBox.setStyle("-fx-font-size: 16px; -fx-background-color: #ffffff; -fx-cursor: default;");
         comboBox.setMaxWidth(Double.MAX_VALUE);
     }
 
@@ -179,51 +331,8 @@ public class Home {
         gridPane.add(noItemsLabel, 0, 3, 7, 1);
     }
 
-    @FXML
-    void onBtnAddClick(MouseEvent event) {
-        SceneSwitcher.popTodoForm(getStage());
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        javafx.application.Platform.runLater(() -> refreshTodos());
-                    }
-                },
-                500
-        );
-    }
-
-
-    private void refreshTodos() {
-        fetchAllTodos();
-        displayTodos();
-    }
-
-    private Stage getStage() {
-        return (Stage) btnAdd.getScene().getWindow();
-    }
-
-    private void setupRowClickHandlers() {
-        for (int i = 0; i < todoItems.size(); i++) {
-            int gridRow = i + 3;
-            final int todoIndex = i;
-
-            gridPane.getChildren().forEach(node -> {
-                if (GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) == gridRow) {
-                    node.setOnMouseClicked(event -> {
-                        if (event.getClickCount() == 1 || event.getClickCount() == 2) {
-                            openTodoForEditing(todoItems.get(todoIndex));
-                        }
-                    });
-                }
-            });
-        }
-    }
-
-
     private void openTodoForEditing(TodoItem todo) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/todotodone/app/demo/todoForm.fxml"));
             Parent root = loader.load();
 
@@ -243,22 +352,51 @@ public class Home {
         }
     }
 
-    @FXML
-    void onBtnCategoryClick(MouseEvent event) {
+    private void refreshTodos() {
+        fetchAllTodos();
+        filterTodos();
+    }
+
+    private Stage getStage() {
+        return (Stage) btnAdd.getScene().getWindow();
+    }
+
+    // Button handlers
+    @FXML void onBtnAddClick(MouseEvent event) {
+
+        SceneSwitcher.popTodoForm(getStage());
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        javafx.application.Platform.runLater(() -> refreshTodos());
+                    }
+                },
+                500
+        );
+    }
+
+    @FXML void onBtnCategoryClick(MouseEvent event) {
         SceneSwitcher.popCategoryForm(getStage());
     }
 
-    @FXML
-    void onBtnHomeClick(MouseEvent event) {
+    @FXML void onBtnHomeClick(MouseEvent event) {
         refreshTodos();
     }
 
-    @FXML
-    void onBtnProfileClick(MouseEvent event) {
+    @FXML void onBtnProfileClick(MouseEvent event) {
+        // Profile functionality can be added later
     }
 
-    @FXML
-    void onHomeClick(MouseEvent event) {
+    @FXML void onHomeClick(MouseEvent event) {
         refreshTodos();
+    }
+
+    @FXML void onBtnSearchClick(MouseEvent event) {
+        filterTodos();
+    }
+
+    @FXML void onCbFilterChoose(javafx.event.ActionEvent event) {
+        filterTodos();
     }
 }

@@ -38,6 +38,8 @@ public class TodoForm {
     private TextField txtTitle;
 
     private File selectedFile;
+    private Home.TodoItem todoToEdit = null;
+
 
     @FXML
     void initialize() {
@@ -151,34 +153,44 @@ public class TodoForm {
 
     @FXML
     void onBtnAddClick(ActionEvent event) {
-        String title = txtTitle.getText();
+        String title = txtTitle.getText().trim();
         String category = cbCategory.getValue();
-        String dueDate = dtpDueDate.getValue() != null ? dtpDueDate.getValue().toString() : null;
+        java.time.LocalDate dueDateValue = dtpDueDate.getValue();
         String description = txtDescription.getText();
         String attachmentPath = selectedFile != null ? selectedFile.getAbsolutePath() : null;
 
-        if (title.isEmpty() || category == null || dueDate == null) {
-            showAlert("Please fill in all required fields.");
+        // Basic field validation
+        if (title.isEmpty() || category == null || dueDateValue == null) {
+            showAlert("Please fill in all required fields (Title, Due Date, Category).");
             return;
+        }
+
+        String dueDate = dueDateValue.toString();
+        String status = "Pending"; // Default status
+
+        // Check if the task is already overdue
+        if (isOverdue(dueDate)) {
+            status = "Overdue";
         }
 
         try (Connection conn = DBConnection.getConnection()) {
             String sql;
             if (editingTodoId == null) {
-                sql = "INSERT INTO todo (title, status, category, due_date, description, attachment) VALUES (?, 'Pending', ?, ?, ?, ?)";
+                sql = "INSERT INTO todo (title, status, category, due_date, description, attachment) VALUES (?, ?, ?, ?, ?, ?)";
             } else {
-                sql = "UPDATE todo SET title=?, category=?, due_date=?, description=?, attachment=? WHERE id_todo=?";
+                sql = "UPDATE todo SET title=?, status=?, category=?, due_date=?, description=?, attachment=? WHERE id_todo=?";
             }
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, title);
-            stmt.setString(2, category);
-            stmt.setString(3, dueDate);
-            stmt.setString(4, description);
-            stmt.setString(5, attachmentPath);
+            stmt.setString(2, status);
+            stmt.setString(3, category);
+            stmt.setString(4, dueDate);
+            stmt.setString(5, description);
+            stmt.setString(6, attachmentPath);
 
             if (editingTodoId != null) {
-                stmt.setInt(6, editingTodoId);
+                stmt.setInt(7, editingTodoId);
             }
 
             stmt.executeUpdate();
@@ -190,6 +202,16 @@ public class TodoForm {
             showAlert("Failed to save To-Do: " + e.getMessage());
         }
     }
+
+    private boolean isOverdue(String dueDateStr) {
+        try {
+            java.time.LocalDate dueDate = java.time.LocalDate.parse(dueDateStr);
+            return dueDate.isBefore(java.time.LocalDate.now());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
     @FXML
     void onBtnDeleteClick(ActionEvent event) {
