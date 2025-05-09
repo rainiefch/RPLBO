@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.Registration">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.Registration">
     <children>
         <GridPane prefHeight="1078.0" prefWidth="1959.0">
             <columnConstraints>
@@ -33,8 +33,8 @@
                 <RowConstraints maxHeight="218.42861502511164" minHeight="10.0" prefHeight="33.71432059151789" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="228.9999651227679" minHeight="10.0" prefHeight="45.14285714285711" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="266.28574916294644" minHeight="10.0" prefHeight="119.42855398995539" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="189.28569466727123" minHeight="4.285723005022305" prefHeight="8.000069754464334" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="282.28564453125" minHeight="10.0" prefHeight="282.28564453125" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="189.28569466727123" minHeight="4.285723005022305" prefHeight="33.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="282.28564453125" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label fx:id="lblToDoToDone" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="248.0" style="-fx-font-weight: bold;" text="To Do To Done" textAlignment="CENTER" textFill="#7d1919" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
@@ -52,7 +52,7 @@
                 </ImageView>
                 <TextField fx:id="tfUsername" prefHeight="50.0" prefWidth="673.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <font>
-                        <Font name="Montserrat Bold" size="10.0" />
+                        <Font size="18.0" />
                     </font>
                 </TextField>
                 <Label fx:id="lblUsername" text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -65,9 +65,9 @@
                         <Font size="25.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="tfPassword" prefHeight="48.0" prefWidth="642.0" text="Enter password here" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                <PasswordField fx:id="pfPassword" prefHeight="48.0" prefWidth="642.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <font>
-                        <Font size="1.0" />
+                        <Font size="18.0" />
                     </font>
                 </PasswordField>
                 <Label fx:id="lblWelcome" text="Welcome!" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -80,9 +80,9 @@
                         <Font size="25.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="pfPassword" prefHeight="48.0" prefWidth="645.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                <PasswordField fx:id="pfConfirmPassword" prefHeight="48.0" prefWidth="645.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                     <font>
-                        <Font name="Montserrat Bold" size="10.0" />
+                        <Font size="18.0" />
                     </font>
                 </PasswordField>
                 <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#onBtnRegisterClick" prefHeight="53.0" prefWidth="638.0" style="-fx-background-color: maroon;" text="Register Now!" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">
@@ -90,16 +90,16 @@
                         <Font name="Montserrat Bold" size="28.0" />
                     </font>
                 </Button>
-                <Label fx:id="lblSignInHere" alignment="CENTER" onMouseClicked="#onLblSignInHereClicked" prefHeight="17.0" prefWidth="323.0" style="-fx-alignment: center;" text="Already have an account? Sign in here." textAlignment="CENTER" textFill="#7d1919" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
-                    <font>
-                        <Font name="Montserrat Bold" size="18.0" />
-                    </font>
-                </Label>
                 <Label fx:id="lblRplbo" text="©RPLBO" textFill="#7d1919" GridPane.columnIndex="1" GridPane.rowIndex="12">
                     <font>
                         <Font name="System Bold Italic" size="15.0" />
                     </font>
                 </Label>
+            <Button fx:id="btnSignIn" mnemonicParsing="false" onAction="#onBtnSignInClick" prefHeight="39.0" prefWidth="641.0" style="-fx-background-color: white;" text="Already have an account? Sign in here." textFill="MAROON" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="11">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
             </children>
         </GridPane>
     </children>

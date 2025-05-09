@@ -6,12 +6,14 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String DB_NAME = "todotodone.db";
-    private static final String DB_URL = "jdbc:sqlite:" + DB_NAME;
+//    private static final String DB_PATH = "/resource/" + DB_NAME;
+    private static final String DB_URL = "jdbc:sqlite:" + new java.io.File(DB_NAME).getAbsolutePath();
+
     private static Connection connection = null;
 
     private DBConnection() {}
 
-    public static Connection getConnection() throws SQLException {
+    public static synchronized Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             connect();
         }
@@ -22,10 +24,13 @@ public class DBConnection {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(DB_URL);
-            System.out.println("Connection to SQLite has been established.");
+            System.out.println("Connected to SQLite: " + DB_URL);
         } catch (ClassNotFoundException e) {
             System.err.println("SQLite JDBC driver not found.");
-            e.printStackTrace();
+            throw new SQLException("JDBC Driver not found.", e);
+        } catch (SQLException e) {
+            System.err.println("Error connecting to database: " + e.getMessage());
+            throw e;
         }
     }
 
@@ -36,9 +41,7 @@ public class DBConnection {
                 System.out.println("Database connection closed.");
             }
         } catch (SQLException e) {
-            System.err.println("Failed to close the database connection.");
-            e.printStackTrace();
+            System.err.println("Error closing database connection: " + e.getMessage());
         }
     }
 }
-

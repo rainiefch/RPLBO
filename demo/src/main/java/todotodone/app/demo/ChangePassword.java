@@ -2,10 +2,8 @@ package todotodone.app.demo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,21 +15,19 @@ public class ChangePassword {
     private Button btnCancel, btnChangePass;
 
     @FXML
-    private PasswordField txtConfPass, txtNewPass;
+    private PasswordField txtNewPass, txtConfPass;
 
     @FXML
     private TextField txtUsername;
 
     @FXML
     void onBtnCancelClick(ActionEvent event) {
-        txtUsername.clear();
-        txtNewPass.clear();
-        txtConfPass.clear();
+        SceneSwitcher.switchToLoginForm((Stage) btnCancel.getScene().getWindow());
     }
 
     @FXML
     void onBtnChangePassClick(ActionEvent event) {
-        String username = txtUsername.getText();
+        String username = txtUsername.getText().trim();
         String newPass = txtNewPass.getText();
         String confirmPass = txtConfPass.getText();
 
@@ -55,6 +51,7 @@ public class ChangePassword {
 
             if (rows > 0) {
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Password changed successfully!");
+                SceneSwitcher.switchToLoginForm((Stage) btnChangePass.getScene().getWindow());
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Username not found.");
             }
