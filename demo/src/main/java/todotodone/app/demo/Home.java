@@ -77,12 +77,10 @@ public class Home {
     }
 
     private void initializeComboBoxes() {
-        // Status filter
         cbFilterStatus.getItems().clear();
         cbFilterStatus.getItems().addAll("All Status", "Pending", "In Progress", "Completed", "Overdue");
         cbFilterStatus.getSelectionModel().selectFirst();
 
-        // Category filter
         Category.getItems().clear();
         Category.getItems().addAll("All Category", "Work", "Personal", "Others");
         Category.getSelectionModel().selectFirst();
@@ -91,20 +89,16 @@ public class Home {
     }
 
     private void setupSearchAndFilter() {
-        // Search text field listener
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             filterTodos();
         });
 
-        // Search button click handler
         btnSearch.setOnMouseClicked(event -> filterTodos());
 
-        // Status filter combo box listener
         cbFilterStatus.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             filterTodos();
         });
 
-        // Category filter combo box listener
         Category.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             filterTodos();
         });
@@ -116,7 +110,7 @@ public class Home {
             java.time.LocalDate today = java.time.LocalDate.now();
             return dueDate.isBefore(today);
         } catch (Exception e) {
-            return false; // If date parsing fails, assume not overdue
+            return false;
         }
     }
 
@@ -143,14 +137,12 @@ public class Home {
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
-            // First collect all todos that need status updates
             List<TodoItem> todosToUpdate = new ArrayList<>();
 
             while (rs.next()) {
                 String status = rs.getString("status");
                 String dueDate = rs.getString("due_date");
 
-                // Create the todo item first
                 TodoItem item = new TodoItem(
                         rs.getInt("id_todo"),
                         rs.getString("title"),
@@ -161,7 +153,6 @@ public class Home {
                         rs.getString("attachment")
                 );
 
-                // Check if it needs status update (only for non-completed items with valid due dates)
                 if (!"Completed".equals(status) && dueDate != null && !dueDate.isEmpty() && isOverdue(dueDate)) {
                     item.status = "Overdue";
                     todosToUpdate.add(item);
@@ -170,7 +161,6 @@ public class Home {
                 todoItems.add(item);
             }
 
-            // Update statuses in batch if needed
             if (!todosToUpdate.isEmpty()) {
                 updateTodoStatuses(todosToUpdate);
             }
@@ -255,13 +245,11 @@ public class Home {
             rc.setPrefHeight(40);
             gridPane.getRowConstraints().add(rc);
 
-            // Title
             Label titleLabel = new Label(item.title);
             styleTodoLabel(titleLabel);
             gridPane.add(titleLabel, 0, rowIndex);
             GridPane.setMargin(titleLabel, new Insets(0, 0, 0, 20));
 
-            // Status (as ComboBox)
             ComboBox<String> statusCombo = new ComboBox<>();
             statusCombo.getItems().addAll("Pending", "In Progress", "Completed", "Overdue");
             statusCombo.setValue(item.status);
@@ -269,7 +257,6 @@ public class Home {
             gridPane.add(statusCombo, 2, rowIndex);
             GridPane.setMargin(statusCombo, new Insets(0, 0, 0, 0));
 
-            // Add this event listener right after creating the ComboBox
             statusCombo.setOnAction(event -> {
                 String newStatus = statusCombo.getValue();
                 if (!newStatus.equals(item.status)) {
@@ -279,19 +266,16 @@ public class Home {
                 }
             });
 
-            // Due Date
             Label dateLabel = new Label(item.dueDate);
             styleTodoLabel(dateLabel);
             gridPane.add(dateLabel, 4, rowIndex);
             GridPane.setMargin(dateLabel, new Insets(0, 0, 0, 0));
 
-            // Category
             Label categoryLabel = new Label(item.category);
             styleTodoLabel(categoryLabel);
             gridPane.add(categoryLabel, 6, rowIndex);
             GridPane.setMargin(categoryLabel, new Insets(0, 0, 0, 0));
 
-            // Make row clickable
             setupClickHandlersForRow(item, titleLabel, dateLabel, categoryLabel);
 
             rowIndex++;
@@ -385,7 +369,6 @@ public class Home {
     }
 
     @FXML void onBtnProfileClick(MouseEvent event) {
-        // Profile functionality can be added later
     }
 
     @FXML void onHomeClick(MouseEvent event) {

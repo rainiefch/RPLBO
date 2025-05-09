@@ -159,16 +159,14 @@ public class TodoForm {
         String description = txtDescription.getText();
         String attachmentPath = selectedFile != null ? selectedFile.getAbsolutePath() : null;
 
-        // Basic field validation
         if (title.isEmpty() || category == null || dueDateValue == null) {
-            showAlert("Please fill in all required fields (Title, Due Date, Category).");
+            showAlert("Please fill all required fields: Title, Due Date, Category.");
             return;
         }
 
         String dueDate = dueDateValue.toString();
-        String status = "Pending"; // Default status
+        String status = "Pending";
 
-        // Check if the task is already overdue
         if (isOverdue(dueDate)) {
             status = "Overdue";
         }
@@ -216,14 +214,14 @@ public class TodoForm {
     @FXML
     void onBtnDeleteClick(ActionEvent event) {
         if (editingTodoId == null) {
-            showAlert("No To-Do selected for deletion.");
+            showAlert("No To-Do selected.");
             return;
         }
 
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Confirm Deletion");
         confirmAlert.setHeaderText(null);
-        confirmAlert.setContentText("Are you sure you want to delete this To-Do item?");
+        confirmAlert.setContentText("Are you sure you want to delete this To-Do?");
 
         confirmAlert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
