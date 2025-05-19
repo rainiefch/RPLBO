@@ -91,7 +91,7 @@
                 </Label>
                 <ImageView fx:id="picture" fitHeight="200.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                     <image>
-                        <Image url="@logo.png" />
+                        <Image url="@imgs/logo.png" />
                     </image>
                     <GridPane.margin>
                         <Insets top="80.0" />

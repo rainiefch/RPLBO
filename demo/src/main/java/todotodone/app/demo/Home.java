@@ -26,35 +26,15 @@ import java.util.List;
 public class Home {
 
     @FXML private ComboBox<String> Category;
-    @FXML private HBox btnAdd;
-    @FXML private HBox btnCategory;
-    @FXML private HBox btnHome;
-    @FXML private HBox btnProfile;
+    @FXML private HBox btnAdd, btnCategory, btnHome,btnProfile;
     @FXML private ImageView btnSearch;
     @FXML private ComboBox<String> cbFilterStatus;
     @FXML private GridPane gridPane;
     @FXML private Label lblHome;
     @FXML private TextField txtSearch;
-    @FXML private Label lblPending;
-    @FXML private Label lblProgress;
-    @FXML private Label lblDone;
-    @FXML private Label lblOverdue;
+    @FXML private Label lblPending, lblProgress, lblDone, lblOverdue;
     @FXML private PieChart todoPieChart;
-
-
-
-    @FXML
-    private Label lblPersenDone;
-
-    @FXML
-    private Label lblPersenOverdue;
-
-    @FXML
-    private Label lblPersenProgress;
-
-    @FXML
-    private Label lblPersenPending;
-
+    @FXML private Label lblPersenDone, lblPersenOverdue, lblPersenProgress, lblPersenPending;
 
     private List<TodoItem> todoItems = new ArrayList<>();
     private List<TodoItem> filteredTodoItems = new ArrayList<>();
@@ -90,6 +70,8 @@ public class Home {
         filterTodos();
     }
 
+
+
     private void setupGridPane() {
         gridPane.getRowConstraints().clear();
         for (int i = 0; i < 3; i++) {
@@ -106,11 +88,25 @@ public class Home {
         cbFilterStatus.getSelectionModel().selectFirst();
 
         Category.getItems().clear();
-        Category.getItems().addAll("All Category", "Work", "Personal", "Others");
+
+        Category.getItems().add("All Category");
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT name_category FROM category ORDER BY name_category ASC");
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Category.getItems().add(rs.getString("name_category"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Failed to load categories from database: " + e.getMessage());
+            Category.getItems().addAll("Work", "Personal", "Others");
+        }
+
         Category.getSelectionModel().selectFirst();
-
-
     }
+
 
     private void setupSearchAndFilter() {
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -370,7 +366,6 @@ public class Home {
         return (Stage) btnAdd.getScene().getWindow();
     }
 
-    // Button handlers
     @FXML void onBtnAddClick(MouseEvent event) {
 
         SceneSwitcher.popTodoForm(getStage());
@@ -387,6 +382,15 @@ public class Home {
 
     @FXML void onBtnCategoryClick(MouseEvent event) {
         SceneSwitcher.popCategoryForm(getStage());
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        javafx.application.Platform.runLater(() -> refreshTodos());
+                    }
+                },
+                500
+        );
     }
 
     @FXML void onBtnHomeClick(MouseEvent event) {

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TodoForm {
@@ -43,9 +44,29 @@ public class TodoForm {
 
     @FXML
     void initialize() {
-        cbCategory.getItems().addAll("Work", "Personal", "Others");
+        initializeComboBoxes();
         btnAdd.setText("Add");
         btnDelete.setVisible(false);
+    }
+
+    private void initializeComboBoxes() {
+
+        cbCategory.getItems().clear();
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT name_category FROM category ORDER BY name_category ASC");
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                cbCategory.getItems().add(rs.getString("name_category"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Failed to load categories from database: " + e.getMessage());
+            cbCategory.getItems().addAll("Work", "Personal", "Others");
+        }
+
+        cbCategory.getSelectionModel().selectFirst();
     }
 
 
