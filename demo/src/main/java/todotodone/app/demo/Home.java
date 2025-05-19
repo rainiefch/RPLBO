@@ -1,9 +1,12 @@
 package todotodone.app.demo;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.shape.Arc;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
@@ -31,6 +35,26 @@ public class Home {
     @FXML private GridPane gridPane;
     @FXML private Label lblHome;
     @FXML private TextField txtSearch;
+    @FXML private Label lblPending;
+    @FXML private Label lblProgress;
+    @FXML private Label lblDone;
+    @FXML private Label lblOverdue;
+    @FXML private PieChart todoPieChart;
+
+
+
+    @FXML
+    private Label lblPersenDone;
+
+    @FXML
+    private Label lblPersenOverdue;
+
+    @FXML
+    private Label lblPersenProgress;
+
+    @FXML
+    private Label lblPersenPending;
+
 
     private List<TodoItem> todoItems = new ArrayList<>();
     private List<TodoItem> filteredTodoItems = new ArrayList<>();
@@ -339,6 +363,7 @@ public class Home {
     private void refreshTodos() {
         fetchAllTodos();
         filterTodos();
+        updatePieChart();
     }
 
     private Stage getStage() {
@@ -382,4 +407,55 @@ public class Home {
     @FXML void onCbFilterChoose(javafx.event.ActionEvent event) {
         filterTodos();
     }
+
+    private void updatePieChart() {
+        int pending = 0, progress = 0, completed = 0, overdue = 0;
+
+        for (TodoItem item : todoItems) {
+            switch (item.status) {
+                case "Pending":
+                    pending++;
+                    break;
+                case "In Progress":
+                    progress++;
+                    break;
+                case "Completed":
+                    completed++;
+                    break;
+                case "Overdue":
+                    overdue++;
+                    break;
+            }
+        }
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Pending", pending),
+                new PieChart.Data("In Progress", progress),
+                new PieChart.Data("Completed", completed),
+                new PieChart.Data("Overdue", overdue)
+        );
+
+        todoPieChart.setData(pieChartData);
+        todoPieChart.setTitle("Todo Status Overview");
+
+        updatePiePercentLabels(pending, progress, completed, overdue);
+    }
+
+
+
+    private void updatePiePercentLabels(int pending, int inProgress, int completed, int overdue) {
+        int total = pending + inProgress + completed + overdue;
+
+        if (total == 0) total = 1; // Hindari divide by zero agar tidak NaN
+
+        lblPersenPending.setText(String.format("%.0f%%", (pending * 100.0 / total)));
+        lblPersenProgress.setText(String.format("%.0f%%", (inProgress * 100.0 / total)));
+        lblPersenDone.setText(String.format("%.0f%%", (completed * 100.0 / total)));
+        lblPersenOverdue.setText(String.format("%.0f%%", (overdue * 100.0 / total)));
+    }
+
+
+
 }
+
+

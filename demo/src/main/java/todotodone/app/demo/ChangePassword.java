@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ChangePassword {
-
     @FXML
     private Button btnCancel, btnChangePass;
 
