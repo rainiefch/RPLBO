@@ -22,7 +22,6 @@ public class TodoForm {
     @FXML
     private Button btnCancel, btnUpload, btnDelete;
 
-
     @FXML
     private ComboBox<String> cbCategory;
 
