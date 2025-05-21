@@ -22,6 +22,7 @@
       <VBox prefHeight="1080.0" prefWidth="1920.0">
          <children>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <GridPane prefHeight="1080.0" prefWidth="1920.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="960.0" minWidth="10.0" prefWidth="644.7142682756696" />
@@ -37,6 +38,8 @@
                   <RowConstraints maxHeight="604.1428309849331" minHeight="10.0" prefHeight="304.2857317243304" vgrow="SOMETIMES" />
               </rowConstraints>
 =======
+=======
+>>>>>>> Stashed changes
              <Label fx:id="lblJudul" alignment="CENTER" contentDisplay="BOTTOM" prefHeight="70.0" prefWidth="498.0" style="-fx-background-color: maroon;" text="CATEGORY FORM" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="4">
                <font>
                   <Font name="System Bold" size="24.0" />
@@ -127,6 +130,9 @@
                   <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onBtnAddClick" prefHeight="29.0" prefWidth="72.0" style="-fx-background-color: maroon;" text="Add" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                      </font>
                      <GridPane.margin>

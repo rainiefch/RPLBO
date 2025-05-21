@@ -47,7 +47,11 @@
                 <TextField fx:id="tfUsername" prefHeight="49.0" prefWidth="537.0" text="input here" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <Font name="Montserrat Bold" size="10.0" />
+=======
+                        <Font name="System Italic" size="23.0" />
+>>>>>>> Stashed changes
 =======
                         <Font name="System Italic" size="23.0" />
 >>>>>>> Stashed changes
