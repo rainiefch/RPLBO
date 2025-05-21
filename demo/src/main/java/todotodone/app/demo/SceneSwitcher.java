@@ -8,6 +8,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class SceneSwitcher {
 
@@ -25,9 +26,21 @@ public class SceneSwitcher {
     }
 
     public static void switchToHomeForm(Stage currentStage, String username) {
+
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/home.fxml"));
-            Parent root = loader.load();
+            loader.setControllerFactory(param -> {
+                if (param == Home.class) {
+                    return new Home(username); // username langsung diset saat controller dibuat
+                }
+                try {
+                    return param.getDeclaredConstructor().newInstance();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            Parent root = loader.load(); // sekarang initialize() akan punya username!
 
             Label lblUsername = (Label) root.lookup("#lblUsername");
             if (lblUsername != null) {
@@ -51,6 +64,11 @@ public class SceneSwitcher {
 
     public static void popCategoryForm(Stage ownerStage) {
         showPopup(ownerStage, "/todotodone/app/demo/categoryForm.fxml", "Manage Categories");
+    }
+
+    public static void popProfileForm(Stage ownerStage) {
+        System.out.println("cobadah");
+        showPopup(ownerStage, "/todotodone/app/demo/profile.fxml", "Manage Profile");
     }
 
 
