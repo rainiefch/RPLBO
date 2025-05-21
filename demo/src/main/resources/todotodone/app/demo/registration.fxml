@@ -40,12 +40,16 @@
                         <Image url="@logo.png" />
                     </image>
                     <GridPane.margin>
-                        <Insets top="60.0" />
+                        <Insets top="100.0" />
                     </GridPane.margin>
                 </ImageView>
-                <TextField fx:id="tfUsername" prefHeight="50.0" prefWidth="673.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                <TextField fx:id="tfUsername" prefHeight="50.0" prefWidth="673.0" text="input here" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <font>
+<<<<<<< Updated upstream
                         <Font name="Montserrat Bold" size="10.0" />
+=======
+                        <Font name="System Italic" size="20.0" />
+>>>>>>> Stashed changes
                     </font>
                 </TextField>
                 <Label fx:id="lblUsername" text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -58,9 +62,15 @@
                         <Font size="25.0" />
                     </font>
                 </Label>
+<<<<<<< Updated upstream
                 <PasswordField fx:id="tfPassword" prefHeight="48.0" prefWidth="642.0" text="Enter password here" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <font>
                         <Font size="1.0" />
+=======
+                <PasswordField fx:id="pfPassword" prefHeight="48.0" prefWidth="642.0" text="input here" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <font>
+                        <Font size="20.0" />
+>>>>>>> Stashed changes
                     </font>
                 </PasswordField>
                 <Label fx:id="lblWelcome" text="Welcome!" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -73,9 +83,15 @@
                         <Font size="25.0" />
                     </font>
                 </Label>
+<<<<<<< Updated upstream
                 <PasswordField fx:id="pfPassword" prefHeight="48.0" prefWidth="645.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                     <font>
                         <Font name="Montserrat Bold" size="10.0" />
+=======
+                <PasswordField fx:id="pfConfirmPassword" prefHeight="48.0" prefWidth="645.0" text="input here" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                    <font>
+                        <Font size="20.0" />
+>>>>>>> Stashed changes
                     </font>
                 </PasswordField>
                 <Button fx:id="btnRegister" mnemonicParsing="false" prefHeight="53.0" prefWidth="638.0" style="-fx-background-color: maroon;" text="Register Now!" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">

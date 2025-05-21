@@ -57,7 +57,107 @@
                      <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="32.0" layoutY="13.0">
                            <image>
+<<<<<<< Updated upstream
                               <Image url="@home.png" />
+=======
+                              <Image url="@imgs/logoPutih.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="To-Do To Done" textFill="WHITE">
+                           <font>
+                              <Font name="Montserrat Bold" size="32.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="843.0" prefWidth="434.0" GridPane.rowIndex="1">
+                     <children>
+                        <HBox fx:id="btnHome" alignment="CENTER_LEFT" onMouseClicked="#onBtnHomeClick" style="-fx-background-color: A14141;">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onHomeClick">
+                                 <image>
+                                    <Image url="@imgs/home.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblHome" onMouseClicked="#onHomeClick" prefWidth="95.0" text="Home" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="28.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="btnAdd" alignment="CENTER_LEFT" onMouseClicked="#onBtnAddClick" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onBtnAddClick">
+                                 <image>
+                                    <Image url="@imgs/add.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label prefHeight="34.0" prefWidth="170.0" text="Add To-Do" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="28.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="btnCategory" alignment="CENTER_LEFT" onMouseClicked="#onBtnCategoryClick">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onBtnCategoryClick">
+                                 <image>
+                                    <Image url="@imgs/category.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblAddCategory" onMouseClicked="#onBtnCategoryClick" prefHeight="32.0" prefWidth="242.0" text="Add Category" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="28.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox fx:id="btnProfile" alignment="CENTER_LEFT" onMouseClicked="#onBtnProfileClick" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onBtnProfileClick">
+                           <image>
+                              <Image url="@imgs/profil.png" />
+>>>>>>> Stashed changes
                            </image>
                            <effect>
                               <ColorAdjust brightness="1.0" />

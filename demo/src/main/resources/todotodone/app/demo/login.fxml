@@ -32,6 +32,9 @@
                     <font>
                         <Font name="Montserrat Bold" size="40.0" />
                     </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
                 </Label>
                 <Label fx:id="lblUsername" prefHeight="53.0" prefWidth="171.0" text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
@@ -41,9 +44,13 @@
                         <Font size="28.0" />
                     </font>
                 </Label>
-                <TextField fx:id="tfUsername" prefHeight="49.0" prefWidth="537.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <TextField fx:id="tfUsername" prefHeight="49.0" prefWidth="537.0" text="input here" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
+<<<<<<< Updated upstream
                         <Font name="Montserrat Bold" size="10.0" />
+=======
+                        <Font name="System Italic" size="23.0" />
+>>>>>>> Stashed changes
                     </font>
                <GridPane.margin>
                   <Insets />
@@ -57,11 +64,19 @@
                         <Font name="System Regular" size="32.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="pfPassword" prefHeight="49.0" prefWidth="532.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                <PasswordField fx:id="pfPassword" prefHeight="49.0" prefWidth="532.0" text="input here" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets />
+<<<<<<< Updated upstream
                </GridPane.margin></PasswordField>
                 <Button fx:id="btnForgotPass" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="38.0" prefWidth="196.0" style="-fx-background-color: maroon;" text="Forgot Password" textAlignment="RIGHT" textFill="WHITE" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+=======
+               </GridPane.margin>
+               <font>
+                  <Font size="23.0" />
+               </font></PasswordField>
+                <Button fx:id="btnForgotPass" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtnForgotPassClick" prefHeight="38.0" prefWidth="203.0" style="-fx-background-color: white;" text="Forgot Password" textAlignment="RIGHT" textFill="MAROON" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+>>>>>>> Stashed changes
                     <font>
                         <Font name="Montserrat Bold" size="19.0" />
                     </font>
@@ -92,7 +107,7 @@
                         <Image url="@logo.png" />
                     </image>
                     <GridPane.margin>
-                        <Insets top="80.0" />
+                        <Insets top="100.0" />
                     </GridPane.margin>
                 </ImageView>
             </children>
