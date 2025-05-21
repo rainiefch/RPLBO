@@ -83,7 +83,7 @@
                         </HBox>
                         <HBox fx:id="btnAdd" alignment="CENTER_LEFT" onMouseClicked="#onBtnAddClick" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="50.0" fitWidth="50.0">
+                              <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onBtnAddClick">
                                  <image>
                                     <Image url="@imgs/add.png" />
                                  </image>
@@ -137,7 +137,7 @@
                   </VBox>
                   <HBox fx:id="btnProfile" alignment="CENTER_LEFT" onMouseClicked="#onBtnProfileClick" GridPane.rowIndex="2">
                      <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onBtnCategoryClick">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onBtnProfileClick">
                            <image>
                               <Image url="@imgs/profil.png" />
                            </image>
@@ -148,7 +148,7 @@
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label fx:id="lblProfile" onMouseClicked="#onBtnCategoryClick" prefHeight="32.0" prefWidth="242.0" text="Profile" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="lblProfile" onMouseClicked="#onBtnProfileClick" prefHeight="32.0" prefWidth="242.0" text="Profile" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="28.0" />
                            </font>

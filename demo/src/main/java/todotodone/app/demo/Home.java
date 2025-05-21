@@ -36,8 +36,29 @@ public class Home {
     @FXML private PieChart todoPieChart;
     @FXML private Label lblPersenDone, lblPersenOverdue, lblPersenProgress, lblPersenPending;
 
+    public Home() {
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    private String Username;
+
+
+
     private List<TodoItem> todoItems = new ArrayList<>();
     private List<TodoItem> filteredTodoItems = new ArrayList<>();
+
+    public Home(String username) {
+        this.Username = username;
+    }
+
+
 
     static class TodoItem {
         int id;
@@ -62,6 +83,7 @@ public class Home {
 
     @FXML
     void initialize() {
+        System.out.println("Username = " + getUsername()); // Sudah bisa digunakan
         setupGridPane();
         initializeComboBoxes();
         setupSearchAndFilter();
@@ -135,13 +157,14 @@ public class Home {
     }
 
     private void updateTodoStatus(int todoId, String newStatus) {
-        String sql = "UPDATE todo SET status = ? WHERE id_todo = ?";
+        String sql = "UPDATE todo SET status = ? WHERE id_todo = ? and id_user = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, newStatus);
             stmt.setInt(2, todoId);
+            stmt.setString(3, getUsername());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -151,12 +174,16 @@ public class Home {
 
     private void fetchAllTodos() {
         todoItems.clear();
-        String sql = "SELECT id_todo, title, status, due_date, category, description, attachment FROM todo";
+        String sql = "SELECT id_todo, title, status, due_date, category, description, attachment FROM todo where id_user = (select id_user from users where username = ?)";
+        System.out.println(sql);
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+             PreparedStatement stmt = conn.prepareStatement(sql)){
 
+            stmt.setString(1, getUsername());
+
+            ResultSet rs = stmt.executeQuery();
+            System.out.println(sql);
             List<TodoItem> todosToUpdate = new ArrayList<>();
 
             while (rs.next()) {
@@ -398,6 +425,16 @@ public class Home {
     }
 
     @FXML void onBtnProfileClick(MouseEvent event) {
+        SceneSwitcher.popProfileForm(getStage());
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        javafx.application.Platform.runLater(() -> refreshTodos());
+                    }
+                },
+                500
+        );
     }
 
     @FXML void onHomeClick(MouseEvent event) {
