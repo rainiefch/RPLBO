@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import todotodone.app.demo.ChangePassword;
 import todotodone.app.demo.Home;
 import todotodone.app.demo.TodoForm;
 import todotodone.app.demo.CategoryForm;
@@ -24,6 +25,26 @@ public class SceneSwitcher {
     public static void switchToChangePasswordForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
+
+    public static void switchToChangePasswordFormLoggedIn(Stage currentStage, String username) {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/changePassword.fxml"));
+            Parent root = loader.load();
+
+            ChangePassword controller = loader.getController();
+            controller.initializeForLoggedInUser(username); // manually configure the form
+
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
+            currentStage.setTitle("Change Password");
+            currentStage.centerOnScreen();
+            currentStage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load Change Password scene.");
+            e.printStackTrace();
+        }
+    }
+
 
     public static void switchToHomeForm(Stage currentStage, String username, int userId) {
         try {

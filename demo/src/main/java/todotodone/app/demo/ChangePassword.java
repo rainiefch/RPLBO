@@ -21,6 +21,16 @@ public class ChangePassword {
     @FXML
     private TextField txtUsername;
 
+    private String username;
+
+    public ChangePassword() {};
+
+    public void initializeForLoggedInUser(String username) {
+        this.username = username;
+        txtUsername.setText(username);
+        txtUsername.setDisable(true);
+    }
+
     @FXML
     void onBtnCancelClick(ActionEvent event) {
         SceneSwitcher.switchToLoginForm((Stage) btnCancel.getScene().getWindow());
