@@ -39,7 +39,7 @@ public class Login {
             return;
         }
 
-        String query = "SELECT * FROM users WHERE username = ? AND password = ?"; // use hashed password in production
+        String query = "SELECT id_user, username FROM users WHERE username = ? AND password = ?"; // gunakan hash di produksi
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -49,9 +49,16 @@ public class Login {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    loggedInUsername = username;
-                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + username + "!");
-                    SceneSwitcher.switchToHomeForm((Stage) btnSignIn.getScene().getWindow(), loggedInUsername);
+                    int userId = rs.getInt("id_user");
+                    String uname = rs.getString("username");
+
+                    // Tampilkan pesan
+                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + uname + "!");
+
+                    // Pindah ke Home
+                    Stage stage = (Stage) btnSignIn.getScene().getWindow();
+                    SceneSwitcher.switchToHomeForm(stage, uname, userId);
+
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect username or password.");
                 }
@@ -61,6 +68,7 @@ public class Login {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Could not connect: " + e.getMessage());
         }
     }
+
 
     @FXML
     void onBtnForgotPassClick(ActionEvent event) {

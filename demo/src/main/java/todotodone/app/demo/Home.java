@@ -39,41 +39,40 @@ public class Home {
     @FXML private PieChart todoPieChart;
     @FXML private Label lblPersenDone, lblPersenOverdue, lblPersenProgress, lblPersenPending;
 
-    public Home() {
+    private int userId;
+    private String username;
+
+    private final List<TodoItem> todoItems = new ArrayList<>();
+    private final List<TodoItem> filteredTodoItems = new ArrayList<>();
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getUsername() {
-        return Username;
+    public int getUserId() {
+        return userId;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
-    private String Username;
-
-
-
-    private List<TodoItem> todoItems = new ArrayList<>();
-    private List<TodoItem> filteredTodoItems = new ArrayList<>();
-
-    public Home(String username) {
-        this.Username = username;
+    public String getUsername() {
+        return username;
     }
 
+    public Home() {}
 
+    public Home(String username, int userId) {
+        this.username = username;
+        this.userId = userId;
+    }
 
     static class TodoItem {
         int id;
-        String title;
-        String status;
-        String dueDate;
-        String category;
-        String description;
-        String attachment;
+        String title, status, dueDate, category, description, attachment;
 
-        public TodoItem(int id, String title, String status, String dueDate,
-                        String category, String description, String attachment) {
+        public TodoItem(int id, String title, String status, String dueDate, String category, String description, String attachment) {
             this.id = id;
             this.title = title;
             this.status = status;
@@ -86,16 +85,11 @@ public class Home {
 
     @FXML
     void initialize() {
-        System.out.println("Username = " + getUsername()); // Sudah bisa digunakan
         setupGridPane();
         initializeComboBoxes();
         setupSearchAndFilter();
         refreshTodos();
-        fetchAllTodos();
-        filterTodos();
     }
-
-
 
     private void setupGridPane() {
         gridPane.getRowConstraints().clear();
@@ -108,25 +102,25 @@ public class Home {
     }
 
     private void initializeComboBoxes() {
-        cbFilterStatus.getItems().clear();
-        cbFilterStatus.getItems().addAll("All Status", "Pending", "In Progress", "Completed", "Overdue");
+        cbFilterStatus.setItems(FXCollections.observableArrayList("All Status", "Pending", "In Progress", "Completed", "Overdue"));
         cbFilterStatus.getSelectionModel().selectFirst();
 
         Category.getItems().clear();
-
         Category.getItems().add("All Category");
 
+        String sql = "SELECT name_category FROM category WHERE id_user = 1 OR id_user = ? ORDER BY name_category ASC";
+
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT name_category FROM category ORDER BY name_category ASC");
-             ResultSet rs = stmt.executeQuery()) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            while (rs.next()) {
-                Category.getItems().add(rs.getString("name_category"));
+            stmt.setInt(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Category.getItems().add(rs.getString("name_category"));
+                }
             }
-
         } catch (SQLException e) {
-            System.err.println("Failed to load categories from database: " + e.getMessage());
-            Category.getItems().addAll("Work", "Personal", "Others");
+            System.err.println("Failed to load categories: " + e.getMessage());
         }
 
         Category.getSelectionModel().selectFirst();
@@ -134,19 +128,10 @@ public class Home {
 
 
     private void setupSearchAndFilter() {
-        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterTodos();
-        });
-
-        btnSearch.setOnMouseClicked(event -> filterTodos());
-
-        cbFilterStatus.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            filterTodos();
-        });
-
-        Category.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            filterTodos();
-        });
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> filterTodos());
+        btnSearch.setOnMouseClicked(e -> filterTodos());
+        cbFilterStatus.valueProperty().addListener((obs, oldVal, newVal) -> filterTodos());
+        Category.valueProperty().addListener((obs, oldVal, newVal) -> filterTodos());
     }
 
     private boolean isOverdue(String dueDateStr) {
@@ -160,117 +145,102 @@ public class Home {
     }
 
     private void updateTodoStatus(int todoId, String newStatus) {
-        String sql = "UPDATE todo SET status = ? WHERE id_todo = ? and id_user = ?";
+        String sql = "UPDATE todo SET status = ? WHERE id_todo = ? AND id_user = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, newStatus);
             stmt.setInt(2, todoId);
-            stmt.setString(3, getUsername());
+            stmt.setInt(3, userId);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Error updating todo status: " + e.getMessage());
+            System.err.println("Error updating status: " + e.getMessage());
         }
     }
 
     private void fetchAllTodos() {
         todoItems.clear();
-        String sql = "SELECT id_todo, title, status, due_date, category, description, attachment FROM todo where id_user = (select id_user from users where username = ?)";
-        System.out.println(sql);
+        String sql = "SELECT id_todo, title, status, due_date, category, description, attachment FROM todo WHERE id_user = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)){
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, getUsername());
-
+            stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
-            System.out.println(sql);
-            List<TodoItem> todosToUpdate = new ArrayList<>();
+            List<TodoItem> overdueList = new ArrayList<>();
 
             while (rs.next()) {
-                String status = rs.getString("status");
-                String dueDate = rs.getString("due_date");
-
                 TodoItem item = new TodoItem(
                         rs.getInt("id_todo"),
                         rs.getString("title"),
-                        status,
-                        dueDate,
+                        rs.getString("status"),
+                        rs.getString("due_date"),
                         rs.getString("category"),
                         rs.getString("description"),
                         rs.getString("attachment")
                 );
 
-                if (!"Completed".equals(status) && dueDate != null && !dueDate.isEmpty() && isOverdue(dueDate)) {
+                if (!"Completed".equals(item.status) && isOverdue(item.dueDate)) {
                     item.status = "Overdue";
-                    todosToUpdate.add(item);
+                    overdueList.add(item);
                 }
-
                 todoItems.add(item);
             }
 
-            if (!todosToUpdate.isEmpty()) {
-                updateTodoStatuses(todosToUpdate);
+            if (!overdueList.isEmpty()) {
+                updateTodoStatuses(overdueList);
             }
 
         } catch (SQLException e) {
-            System.err.println("Database error: " + e.getMessage());
-            e.printStackTrace();
-            showError("Error loading todos. Please try again.");
+            System.err.println("Error loading todos: " + e.getMessage());
         }
     }
 
     private void updateTodoStatuses(List<TodoItem> todos) {
-        String sql = "UPDATE todo SET status = ? WHERE id_todo = ?";
+        String sql = "UPDATE todo SET status = 'Overdue' WHERE id_todo = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             for (TodoItem item : todos) {
-                stmt.setString(1, "Overdue");
-                stmt.setInt(2, item.id);
+                stmt.setInt(1, item.id);
                 stmt.addBatch();
             }
-
             stmt.executeBatch();
 
         } catch (SQLException e) {
-            System.err.println("Error updating todo statuses: " + e.getMessage());
+            System.err.println("Error batch updating status: " + e.getMessage());
         }
     }
 
+    private void refreshTodos() {
+        fetchAllTodos();
+        filterTodos();
+        updatePieChart();
+    }
+
     private void filterTodos() {
-        String searchText = txtSearch.getText().toLowerCase();
-        String statusFilter = cbFilterStatus.getValue();
-        String categoryFilter = Category.getValue();
+        String search = txtSearch.getText().toLowerCase();
+        String selectedStatus = cbFilterStatus.getValue();
+        String selectedCategory = Category.getValue();
 
         filteredTodoItems.clear();
 
         for (TodoItem item : todoItems) {
-            boolean matchesSearch = searchText.isEmpty() ||
-                    item.title.toLowerCase().contains(searchText) ||
-                    item.description.toLowerCase().contains(searchText);
+            boolean matchesSearch = search.isEmpty() ||
+                    item.title.toLowerCase().contains(search) ||
+                    item.description.toLowerCase().contains(search);
 
-            boolean matchesStatus;
-            if (statusFilter == null || statusFilter.equals("All Status")) {
-                matchesStatus = true;
-            } else {
-                matchesStatus = item.status.equals(statusFilter);
-            }
-
-            boolean matchesCategory;
-            if (categoryFilter == null || categoryFilter.equals("All Category")) {
-                matchesCategory = true;
-            } else {
-                matchesCategory = item.category.equals(categoryFilter);
-            }
+            boolean matchesStatus = "All Status".equals(selectedStatus) || item.status.equals(selectedStatus);
+            boolean matchesCategory = "All Category".equals(selectedCategory) || item.category.equals(selectedCategory);
 
             if (matchesSearch && matchesStatus && matchesCategory) {
                 filteredTodoItems.add(item);
             }
         }
+
         displayTodos();
     }
 
@@ -386,11 +356,6 @@ public class Home {
         }
     }
 
-    private void refreshTodos() {
-        fetchAllTodos();
-        filterTodos();
-        updatePieChart();
-    }
 
     private Stage getStage() {
         return (Stage) btnAdd.getScene().getWindow();

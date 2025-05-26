@@ -23,12 +23,12 @@ public class SceneSwitcher {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
 
-    public static void switchToHomeForm(Stage currentStage, String username) {
+    public static void switchToHomeForm(Stage currentStage, String username, int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/home.fxml"));
             loader.setControllerFactory(param -> {
                 if (param == Home.class) {
-                    return new Home(username, userId);
+                    return new Home(username, userId); // <- perbaikan utama
                 }
                 try {
                     return param.getDeclaredConstructor().newInstance();
@@ -38,7 +38,6 @@ public class SceneSwitcher {
             });
 
             Parent root = loader.load();
-
             Scene scene = new Scene(root);
             currentStage.setScene(scene);
             currentStage.setTitle("To Do To Done - Dashboard");
@@ -48,6 +47,7 @@ public class SceneSwitcher {
             e.printStackTrace();
         }
     }
+
 
 
 
