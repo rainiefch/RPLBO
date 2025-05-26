@@ -85,7 +85,7 @@ public class CategoryForm{
     private List<Category> getCategoriesForUser(int userId) {
         List<Category> categories = new ArrayList<>();
 
-        String sql = "SELECT id_category, name_category, desc_category FROM category WHERE id_user = ? ORDER BY name_category ASC";
+        String sql = "SELECT id_category, name_category, desc_category FROM category WHERE id_user = ? or id_user = 1 ORDER BY name_category ASC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
