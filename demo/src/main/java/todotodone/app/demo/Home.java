@@ -392,16 +392,8 @@ public class Home {
     }
 
     @FXML void onBtnProfileClick(MouseEvent event) {
-        SceneSwitcher.popProfileForm(getStage());
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        javafx.application.Platform.runLater(() -> refreshTodos());
-                    }
-                },
-                500
-        );
+        Stage currentStage = (Stage) btnProfile.getScene().getWindow();
+        SceneSwitcher.popProfileForm(currentStage, this.username);
     }
 
     @FXML void onHomeClick(MouseEvent event) {

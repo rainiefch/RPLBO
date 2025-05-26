@@ -5,10 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import todotodone.app.demo.ChangePassword;
-import todotodone.app.demo.Home;
-import todotodone.app.demo.TodoForm;
-import todotodone.app.demo.CategoryForm;
+import todotodone.app.demo.*;
 
 import java.io.IOException;
 
@@ -130,9 +127,30 @@ public class SceneSwitcher {
         }
     }
 
-    public static void popProfileForm(Stage ownerStage) {
-        showPopup(ownerStage, "/todotodone/app/demo/profile.fxml", "Manage Profile");
+    public static void popProfileForm(Stage ownerStage, String username) {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/profile.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller and set the username
+            Object controller = loader.getController();
+            if (controller instanceof Profile) {
+                ((Profile) controller).initializeWithUsername(username);
+            }
+
+            Stage popupStage = new Stage();
+            popupStage.setScene(new Scene(root));
+            popupStage.setTitle("Manage Profile");
+            popupStage.initOwner(ownerStage);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.centerOnScreen();
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            System.err.println("Failed to load Profile Form.");
+            e.printStackTrace();
+        }
     }
+
 
     private static void switchScene(Stage stage, String fxmlPath, String title) {
         try {

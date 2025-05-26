@@ -1,6 +1,6 @@
 package todotodone.app.demo;
 
-import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,26 +14,29 @@ public class Profile {
     private Button btnChangePass;
 
     @FXML
-    private Label lblHello;
+    private Button btnLogout;
 
     @FXML
-    private Button btnLogout;
+    private Label lblHello;
 
     private String username;
 
-
-
+    // Method to be called from SceneSwitcher
+    public void initializeWithUsername(String username) {
+        this.username = username;
+        if (lblHello != null) {
+            lblHello.setText("Hello, " + username + "!");
+        }
+    }
 
     @FXML
     void onBtnChangePass(ActionEvent event) {
-        SceneSwitcher.switchToChangePasswordFormLoggedIn((Stage) btnChangePass.getScene().getWindow());
         Stage stage = (Stage) btnChangePass.getScene().getWindow();
         SceneSwitcher.switchToChangePasswordFormLoggedIn(stage, username);
     }
 
     @FXML
     void onBtnLogout(ActionEvent event) {
-        Application.Exit();
+        Platform.exit();
     }
-
 }
