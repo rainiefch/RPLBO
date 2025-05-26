@@ -362,8 +362,7 @@ public class Home {
     }
 
     @FXML void onBtnAddClick(MouseEvent event) {
-
-        SceneSwitcher.popTodoForm(getStage());
+        SceneSwitcher.popTodoForm((Stage) btnAdd.getScene().getWindow(), userId);
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
@@ -376,7 +375,7 @@ public class Home {
     }
 
     @FXML void onBtnCategoryClick(MouseEvent event) {
-        SceneSwitcher.popCategoryForm(getStage());
+        SceneSwitcher.popCategoryForm((Stage) btnCategory.getScene().getWindow(), userId);
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override

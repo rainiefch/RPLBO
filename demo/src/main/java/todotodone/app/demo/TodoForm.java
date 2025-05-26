@@ -41,6 +41,16 @@ public class TodoForm {
     private File selectedFile;
     private Home.TodoItem todoToEdit = null;
 
+    private int userId;
+    private String username;
+
+
+    public TodoForm(){};
+
+    public TodoForm(int userID){
+        this.userId = userID;
+    };
+
 
     @FXML
     void initialize() {
@@ -50,15 +60,19 @@ public class TodoForm {
     }
 
     private void initializeComboBoxes() {
-
         cbCategory.getItems().clear();
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT name_category FROM category ORDER BY name_category ASC");
-             ResultSet rs = stmt.executeQuery()) {
+        String sql = "SELECT name_category FROM category WHERE id_user = 0 OR id_user = ? ORDER BY name_category ASC";
 
-            while (rs.next()) {
-                cbCategory.getItems().add(rs.getString("name_category"));
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);  // Set parameter BEFORE executing query
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    cbCategory.getItems().add(rs.getString("name_category"));
+                }
             }
 
         } catch (SQLException e) {
@@ -195,10 +209,11 @@ public class TodoForm {
         try (Connection conn = DBConnection.getConnection()) {
             String sql;
             if (editingTodoId == null) {
-                sql = "INSERT INTO todo (title, status, category, due_date, description, attachment) VALUES (?, ?, ?, ?, ?, ?)";
+                sql = "INSERT INTO todo (title, status, category, due_date, description, attachment, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
             } else {
-                sql = "UPDATE todo SET title=?, status=?, category=?, due_date=?, description=?, attachment=? WHERE id_todo=?";
+                sql = "UPDATE todo SET title=?, status=?, category=?, due_date=?, description=?, attachment=?, id_user=? WHERE id_todo=?";
             }
+
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, title);
@@ -207,10 +222,12 @@ public class TodoForm {
             stmt.setString(4, dueDate);
             stmt.setString(5, description);
             stmt.setString(6, attachmentPath);
+            stmt.setInt(7, userId);
 
             if (editingTodoId != null) {
-                stmt.setInt(7, editingTodoId);
+                stmt.setInt(9, editingTodoId);
             }
+
 
             stmt.executeUpdate();
             showAlert(editingTodoId == null ? "To-Do added successfully!" : "To-Do updated successfully!");

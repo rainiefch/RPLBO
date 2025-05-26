@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import todotodone.app.demo.Home;
+import todotodone.app.demo.TodoForm;
+import todotodone.app.demo.CategoryForm;
 
 import java.io.IOException;
 
@@ -28,7 +30,7 @@ public class SceneSwitcher {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/home.fxml"));
             loader.setControllerFactory(param -> {
                 if (param == Home.class) {
-                    return new Home(username, userId); // <- perbaikan utama
+                    return new Home(username, userId);
                 }
                 try {
                     return param.getDeclaredConstructor().newInstance();
@@ -44,20 +46,67 @@ public class SceneSwitcher {
             currentStage.centerOnScreen();
             currentStage.show();
         } catch (IOException e) {
+            System.err.println("Failed to load Home scene.");
             e.printStackTrace();
         }
     }
 
+    // ✅ Pop TodoForm dengan userId
+    public static void popTodoForm(Stage ownerStage, int userId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/todoForm.fxml"));
+            loader.setControllerFactory(param -> {
+                if (param == TodoForm.class) {
+                    return new TodoForm(userId);
+                }
+                try {
+                    return param.getDeclaredConstructor().newInstance();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-
-
-
-    public static void popTodoForm(Stage ownerStage) {
-        showPopup(ownerStage, "/todotodone/app/demo/todoForm.fxml", "Add New To-Do");
+            Parent root = loader.load();
+            Stage popupStage = new Stage();
+            popupStage.setScene(new Scene(root));
+            popupStage.setTitle("Add New To-Do");
+            popupStage.initOwner(ownerStage);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.centerOnScreen();
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            System.err.println("Failed to load To-Do Form.");
+            e.printStackTrace();
+        }
     }
 
-    public static void popCategoryForm(Stage ownerStage) {
-        showPopup(ownerStage, "/todotodone/app/demo/categoryForm.fxml", "Manage Categories");
+    // ✅ Pop CategoryForm dengan userId
+    public static void popCategoryForm(Stage ownerStage, int userId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/categoryForm.fxml"));
+            loader.setControllerFactory(param -> {
+                if (param == CategoryForm.class) {
+                    return new CategoryForm(userId);
+                }
+                try {
+                    return param.getDeclaredConstructor().newInstance();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            Parent root = loader.load();
+            Stage popupStage = new Stage();
+            popupStage.setScene(new Scene(root));
+            popupStage.setTitle("Manage Categories");
+            popupStage.initOwner(ownerStage);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.centerOnScreen();
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            System.err.println("Failed to load Category Form.");
+            e.printStackTrace();
+        }
     }
 
     public static void popProfileForm(Stage ownerStage) {
