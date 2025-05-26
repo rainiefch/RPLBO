@@ -1,4 +1,4 @@
-package todotodone.app.demo;
+package todotodone.app.demo.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

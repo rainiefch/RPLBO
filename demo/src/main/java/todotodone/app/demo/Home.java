@@ -19,6 +19,9 @@ import javafx.scene.shape.Arc;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
+import todotodone.app.demo.util.DBConnection;
+import todotodone.app.demo.util.SceneSwitcher;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

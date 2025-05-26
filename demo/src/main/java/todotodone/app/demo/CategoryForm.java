@@ -5,10 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import todotodone.app.demo.util.DBCategory;
+import todotodone.app.demo.util.DBConnection;
 
 import java.net.URL;
 import java.sql.*;
