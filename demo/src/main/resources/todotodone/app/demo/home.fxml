@@ -195,7 +195,7 @@
                             <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="276.0" vgrow="ALWAYS" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="lblPending" text="Pending">
+                              <Label fx:id="lblPending" text="Pending" textFill="WHITE">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -203,20 +203,12 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblPersenPending" text="0%" GridPane.columnIndex="1">
+                              <Label fx:id="lblPersenPending" text="0%" textFill="WHITE" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblProgress" text="In Progress" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label fx:id="lblDone" text="Done" GridPane.rowIndex="2">
+                              <Label fx:id="lblProgress" text="In Progress" textFill="WHITE" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -224,7 +216,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblOverdue" text="Overdue" GridPane.rowIndex="3">
+                              <Label fx:id="lblDone" text="Completed" textFill="WHITE" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -232,17 +224,25 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblPersenProgress" text="0%" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Label fx:id="lblOverdue" text="Overdue" textFill="WHITE" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label fx:id="lblPersenProgress" text="0%" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblPersenDone" text="0%" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Label fx:id="lblPersenDone" text="0%" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblPersenOverdue" text="0%" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Label fx:id="lblPersenOverdue" text="0%" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
