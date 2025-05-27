@@ -1,5 +1,4 @@
 package todotodone.app.demo.util;
-import todotodone.app.demo.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

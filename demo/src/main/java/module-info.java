@@ -11,4 +11,6 @@ module todotodone.app.demo {
 
     opens todotodone.app.demo to javafx.fxml;
     exports todotodone.app.demo;
+    exports todotodone.app.demo.util;
+    opens todotodone.app.demo.util to javafx.fxml;
 }

@@ -4,8 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import todotodone.app.demo.util.DBConnection;
+import todotodone.app.demo.util.SceneSwitcher;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

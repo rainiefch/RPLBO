@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import todotodone.app.demo.util.DBConnection;
+import todotodone.app.demo.util.SceneSwitcher;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +20,16 @@ public class ChangePassword {
 
     @FXML
     private TextField txtUsername;
+
+    private String username;
+
+    public ChangePassword() {};
+
+    public void initializeForLoggedInUser(String username) {
+        this.username = username;
+        txtUsername.setText(username);
+        txtUsername.setDisable(true);
+    }
 
     @FXML
     void onBtnCancelClick(ActionEvent event) {
