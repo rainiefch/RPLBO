@@ -42,11 +42,6 @@ public class Registration {
             return;
         }
 
-        if (!password.equals(confirmPassword)) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match!");
-            return;
-        }
-
         if (password.length() < 10) {
             showAlert(Alert.AlertType.ERROR, "Error", "Password must be at least 10 characters long.");
             return;
@@ -61,6 +56,11 @@ public class Registration {
         }
         if (!password.matches(".*[^a-zA-Z0-9].*")) {
             showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one special character.");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match!");
             return;
         }
 
