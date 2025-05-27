@@ -31,6 +31,11 @@ public class Registration {
         String username = tfUsername.getText().trim();
         String password = pfPassword.getText();
         String confirmPassword = pfConfirmPassword.getText();
+        
+        if (username.length() > 20) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Username must be 20 characters or less.");
+            return;
+        }
 
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled!");
