@@ -184,8 +184,6 @@ public class TodoForm {
         btnDelete.setVisible(true);
     }
 
-
-
     @FXML
     void onBtnAddClick(ActionEvent event) {
         String title = txtTitle.getText().trim();
@@ -194,8 +192,24 @@ public class TodoForm {
         String description = txtDescription.getText();
         String attachmentPath = selectedFile != null ? selectedFile.getAbsolutePath() : null;
 
-        if (title.isEmpty() || category == null || dueDateValue == null) {
-            showAlert("Please fill all required fields: Title, Due Date, Category.");
+        if (title.isEmpty() || category == null || dueDateValue == null || description.isEmpty()) {
+            showAlert("All fields are required: Title, Category, Due Date, and Description.");
+            return;
+        }
+
+        if (title.length() > 50) {
+            showAlert("Title must not exceed 50 characters.");
+            return;
+        }
+
+        if (description.length() > 200) {
+            showAlert("Description must not exceed 200 characters.");
+            return;
+        }
+
+        java.time.LocalDate today = java.time.LocalDate.now();
+        if (dueDateValue.isBefore(today)) {
+            showAlert("Due date cannot be in the past.");
             return;
         }
 

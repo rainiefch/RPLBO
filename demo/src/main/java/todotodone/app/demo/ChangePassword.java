@@ -52,6 +52,23 @@ public class ChangePassword {
             return;
         }
 
+        if (newPass.length() < 10) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Password must be at least 10 characters long.");
+            return;
+        }
+        if (!newPass.matches(".*[A-Z].*")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one uppercase letter.");
+            return;
+        }
+        if (!newPass.matches(".*\\d.*")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one number.");
+            return;
+        }
+        if (!newPass.matches(".*[^a-zA-Z0-9].*")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one special character.");
+            return;
+        }
+
         try (Connection conn = DBConnection.getConnection()) {
             String query = "UPDATE users SET password = ? WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(query);

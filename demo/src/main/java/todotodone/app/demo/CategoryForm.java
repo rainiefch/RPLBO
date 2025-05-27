@@ -123,8 +123,18 @@ public class CategoryForm{
         String name = txtCategoryName.getText().trim();
         String description = txtCategoryDesc.getText().trim();
 
-        if (name.isEmpty()) {
-            showAlert("Please enter the category name.");
+        if (name.isEmpty() || description.isEmpty()) {
+            showAlert("Name and Description must not be empty.");
+            return;
+        }
+
+        if (name.length() > 20) {
+            showAlert("Name must not exceed 20 characters.");
+            return;
+        }
+
+        if (description.length() > 50) {
+            showAlert("Description must not exceed 50 characters.");
             return;
         }
 
