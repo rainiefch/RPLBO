@@ -50,14 +50,16 @@ public class Registration {
             showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one uppercase letter.");
             return;
         }
-        if (!password.matches(".*\\d.*")) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one number.");
-            return;
-        }
+
         if (!password.matches(".*[^a-zA-Z0-9].*")) {
             showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one special character.");
             return;
         }
+        if (!password.matches(".*\\d.*")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one number.");
+            return;
+        }
+
 
         if (!password.equals(confirmPassword)) {
             showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match!");
