@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import todotodone.app.demo.util.DBConnection;
+import todotodone.app.demo.model.Category;
+import todotodone.app.demo.util.AlertUtil;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -93,7 +96,7 @@ public class CategoryForm {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert("Failed to load categories: " + e.getMessage());
+            AlertUtil.showError("Failed to load categories: " + e.getMessage());
         }
 
         return categories;
@@ -114,17 +117,17 @@ public class CategoryForm {
         String description = txtCategoryDesc.getText().trim();
 
         if (name.isEmpty() || description.isEmpty()) {
-            showAlert("Name and Description must not be empty.");
+            AlertUtil.showError("Name and Description must not be empty.");
             return;
         }
 
         if (name.length() > 20) {
-            showAlert("Name must not exceed 20 characters.");
+            AlertUtil.showError("Name must not exceed 20 characters.");
             return;
         }
 
         if (description.length() > 50) {
-            showAlert("Description must not exceed 50 characters.");
+            AlertUtil.showError("Description must not exceed 50 characters.");
             return;
         }
 
@@ -149,9 +152,9 @@ public class CategoryForm {
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
-                showAlert("Default category cannot be edited");
+                AlertUtil.showError("Default category cannot be edited");
             } else {
-                showAlert(editingCategoryId == null ? "Category added!" : "Category updated!");
+                AlertUtil.showInfo(editingCategoryId == null ? "Category added!" : "Category updated!");
             }
 
             resetForm();
@@ -159,7 +162,7 @@ public class CategoryForm {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert("Database error: " + e.getMessage());
+            AlertUtil.showError("Database error: " + e.getMessage());
         }
     }
 
@@ -179,9 +182,9 @@ public class CategoryForm {
                     int affectedRows = stmt.executeUpdate();
 
                     if (affectedRows == 0) {
-                        showAlert("Default category cannot be deleted.");
+                        AlertUtil.showError("Default category cannot be deleted.");
                     } else {
-                        showAlert("Category deleted.");
+                        AlertUtil.showInfo("Category deleted.");
                     }
 
                     resetForm();
@@ -189,7 +192,7 @@ public class CategoryForm {
 
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    showAlert("Failed to delete category: " + e.getMessage());
+                    AlertUtil.showError("Failed to delete category: " + e.getMessage());
                 }
             }
         });
@@ -210,26 +213,26 @@ public class CategoryForm {
         btnDelete.setVisible(false);
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Info");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    public static class Category {
-        private final int id;
-        private final String name;
-        private final String description;
-
-        public Category(int id, String name, String description) {
-            this.id = id;
-            this.name = name;
-            this.description = description;
-        }
-
-        public int getId() { return id; }
-        public String getName() { return name; }
-        public String getDescription() { return description; }
-    }
+//    private void showAlert(String message) {
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//        alert.setTitle("Info");
+//        alert.setContentText(message);
+//        alert.showAndWait();
+//    }
+//
+//    public static class Category {
+//        private final int id;
+//        private final String name;
+//        private final String description;
+//
+//        public Category(int id, String name, String description) {
+//            this.id = id;
+//            this.name = name;
+//            this.description = description;
+//        }
+//
+//        public int getId() { return id; }
+//        public String getName() { return name; }
+//        public String getDescription() { return description; }
+//    }
 }
