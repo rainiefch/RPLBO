@@ -10,24 +10,19 @@ import todotodone.app.demo.util.SceneSwitcher;
 
 public class Profile {
 
-    @FXML
-    private Button btnChangePass;
+    private String username;
+    private Integer userId;
 
     @FXML
-    private Button btnLogout;
+    private Button btnChangePass, btnLogout;
 
     @FXML
     private Label lblHello;
 
-    private String username;
-    private Integer userId;
-
     public void initializeWithUsername(String username, Integer userId) {
         this.username = username;
         this.userId = userId;
-        if (lblHello != null) {
-            lblHello.setText("Hello, " + username + "!");
-        }
+        lblHello.setText("Hello, " + username + "!");
     }
 
     @FXML

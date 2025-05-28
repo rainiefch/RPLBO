@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Registration {
+
     @FXML
     private Button btnRegister, btnSignIn;
 
@@ -46,6 +47,7 @@ public class Registration {
             showAlert(Alert.AlertType.ERROR, "Error", "Password must be at least 10 characters long.");
             return;
         }
+
         if (!password.matches(".*[A-Z].*")) {
             showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one uppercase letter.");
             return;
@@ -55,11 +57,11 @@ public class Registration {
             showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one special character.");
             return;
         }
+
         if (!password.matches(".*\\d.*")) {
             showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one number.");
             return;
         }
-
 
         if (!password.equals(confirmPassword)) {
             showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match!");
@@ -71,6 +73,7 @@ public class Registration {
             try (PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
                 checkStmt.setString(1, username);
                 ResultSet rs = checkStmt.executeQuery();
+
                 if (rs.next() && rs.getInt(1) > 0) {
                     showAlert(Alert.AlertType.ERROR, "Error", "Username already exists.");
                     return;

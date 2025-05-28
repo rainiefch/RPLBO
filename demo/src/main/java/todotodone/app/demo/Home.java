@@ -41,25 +41,8 @@ public class Home {
 
     private int userId;
     private String username;
-
     private final List<TodoItem> todoItems = new ArrayList<>();
     private final List<TodoItem> filteredTodoItems = new ArrayList<>();
-
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
-//
-//    public int getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public String getUsername() {
-//        return username;
-//    }
 
     public Home() {}
 
@@ -441,12 +424,10 @@ public class Home {
         updatePiePercentLabels(pending, progress, completed, overdue);
     }
 
-
-
     private void updatePiePercentLabels(int pending, int inProgress, int completed, int overdue) {
         int total = pending + inProgress + completed + overdue;
 
-        if (total == 0) total = 1; // Hindari divide by zero agar tidak NaN
+        if (total == 0) total = 1;
 
         lblPersenPending.setText(String.format("%.0f%%", (pending * 100.0 / total)));
         lblPersenProgress.setText(String.format("%.0f%%", (inProgress * 100.0 / total)));

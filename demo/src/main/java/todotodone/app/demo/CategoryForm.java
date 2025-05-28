@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryForm{
+public class CategoryForm {
 
     @FXML private Button btnAdd, btnCancel, btnDelete;
     @FXML private TextField txtCategoryName, txtCategoryDesc;
@@ -21,14 +21,11 @@ public class CategoryForm{
 
     private Integer editingCategoryId = null;
     public boolean isEditing = false;
-
     private final int userId;
 
-    // Constructor to receive the current user's ID
     public CategoryForm(int userId) {
         this.userId = userId;
     }
-
 
     public void initialize() {
         loadCategoryList();
@@ -43,7 +40,6 @@ public class CategoryForm{
     }
 
     public void loadCategoryList() {
-        // Clear all rows except headers (row=0)
         gridCategoryList.getChildren().removeIf(node -> {
             Integer rowIndex = GridPane.getRowIndex(node);
             return rowIndex != null && rowIndex > 0;
@@ -51,8 +47,8 @@ public class CategoryForm{
         gridCategoryList.getRowConstraints().clear();
 
         List<Category> categories = getCategoriesForUser(userId);
+        int row = 1;
 
-        int row = 1; // Start after header row
         for (Category category : categories) {
             Label nameLabel = new Label(category.getName());
             nameLabel.setStyle("-fx-font-weight: bold;");
@@ -80,14 +76,12 @@ public class CategoryForm{
 
     private List<Category> getCategoriesForUser(int userId) {
         List<Category> categories = new ArrayList<>();
-
-        String sql = "SELECT id_category, name_category, desc_category FROM category WHERE id_user = ? or id_user = 1 ORDER BY name_category ASC";
+        String sql = "SELECT id_category, name_category, desc_category FROM category WHERE id_user = ? OR id_user = 1 ORDER BY name_category ASC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
-
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("id_category");
@@ -143,19 +137,19 @@ public class CategoryForm{
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, name);
                 stmt.setString(2, description);
-                stmt.setInt(3, userId);  // <-- set userId here for new categories
+                stmt.setInt(3, userId);
             } else {
                 sql = "UPDATE category SET name_category = ?, desc_category = ? WHERE id_category = ? AND id_user = ?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, name);
                 stmt.setString(2, description);
                 stmt.setInt(3, editingCategoryId);
-                stmt.setInt(4, userId);  // <-- ensure updating only user's category
+                stmt.setInt(4, userId);
             }
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
-                showAlert("No category updated. It might not belong to the current user.");
+                showAlert("Default category cannot be edited");
             } else {
                 showAlert(editingCategoryId == null ? "Category added!" : "Category updated!");
             }
@@ -180,18 +174,19 @@ public class CategoryForm{
                     String sql = "DELETE FROM category WHERE id_category = ? AND id_user = ?";
                     PreparedStatement stmt = conn.prepareStatement(sql);
                     stmt.setInt(1, editingCategoryId);
-                    stmt.setInt(2, userId);  // <-- only delete if belongs to current user
+                    stmt.setInt(2, userId);
 
                     int affectedRows = stmt.executeUpdate();
 
                     if (affectedRows == 0) {
-                        showAlert("No category deleted. It might not belong to the current user.");
+                        showAlert("Default category cannot be deleted.");
                     } else {
                         showAlert("Category deleted.");
                     }
 
                     resetForm();
                     loadCategoryList();
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                     showAlert("Failed to delete category: " + e.getMessage());
@@ -202,7 +197,8 @@ public class CategoryForm{
 
     @FXML
     void onBtnCancelClick(ActionEvent event) {
-        closeForm();
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
+        stage.close();
     }
 
     private void resetForm() {
@@ -214,11 +210,6 @@ public class CategoryForm{
         btnDelete.setVisible(false);
     }
 
-    private void closeForm() {
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
-        stage.close();
-    }
-
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Info");
@@ -226,7 +217,6 @@ public class CategoryForm{
         alert.showAndWait();
     }
 
-    // Inner class to represent a Category record
     public static class Category {
         private final int id;
         private final String name;

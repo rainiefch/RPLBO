@@ -67,7 +67,7 @@ public class TodoForm {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, userId);  // Set parameter BEFORE executing query
+            stmt.setInt(1, userId);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -291,7 +291,6 @@ public class TodoForm {
             }
         });
     }
-
 
     private void closeForm() {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
