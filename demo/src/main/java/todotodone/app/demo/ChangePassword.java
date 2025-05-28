@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import todotodone.app.demo.util.AlertUtil;
 import todotodone.app.demo.util.DBConnection;
 import todotodone.app.demo.util.SceneSwitcher;
 
@@ -24,7 +25,7 @@ public class ChangePassword {
     private String username;
     private Integer userId;
 
-    public ChangePassword() {};
+    public ChangePassword() {}
 
     public void initializeForLoggedInUser(String username, Integer userId) {
         this.username = username;
@@ -49,29 +50,29 @@ public class ChangePassword {
         String confirmPass = txtConfPass.getText();
 
         if (username.isEmpty() || newPass.isEmpty() || confirmPass.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled!");
+            AlertUtil.showError("All fields must be filled!");
             return;
         }
 
         if (!newPass.equals(confirmPass)) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match!");
+            AlertUtil.showError("Passwords do not match!");
             return;
         }
 
         if (newPass.length() < 10) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must be at least 10 characters long.");
+            AlertUtil.showError("Password must be at least 10 characters long.");
             return;
         }
         if (!newPass.matches(".*[A-Z].*")) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one uppercase letter.");
+            AlertUtil.showError("Password must contain at least one uppercase letter.");
             return;
         }
         if (!newPass.matches(".*\\d.*")) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one number.");
+            AlertUtil.showError("Password must contain at least one number.");
             return;
         }
         if (!newPass.matches(".*[^a-zA-Z0-9].*")) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one special character.");
+            AlertUtil.showError("Password must contain at least one special character.");
             return;
         }
 
@@ -84,22 +85,14 @@ public class ChangePassword {
             int rows = stmt.executeUpdate();
 
             if (rows > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Password changed successfully!");
+                AlertUtil.showInfo("Password changed successfully!");
                 SceneSwitcher.switchToLoginForm((Stage) btnChangePass.getScene().getWindow());
             } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "Username not found.");
+                AlertUtil.showError("Username not found.");
             }
 
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error", e.getMessage());
+            AlertUtil.showError( "Database Error" + e.getMessage());
         }
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 }

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import todotodone.app.demo.util.AlertUtil;
 import todotodone.app.demo.util.DBConnection;
 import todotodone.app.demo.util.SceneSwitcher;
 
@@ -34,37 +35,37 @@ public class Registration {
         String confirmPassword = pfConfirmPassword.getText();
 
         if (username.length() > 20) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Username must be 20 characters or less.");
+            AlertUtil.showError("Username must be 20 characters or less.");
             return;
         }
 
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled!");
+            AlertUtil.showError("All fields must be filled!");
             return;
         }
 
         if (password.length() < 10) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must be at least 10 characters long.");
+            AlertUtil.showError("Password must be at least 10 characters long.");
             return;
         }
 
         if (!password.matches(".*[A-Z].*")) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one uppercase letter.");
+            AlertUtil.showError("Password must contain at least one uppercase letter.");
             return;
         }
 
         if (!password.matches(".*[^a-zA-Z0-9].*")) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one special character.");
+            AlertUtil.showError("Password must contain at least one special character.");
             return;
         }
 
         if (!password.matches(".*\\d.*")) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Password must contain at least one number.");
+            AlertUtil.showError("Password must contain at least one number.");
             return;
         }
 
         if (!password.equals(confirmPassword)) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match!");
+            AlertUtil.showError("Passwords do not match!");
             return;
         }
 
@@ -75,7 +76,7 @@ public class Registration {
                 ResultSet rs = checkStmt.executeQuery();
 
                 if (rs.next() && rs.getInt(1) > 0) {
-                    showAlert(Alert.AlertType.ERROR, "Error", "Username already exists.");
+                    AlertUtil.showError("Username already exists.");
                     return;
                 }
             }
@@ -87,15 +88,15 @@ public class Registration {
 
                 int rows = stmt.executeUpdate();
                 if (rows > 0) {
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "Registration successful!");
+                    AlertUtil.showInfo("Registration successful!");
                     SceneSwitcher.switchToLoginForm((Stage) btnRegister.getScene().getWindow());
                 } else {
-                    showAlert(Alert.AlertType.ERROR, "Error", "Registration failed.");
+                    AlertUtil.showError("Registration failed.");
                 }
             }
 
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error", e.getMessage());
+            AlertUtil.showError("Database Error" + e.getMessage());
         }
     }
 
@@ -104,11 +105,4 @@ public class Registration {
         SceneSwitcher.switchToLoginForm((Stage) btnSignIn.getScene().getWindow());
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import todotodone.app.demo.util.AlertUtil;
 import todotodone.app.demo.util.DBConnection;
 
 import java.io.File;
@@ -106,7 +107,7 @@ public class TodoForm {
     @FXML
     void onLblChosenFileClick() {
         if (selectedFile == null || !selectedFile.exists()) {
-            showAlert("No file selected or file not found.");
+            AlertUtil.showError("No file selected or file not found.");
             return;
         }
 
@@ -115,12 +116,12 @@ public class TodoForm {
             try {
                 java.awt.Desktop.getDesktop().open(selectedFile);
             } catch (Exception e) {
-                showAlert("Unable to open PDF file.");
+                AlertUtil.showError("Unable to open PDF file.");
             }
         } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
             showImagePopup();
         } else {
-            showAlert("Unsupported file format.");
+            AlertUtil.showError("Unsupported file format.");
         }
     }
 
@@ -140,7 +141,7 @@ public class TodoForm {
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.showAndWait();
         } catch (Exception e) {
-            showAlert("Failed to preview image.");
+            AlertUtil.showError("Failed to preview image.");
         }
     }
 
@@ -193,23 +194,23 @@ public class TodoForm {
         String attachmentPath = selectedFile != null ? selectedFile.getAbsolutePath() : null;
 
         if (title.isEmpty() || category == null || dueDateValue == null || description.isEmpty()) {
-            showAlert("All fields are required: Title, Category, Due Date, and Description.");
+            AlertUtil.showError("All fields are required: Title, Category, Due Date, and Description.");
             return;
         }
 
         if (title.length() > 50) {
-            showAlert("Title must not exceed 50 characters.");
+            AlertUtil.showError("Title must not exceed 50 characters.");
             return;
         }
 
         if (description.length() > 200) {
-            showAlert("Description must not exceed 200 characters.");
+            AlertUtil.showError("Description must not exceed 200 characters.");
             return;
         }
 
         java.time.LocalDate today = java.time.LocalDate.now();
         if (dueDateValue.isBefore(today)) {
-            showAlert("Due date cannot be in the past.");
+            AlertUtil.showError("Due date cannot be in the past.");
             return;
         }
 
@@ -239,17 +240,16 @@ public class TodoForm {
             stmt.setInt(7, userId);
 
             if (editingTodoId != null) {
-                stmt.setInt(9, editingTodoId);
+                stmt.setInt(8, editingTodoId);
             }
 
-
             stmt.executeUpdate();
-            showAlert(editingTodoId == null ? "To-Do added successfully!" : "To-Do updated successfully!");
+            AlertUtil.showInfo(editingTodoId == null ? "To-Do added successfully!" : "To-Do updated successfully!");
             closeForm();
 
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert("Failed to save To-Do: " + e.getMessage());
+            AlertUtil.showError("Failed to save To-Do: " + e.getMessage());
         }
     }
 
@@ -262,11 +262,10 @@ public class TodoForm {
         }
     }
 
-
     @FXML
     void onBtnDeleteClick(ActionEvent event) {
         if (editingTodoId == null) {
-            showAlert("No To-Do selected.");
+            AlertUtil.showError("No To-Do selected.");
             return;
         }
 
@@ -282,11 +281,11 @@ public class TodoForm {
                     PreparedStatement stmt = conn.prepareStatement(sql);
                     stmt.setInt(1, editingTodoId);
                     stmt.executeUpdate();
-                    showAlert("To-Do deleted successfully!");
+                    AlertUtil.showInfo("To-Do deleted successfully!");
                     closeForm();
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    showAlert("Failed to delete To-Do: " + e.getMessage());
+                    AlertUtil.showError("Failed to delete To-Do: " + e.getMessage());
                 }
             }
         });

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import todotodone.app.demo.util.AlertUtil;
 import todotodone.app.demo.util.DBConnection;
 import todotodone.app.demo.util.SceneSwitcher;
 
@@ -35,7 +36,7 @@ public class Login {
         String password = pfPassword.getText().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Validation Error", "Username and password cannot be empty.");
+            AlertUtil.showError("Username and password cannot be empty.");
             return;
         }
 
@@ -52,17 +53,17 @@ public class Login {
                     int userId = rs.getInt("id_user");
                     String uname = rs.getString("username");
 
-                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + uname + "!");
+                    AlertUtil.showInfo("Welcome, " + uname + "!");
 
                     Stage stage = (Stage) btnSignIn.getScene().getWindow();
                     SceneSwitcher.switchToHomeForm(stage, uname, userId);
                 } else {
-                    showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect username or password.");
+                    AlertUtil.showError("Incorrect username or password.");
                 }
             }
 
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error", "Could not connect: " + e.getMessage());
+            AlertUtil.showError("Could not connect: " + e.getMessage());
         }
     }
 
