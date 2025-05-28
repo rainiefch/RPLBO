@@ -23,13 +23,13 @@ public class SceneSwitcher {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
 
-    public static void switchToChangePasswordFormLoggedIn(Stage currentStage, String username) {
+    public static void switchToChangePasswordFormLoggedIn(Stage currentStage, String username, Integer userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/changePassword.fxml"));
             Parent root = loader.load();
 
             ChangePassword controller = loader.getController();
-            controller.initializeForLoggedInUser(username); // manually configure the form
+            controller.initializeForLoggedInUser(username, userId); // manually configure the form
 
             Scene scene = new Scene(root);
             currentStage.setScene(scene);
@@ -127,7 +127,7 @@ public class SceneSwitcher {
         }
     }
 
-    public static void popProfileForm(Stage ownerStage, String username) {
+    public static void popProfileForm(Stage ownerStage, String username, Integer userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/profile.fxml"));
             Parent root = loader.load();
@@ -135,7 +135,7 @@ public class SceneSwitcher {
             // Get the controller and set the username
             Object controller = loader.getController();
             if (controller instanceof Profile) {
-                ((Profile) controller).initializeWithUsername(username);
+                ((Profile) controller).initializeWithUsername(username, userId);
             }
 
             Stage popupStage = new Stage();

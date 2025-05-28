@@ -2,19 +2,15 @@ package todotodone.app.demo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import todotodone.app.demo.util.DBCategory;
 import todotodone.app.demo.util.DBConnection;
 
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class CategoryForm{
 

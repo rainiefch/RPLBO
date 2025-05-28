@@ -393,7 +393,7 @@ public class Home {
 
     @FXML void onBtnProfileClick(MouseEvent event) {
         Stage currentStage = (Stage) btnProfile.getScene().getWindow();
-        SceneSwitcher.popProfileForm(currentStage, this.username);
+        SceneSwitcher.popProfileForm(currentStage, this.username, this.userId);
     }
 
     @FXML void onHomeClick(MouseEvent event) {

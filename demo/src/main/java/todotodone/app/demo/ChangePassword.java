@@ -22,18 +22,24 @@ public class ChangePassword {
     private TextField txtUsername;
 
     private String username;
+    private Integer userId;
 
     public ChangePassword() {};
 
-    public void initializeForLoggedInUser(String username) {
+    public void initializeForLoggedInUser(String username, Integer userId) {
         this.username = username;
+        this.userId = userId;
         txtUsername.setText(username);
         txtUsername.setDisable(true);
     }
 
     @FXML
     void onBtnCancelClick(ActionEvent event) {
-        SceneSwitcher.switchToLoginForm((Stage) btnCancel.getScene().getWindow());
+        if(username != null) {
+            Stage stage = (Stage) btnCancel.getScene().getWindow();
+            SceneSwitcher.switchToHomeForm(stage, username, userId);
+        }
+        else{ SceneSwitcher.switchToLoginForm((Stage) btnCancel.getScene().getWindow());}
     }
 
     @FXML

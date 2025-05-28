@@ -20,10 +20,11 @@ public class Profile {
     private Label lblHello;
 
     private String username;
+    private Integer userId;
 
-    // Method to be called from SceneSwitcher
-    public void initializeWithUsername(String username) {
+    public void initializeWithUsername(String username, Integer userId) {
         this.username = username;
+        this.userId = userId;
         if (lblHello != null) {
             lblHello.setText("Hello, " + username + "!");
         }
@@ -32,7 +33,7 @@ public class Profile {
     @FXML
     void onBtnChangePass(ActionEvent event) {
         Stage stage = (Stage) btnChangePass.getScene().getWindow();
-        SceneSwitcher.switchToChangePasswordFormLoggedIn(stage, username);
+        SceneSwitcher.switchToChangePasswordFormLoggedIn(stage, username, userId);
     }
 
     @FXML
