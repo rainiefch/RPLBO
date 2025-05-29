@@ -1,9 +1,11 @@
 package todotodone.app.demo;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
@@ -14,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.shape.Arc;
 import javafx.stage.Modality;
@@ -224,8 +227,18 @@ public class Home {
             }
         }
 
+        filteredTodoItems.sort((a, b) -> {
+            boolean aOverdue = "Overdue".equals(a.status);
+            boolean bOverdue = "Overdue".equals(b.status);
+
+            if (aOverdue && !bOverdue) return 1;
+            if (!aOverdue && bOverdue) return -1;
+            return a.dueDate.compareTo(b.dueDate);
+        });
+
         displayTodos();
     }
+
 
     private void displayTodos() {
         gridPane.getChildren().removeIf(node ->
@@ -242,47 +255,99 @@ public class Home {
         }
 
         int rowIndex = 2;
+//        for (TodoItem item : filteredTodoItems) {
+//            RowConstraints rc = new RowConstraints();
+//            rc.setVgrow(javafx.scene.layout.Priority.NEVER);
+//            rc.setPrefHeight(40);
+//            gridPane.getRowConstraints().add(rc);
+//
+//            Label titleLabel = new Label(item.title);
+//            styleTodoLabel(titleLabel);
+//            gridPane.add(titleLabel, 0, rowIndex);
+//            GridPane.setMargin(titleLabel, new Insets(0, 0, 0, 20));
+//
+//            ComboBox<String> statusCombo = new ComboBox<>();
+//            statusCombo.getItems().addAll("Pending", "In Progress", "Completed", "Overdue");
+//            statusCombo.setValue(item.status);
+//            styleComboBox(statusCombo, statusCombo.getValue());
+//            gridPane.add(statusCombo, 2, rowIndex);
+//            GridPane.setMargin(statusCombo, new Insets(0, 0, 0, 0));
+//
+//            statusCombo.setOnAction(event -> {
+//                String newStatus = statusCombo.getValue();
+//                if (!newStatus.equals(item.status)) {
+//                    updateTodoStatus(item.id, newStatus);
+//                    item.status = newStatus;
+//                    refreshTodos();
+//                }
+//            });
+//
+//            Label dateLabel = new Label(item.dueDate);
+//            styleTodoLabel(dateLabel);
+//            gridPane.add(dateLabel, 4, rowIndex);
+//            GridPane.setMargin(dateLabel, new Insets(0, 0, 0, 0));
+//
+//            Label categoryLabel = new Label(item.category);
+//            styleTodoLabel(categoryLabel);
+//            gridPane.add(categoryLabel, 6, rowIndex);
+//            GridPane.setMargin(categoryLabel, new Insets(0, 0, 0, 0));
+//
+//            setupClickHandlersForRow(item, titleLabel, dateLabel, categoryLabel);
+//
+//            rowIndex++;
+//        }
         for (TodoItem item : filteredTodoItems) {
             RowConstraints rc = new RowConstraints();
             rc.setVgrow(javafx.scene.layout.Priority.NEVER);
             rc.setPrefHeight(40);
             gridPane.getRowConstraints().add(rc);
 
+            // === Tambahkan background pane di seluruh kolom ===
+            Pane bgPane = new Pane();
+            bgPane.setStyle("-fx-background-color: " + getBackgroundColor(item) + ";");
+            bgPane.setMinHeight(40);
+            gridPane.add(bgPane, 0, rowIndex, 8, 1); // span seluruh kolom
+            GridPane.setMargin(bgPane, new Insets(0));
+
+            // === Komponen lainnya ===
             Label titleLabel = new Label(item.title);
-            styleTodoLabel(titleLabel);
+            styleTodoLabel(titleLabel, item);
             gridPane.add(titleLabel, 0, rowIndex);
             GridPane.setMargin(titleLabel, new Insets(0, 0, 0, 20));
 
             ComboBox<String> statusCombo = new ComboBox<>();
             statusCombo.getItems().addAll("Pending", "In Progress", "Completed", "Overdue");
             statusCombo.setValue(item.status);
-            styleComboBox(statusCombo);
+            styleComboBox(statusCombo, statusCombo.getValue());
             gridPane.add(statusCombo, 2, rowIndex);
-            GridPane.setMargin(statusCombo, new Insets(0, 0, 0, 0));
+            GridPane.setMargin(statusCombo, new Insets(0));
 
             statusCombo.setOnAction(event -> {
                 String newStatus = statusCombo.getValue();
                 if (!newStatus.equals(item.status)) {
                     updateTodoStatus(item.id, newStatus);
-                    item.status = newStatus; // Update local copy
-                    refreshTodos(); // Refresh to show changes
+                    item.status = newStatus;
+                    refreshTodos();
                 }
             });
 
+
             Label dateLabel = new Label(item.dueDate);
-            styleTodoLabel(dateLabel);
+            styleTodoLabel(dateLabel, item);
             gridPane.add(dateLabel, 4, rowIndex);
-            GridPane.setMargin(dateLabel, new Insets(0, 0, 0, 0));
+            GridPane.setMargin(dateLabel, new Insets(5, 10, 5, 10));
+
 
             Label categoryLabel = new Label(item.category);
-            styleTodoLabel(categoryLabel);
+            styleTodoLabel(categoryLabel, item);
             gridPane.add(categoryLabel, 6, rowIndex);
-            GridPane.setMargin(categoryLabel, new Insets(0, 0, 0, 0));
+            GridPane.setMargin(categoryLabel, new Insets(5, 10, 5, 10));
 
             setupClickHandlersForRow(item, titleLabel, dateLabel, categoryLabel);
 
             rowIndex++;
         }
+
     }
 
     private void setupClickHandlersForRow(TodoItem item, Label... clickableNodes) {
@@ -295,16 +360,108 @@ public class Home {
         }
     }
 
-    private void styleTodoLabel(Label label) {
-        label.setStyle("-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: #ffffff; -fx-cursor: hand;");
+    private String getBackgroundColor(TodoItem item) {
+        if ("Completed".equals(item.status)) return "#e2f7d5";
+        if ("Overdue".equals(item.status)) return "#fcdede";
+
+        try {
+            java.time.LocalDateTime now = java.time.LocalDateTime.now();
+            java.time.LocalDateTime due = java.time.LocalDate.parse(item.dueDate).atStartOfDay();
+
+            long hoursUntilDue = java.time.Duration.between(now, due).toHours();
+
+            if (hoursUntilDue <= 24 && hoursUntilDue >= 0) {
+                return "#fff7cd";
+            }
+        } catch (Exception e) {
+            System.err.println("Error parsing due date: " + e.getMessage());
+        }
+
+        return "#ffffff";
+    }
+
+
+//    private void styleTodoLabel(Label label) {
+//        label.setStyle("-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: #ffffff; -fx-cursor: hand;");
+//        label.setMaxWidth(Double.MAX_VALUE);
+//        label.setPadding(new Insets(5));
+//    }
+
+    private void styleTodoLabel(Label label, TodoItem item) {
+        String bgColor = getBackgroundColor(item);
+
+        label.setStyle(String.format(
+                "-fx-font-size: 16px;" +
+                        "-fx-text-fill: black;" +
+                        "-fx-background-color: %s;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-background-radius: 4;",
+                bgColor
+        ));
+
         label.setMaxWidth(Double.MAX_VALUE);
         label.setPadding(new Insets(5));
     }
 
-    private void styleComboBox(ComboBox<String> comboBox) {
-        comboBox.setStyle("-fx-font-size: 16px; -fx-background-color: #ffffff; -fx-cursor: default;");
+
+    private void styleTodoLabel(Label label, String status) {
+        String bgColor;
+
+        switch (status) {
+            case "Pending":
+                bgColor = "#ffe79e"; // Kuning
+                break;
+            case "In Progress":
+                bgColor = "#b2eced"; // Biru
+                break;
+            case "Completed":
+                bgColor = "#c9ed9f"; // Hijau
+                break;
+            case "Overdue":
+                bgColor = "#fcc5c5"; // Merah
+                break;
+            default:
+                bgColor = "#ffffff"; // Default putih
+        }
+
+        label.setStyle(String.format(
+                "-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: %s; -fx-cursor: hand;",
+                bgColor
+        ));
+        label.setMaxWidth(Double.MAX_VALUE);
+        label.setPadding(new Insets(5));
+    }
+
+
+    private void styleComboBox(ComboBox<String> comboBox, String status) {
+        String bgColor;
+
+        switch (status) {
+            case "Pending":
+                bgColor = "#ffe79e"; // Kuning
+                break;
+            case "In Progress":
+                bgColor = "#b2eced"; // Biru
+                break;
+            case "Completed":
+                bgColor = "#c9ed9f"; // Hijau
+                break;
+            case "Overdue":
+                bgColor = "#fcc5c5"; // Merah
+                break;
+            default:
+                bgColor = "#ffffff"; // Default putih
+        }
+
+        comboBox.setStyle(
+                "-fx-font-size: 16px;" +
+                        "-fx-background-color: " + bgColor + ";" +
+                        "-fx-cursor: default;"
+        );
+
         comboBox.setMaxWidth(Double.MAX_VALUE);
     }
+
 
     private void showError(String message) {
         Label errorLabel = new Label(message);
@@ -419,9 +576,41 @@ public class Home {
         );
 
         todoPieChart.setData(pieChartData);
-        todoPieChart.setTitle("Todo Status Overview");
+        todoPieChart.setTitle("To-Do Status Overview");
+
+        String[] sliceColors = new String[] {
+                "#ffe79e", // Pending
+                "b2eced", // In Progress
+                "#c9ed9f", // Completed
+                "#fcc5c5"  // Overdue
+        };
+
+        Platform.runLater(() -> {
+            for (int i = 0; i < pieChartData.size(); i++) {
+                PieChart.Data data = pieChartData.get(i);
+                Node node = data.getNode();
+                if (node != null) {
+                    node.setStyle("-fx-pie-color: " + sliceColors[i] + ";");
+                }
+            }
+
+            Platform.runLater(() -> {
+                for (Node label : todoPieChart.lookupAll(".chart-pie-label")) {
+                    label.setStyle("-fx-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;");
+                }
+            });
+
+
+        });
 
         updatePiePercentLabels(pending, progress, completed, overdue);
+
+        Platform.runLater(() -> {
+            Node title = todoPieChart.lookup(".chart-title");
+            if (title != null) {
+                title.setStyle("-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;");
+            }
+        });
     }
 
     private void updatePiePercentLabels(int pending, int inProgress, int completed, int overdue) {
