@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="caeef8a9-3711-4954-bc4b-6722cd5d994f" name="Changes" comment="" />
+    <list default="true" id="caeef8a9-3711-4954-bc4b-6722cd5d994f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/todotodone/app/demo/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/todotodone/app/demo/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/todotodone/app/demo/changePassword.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/todotodone/app/demo/changePassword.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/todotodone/app/demo/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/todotodone/app/demo/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/todotodone/app/demo/registration.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/todotodone/app/demo/registration.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/todotodone.db" beforeDir="false" afterPath="$PROJECT_DIR$/demo/todotodone.db" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +43,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Lenovo/Downloads/rpl/RPLBO/demo",
+    "last_opened_file_path": "C:/Users/asus/Documents/GitHub/RPLBO",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -46,27 +52,6 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\asus\Documents\prakrpl\RPLBO" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="RPLBO" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="RPLBO" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -82,6 +67,7 @@
       <workItem from="1746581468538" duration="7000" />
       <workItem from="1746583975193" duration="9000" />
       <workItem from="1748225832344" duration="20000" />
+      <workItem from="1748577370340" duration="6000" />
     </task>
     <servers />
   </component>

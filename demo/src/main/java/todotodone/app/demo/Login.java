@@ -9,6 +9,7 @@ import todotodone.app.demo.util.AlertUtil;
 import todotodone.app.demo.util.DBConnection;
 import todotodone.app.demo.util.SceneSwitcher;
 
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ public class Login {
     private static String loggedInUsername = "";
 
     @FXML
-    private TextField tfUsername;
+    private TextField tfUsername, tfPasswordVisible;
 
     @FXML
     private PasswordField pfPassword;
@@ -28,12 +29,15 @@ public class Login {
     private Button btnSignIn, btnForgotPass, btnRegister;
 
     @FXML
-    private ImageView picture;
+    private ImageView picture, imgEye;
+
+    private boolean passwordVisible = false;
+
 
     @FXML
     void onBtnSignInClick(ActionEvent event) {
         String username = tfUsername.getText().trim();
-        String password = pfPassword.getText().trim();
+        String password = passwordVisible ? tfPasswordVisible.getText().trim() : pfPassword.getText().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
             AlertUtil.showError("Username and password cannot be empty.");
@@ -76,6 +80,29 @@ public class Login {
     void onBtnRegisterClick(ActionEvent event) {
         SceneSwitcher.switchToRegistrationForm((Stage) btnRegister.getScene().getWindow());
     }
+
+    @FXML
+    void onEyeClick(javafx.scene.input.MouseEvent event) {
+        passwordVisible = !passwordVisible;
+
+        if (passwordVisible) {
+            tfPasswordVisible.setText(pfPassword.getText());
+            tfPasswordVisible.setVisible(true);
+            tfPasswordVisible.setManaged(true);
+            pfPassword.setVisible(false);
+            pfPassword.setManaged(false);
+            imgEye.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/hide.png")));
+        } else {
+            pfPassword.setText(tfPasswordVisible.getText());
+            pfPassword.setVisible(true);
+            pfPassword.setManaged(true);
+            tfPasswordVisible.setVisible(false);
+            tfPasswordVisible.setManaged(false);
+            imgEye.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/view.png")));
+        }
+    }
+
+
 
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);

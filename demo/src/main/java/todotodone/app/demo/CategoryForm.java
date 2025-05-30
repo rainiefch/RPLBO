@@ -30,6 +30,7 @@ public class CategoryForm {
         this.userId = userId;
     }
 
+
     public void initialize() {
         loadCategoryList();
         btnAdd.setText("Add");
@@ -37,10 +38,10 @@ public class CategoryForm {
 
         gridCategoryList.prefWidthProperty().bind(scrollCategoryList.widthProperty().subtract(20));
         gridCategoryList.minHeightProperty().bind(gridCategoryList.heightProperty());
-
         scrollCategoryList.setFitToWidth(true);
         scrollCategoryList.setFitToHeight(false);
     }
+
 
     public void loadCategoryList() {
         gridCategoryList.getChildren().removeIf(node -> {
@@ -56,13 +57,13 @@ public class CategoryForm {
             Label nameLabel = new Label(category.getName());
             nameLabel.setStyle("-fx-font-weight: bold;");
             nameLabel.setPadding(new Insets(5));
-            nameLabel.setOnMouseClicked(e -> populateFormFromCategory(category));
+            nameLabel.setOnMousePressed(e -> populateFormFromCategory(category));
 
             Label descLabel = new Label(category.getDescription());
             descLabel.setWrapText(true);
             descLabel.setMaxWidth(300);
             descLabel.setPadding(new Insets(5));
-            descLabel.setOnMouseClicked(e -> populateFormFromCategory(category));
+            descLabel.setOnMousePressed(e -> populateFormFromCategory(category));
 
             gridCategoryList.add(nameLabel, 0, row);
             gridCategoryList.add(descLabel, 1, row);
@@ -197,6 +198,7 @@ public class CategoryForm {
             }
         });
     }
+
 
     @FXML
     void onBtnCancelClick(ActionEvent event) {

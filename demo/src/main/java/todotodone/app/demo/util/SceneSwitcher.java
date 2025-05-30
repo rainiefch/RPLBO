@@ -69,13 +69,12 @@ public class SceneSwitcher {
         }
     }
 
-    // ✅ Pop TodoForm dengan userId
-    public static void popTodoForm(Stage ownerStage, int userId) {
+    public static void popTodoForm(Stage ownerStage, int userId, Home.TodoItem todoToEdit) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/todoForm.fxml"));
             loader.setControllerFactory(param -> {
                 if (param == TodoForm.class) {
-                    return new TodoForm(userId);
+                    return new TodoForm(userId); // set userId via constructor
                 }
                 try {
                     return param.getDeclaredConstructor().newInstance();
@@ -85,20 +84,27 @@ public class SceneSwitcher {
             });
 
             Parent root = loader.load();
+            TodoForm controller = loader.getController();
+
+            if (todoToEdit != null) {
+                controller.setTodoData(todoToEdit); // set data if editing
+            }
+
             Stage popupStage = new Stage();
             popupStage.setScene(new Scene(root));
-            popupStage.setTitle("Add New To-Do");
+            popupStage.setTitle(todoToEdit != null ? "Edit To-Do" : "Add New To-Do");
             popupStage.initOwner(ownerStage);
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.centerOnScreen();
             popupStage.showAndWait();
+
         } catch (IOException e) {
             System.err.println("Failed to load To-Do Form.");
             e.printStackTrace();
         }
     }
 
-    // ✅ Pop CategoryForm dengan userId
+
     public static void popCategoryForm(Stage ownerStage, int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/categoryForm.fxml"));
@@ -127,12 +133,11 @@ public class SceneSwitcher {
         }
     }
 
-    public static void popProfileForm(Stage ownerStage, String username, Integer userId) {
+    public static Stage popProfileForm(Stage ownerStage, String username, Integer userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/profile.fxml"));
             Parent root = loader.load();
 
-            // Get the controller and set the username
             Object controller = loader.getController();
             if (controller instanceof Profile) {
                 ((Profile) controller).initializeWithUsername(username, userId);
@@ -144,12 +149,16 @@ public class SceneSwitcher {
             popupStage.initOwner(ownerStage);
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.centerOnScreen();
-            popupStage.showAndWait();
+            popupStage.show();
+
+            return popupStage;
         } catch (IOException e) {
             System.err.println("Failed to load Profile Form.");
             e.printStackTrace();
+            return null;
         }
     }
+
 
 
     private static void switchScene(Stage stage, String fxmlPath, String title) {

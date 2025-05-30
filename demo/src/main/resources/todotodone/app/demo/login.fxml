@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.Login">
@@ -24,7 +25,7 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="243.99998692103793" minHeight="10.0" prefHeight="243.99998692103793" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="281.85713849748885" minHeight="10.0" prefHeight="110.28572736467635" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="281.85713849748885" minHeight="10.0" prefHeight="142.14287458147322" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="211.4285888671875" minHeight="10.0" prefHeight="46.57147216796875" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="284.57148088727683" minHeight="0.0" prefHeight="65.42856270926336" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="337.71428571428567" minHeight="10.0" prefHeight="43.85717773437506" vgrow="SOMETIMES" />
@@ -35,11 +36,6 @@
                 <RowConstraints maxHeight="285.14283970424106" minHeight="3.1428615025111526" prefHeight="285.14283970424106" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label fx:id="lblToDoToDone" contentDisplay="CENTER" style="-fx-font-weight: bold; -fx-alignment: center;" text="To Do To Done" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                    <font>
-                        <Font name="Montserrat Bold" size="40.0" />
-                    </font>
-                </Label>
                 <Label fx:id="lblUsername" prefHeight="53.0" prefWidth="171.0" text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets left="2.0" />
@@ -64,13 +60,6 @@
                         <Font size="28.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="pfPassword" prefHeight="49.0" prefWidth="532.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <font>
-                  <Font size="18.0" />
-               </font></PasswordField>
                 <Button fx:id="btnForgotPass" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtnForgotPassClick" prefHeight="38.0" prefWidth="203.0" style="-fx-background-color: white;" text="Forgot Password" textAlignment="RIGHT" textFill="MAROON" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                     <font>
                         <Font name="Montserrat Bold" size="19.0" />
@@ -89,19 +78,53 @@
                         <Font name="System Bold Italic" size="15.0" />
                     </font>
                 </Label>
-                <ImageView fx:id="picture" fitHeight="200.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                    <image>
-                        <Image url="@imgs/logo.png" />
-                    </image>
-                    <GridPane.margin>
-                        <Insets top="80.0" />
-                    </GridPane.margin>
-                </ImageView>
             <Button fx:id="btnRegister" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtnRegisterClick" prefHeight="40.0" prefWidth="644.0" style="-fx-background-color: white;" text="Don't have account? Register Here" textAlignment="CENTER" textFill="MAROON" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <font>
                   <Font name="Montserrat Bold" size="19.0" />
                </font>
             </Button>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                      <ImageView fx:id="picture" fitHeight="200.0" fitWidth="200.0">
+                          <image>
+                              <Image url="@imgs/logo.png" />
+                          </image>
+                     <VBox.margin>
+                        <Insets bottom="-40.0" />
+                     </VBox.margin>
+                      </ImageView>
+                      <Label fx:id="lblToDoToDone" contentDisplay="CENTER" prefHeight="58.0" prefWidth="644.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="To Do To Done" textAlignment="CENTER" textFill="MAROON">
+                          <font>
+                              <Font size="36.0" />
+                          </font>
+                      </Label>
+               </children>
+            </VBox>
+            <Label fx:id="lblToDoToDone1" contentDisplay="CENTER" prefHeight="58.0" prefWidth="644.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="Sign In" textAlignment="CENTER" textFill="MAROON" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfPasswordVisible" prefHeight="50.0" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+                <PasswordField fx:id="pfPassword" prefHeight="49.0" prefWidth="532.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font></PasswordField>
+            <ImageView fx:id="imgEye" fitHeight="48.0" fitWidth="52.0" onMouseClicked="#onEyeClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <image>
+                  <Image url="@imgs/view.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </ImageView>
             </children>
         </GridPane>
     </children>

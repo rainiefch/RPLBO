@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import todotodone.app.demo.util.SceneSwitcher;
 
 public class Profile {
@@ -33,6 +34,17 @@ public class Profile {
 
     @FXML
     void onBtnLogout(ActionEvent event) {
-        Platform.exit();
+
+        Platform.runLater(() -> {
+
+            Stage loginStage = new Stage();
+            SceneSwitcher.switchToLoginForm(loginStage);
+
+            for (Window window : Window.getWindows()) {
+                if (window instanceof Stage stage && stage != loginStage) {
+                    stage.close();
+                }
+            }
+        });
     }
 }

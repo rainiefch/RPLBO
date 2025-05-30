@@ -28,6 +28,7 @@ import todotodone.app.demo.util.SceneSwitcher;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Home {
 
@@ -54,7 +55,7 @@ public class Home {
         this.userId = userId;
     }
 
-    static class TodoItem {
+    public class TodoItem {
         int id;
         String title, status, dueDate, category, description, attachment;
 
@@ -255,61 +256,19 @@ public class Home {
         }
 
         int rowIndex = 2;
-//        for (TodoItem item : filteredTodoItems) {
-//            RowConstraints rc = new RowConstraints();
-//            rc.setVgrow(javafx.scene.layout.Priority.NEVER);
-//            rc.setPrefHeight(40);
-//            gridPane.getRowConstraints().add(rc);
-//
-//            Label titleLabel = new Label(item.title);
-//            styleTodoLabel(titleLabel);
-//            gridPane.add(titleLabel, 0, rowIndex);
-//            GridPane.setMargin(titleLabel, new Insets(0, 0, 0, 20));
-//
-//            ComboBox<String> statusCombo = new ComboBox<>();
-//            statusCombo.getItems().addAll("Pending", "In Progress", "Completed", "Overdue");
-//            statusCombo.setValue(item.status);
-//            styleComboBox(statusCombo, statusCombo.getValue());
-//            gridPane.add(statusCombo, 2, rowIndex);
-//            GridPane.setMargin(statusCombo, new Insets(0, 0, 0, 0));
-//
-//            statusCombo.setOnAction(event -> {
-//                String newStatus = statusCombo.getValue();
-//                if (!newStatus.equals(item.status)) {
-//                    updateTodoStatus(item.id, newStatus);
-//                    item.status = newStatus;
-//                    refreshTodos();
-//                }
-//            });
-//
-//            Label dateLabel = new Label(item.dueDate);
-//            styleTodoLabel(dateLabel);
-//            gridPane.add(dateLabel, 4, rowIndex);
-//            GridPane.setMargin(dateLabel, new Insets(0, 0, 0, 0));
-//
-//            Label categoryLabel = new Label(item.category);
-//            styleTodoLabel(categoryLabel);
-//            gridPane.add(categoryLabel, 6, rowIndex);
-//            GridPane.setMargin(categoryLabel, new Insets(0, 0, 0, 0));
-//
-//            setupClickHandlersForRow(item, titleLabel, dateLabel, categoryLabel);
-//
-//            rowIndex++;
-//        }
+
         for (TodoItem item : filteredTodoItems) {
             RowConstraints rc = new RowConstraints();
             rc.setVgrow(javafx.scene.layout.Priority.NEVER);
             rc.setPrefHeight(40);
             gridPane.getRowConstraints().add(rc);
 
-            // === Tambahkan background pane di seluruh kolom ===
             Pane bgPane = new Pane();
             bgPane.setStyle("-fx-background-color: " + getBackgroundColor(item) + ";");
             bgPane.setMinHeight(40);
-            gridPane.add(bgPane, 0, rowIndex, 8, 1); // span seluruh kolom
+            gridPane.add(bgPane, 0, rowIndex, 8, 1);
             GridPane.setMargin(bgPane, new Insets(0));
 
-            // === Komponen lainnya ===
             Label titleLabel = new Label(item.title);
             styleTodoLabel(titleLabel, item);
             gridPane.add(titleLabel, 0, rowIndex);
@@ -367,10 +326,12 @@ public class Home {
         try {
             java.time.LocalDateTime now = java.time.LocalDateTime.now();
             java.time.LocalDateTime due = java.time.LocalDate.parse(item.dueDate).atStartOfDay();
+            java.time.LocalDate today = java.time.LocalDate.now();
+            java.time.LocalDate dueDate = java.time.LocalDate.parse(item.dueDate);
 
             long hoursUntilDue = java.time.Duration.between(now, due).toHours();
 
-            if (hoursUntilDue <= 24 && hoursUntilDue >= 0) {
+            if (hoursUntilDue <= 24 && hoursUntilDue >= 0 || dueDate.equals(today)) {
                 return "#fff7cd";
             }
         } catch (Exception e) {
@@ -380,12 +341,6 @@ public class Home {
         return "#ffffff";
     }
 
-
-//    private void styleTodoLabel(Label label) {
-//        label.setStyle("-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: #ffffff; -fx-cursor: hand;");
-//        label.setMaxWidth(Double.MAX_VALUE);
-//        label.setPadding(new Insets(5));
-//    }
 
     private void styleTodoLabel(Label label, TodoItem item) {
         String bgColor = getBackgroundColor(item);
@@ -404,33 +359,33 @@ public class Home {
     }
 
 
-    private void styleTodoLabel(Label label, String status) {
-        String bgColor;
-
-        switch (status) {
-            case "Pending":
-                bgColor = "#ffe79e"; // Kuning
-                break;
-            case "In Progress":
-                bgColor = "#b2eced"; // Biru
-                break;
-            case "Completed":
-                bgColor = "#c9ed9f"; // Hijau
-                break;
-            case "Overdue":
-                bgColor = "#fcc5c5"; // Merah
-                break;
-            default:
-                bgColor = "#ffffff"; // Default putih
-        }
-
-        label.setStyle(String.format(
-                "-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: %s; -fx-cursor: hand;",
-                bgColor
-        ));
-        label.setMaxWidth(Double.MAX_VALUE);
-        label.setPadding(new Insets(5));
-    }
+//    private void styleTodoLabel(Label label, String status) {
+//        String bgColor;
+//
+//        switch (status) {
+//            case "Pending":
+//                bgColor = "#ffe79e";
+//                break;
+//            case "In Progress":
+//                bgColor = "#b2eced";
+//                break;
+//            case "Completed":
+//                bgColor = "#c9ed9f";
+//                break;
+//            case "Overdue":
+//                bgColor = "#fcc5c5";
+//                break;
+//            default:
+//                bgColor = "#ffffff";
+//        }
+//
+//        label.setStyle(String.format(
+//                "-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: %s; -fx-cursor: hand;",
+//                bgColor
+//        ));
+//        label.setMaxWidth(Double.MAX_VALUE);
+//        label.setPadding(new Insets(5));
+//    }
 
 
     private void styleComboBox(ComboBox<String> comboBox, String status) {
@@ -438,19 +393,19 @@ public class Home {
 
         switch (status) {
             case "Pending":
-                bgColor = "#ffe79e"; // Kuning
+                bgColor = "#ffe79e";
                 break;
             case "In Progress":
-                bgColor = "#b2eced"; // Biru
+                bgColor = "#b2eced";
                 break;
             case "Completed":
-                bgColor = "#c9ed9f"; // Hijau
+                bgColor = "#c9ed9f";
                 break;
             case "Overdue":
-                bgColor = "#fcc5c5"; // Merah
+                bgColor = "#fcc5c5";
                 break;
             default:
-                bgColor = "#ffffff"; // Default putih
+                bgColor = "#ffffff";
         }
 
         comboBox.setStyle(
@@ -477,17 +432,7 @@ public class Home {
 
     private void openTodoForEditing(TodoItem todo) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/todotodone/app/demo/todoForm.fxml"));
-            Parent root = loader.load();
-
-            TodoForm controller = loader.getController();
-            controller.setTodoData(todo);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Edit Todo");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            SceneSwitcher.popTodoForm((Stage) btnAdd.getScene().getWindow(), userId, todo);
 
             refreshTodos();
         } catch (Exception e) {
@@ -497,12 +442,9 @@ public class Home {
     }
 
 
-    private Stage getStage() {
-        return (Stage) btnAdd.getScene().getWindow();
-    }
 
     @FXML void onBtnAddClick(MouseEvent event) {
-        SceneSwitcher.popTodoForm((Stage) btnAdd.getScene().getWindow(), userId);
+        SceneSwitcher.popTodoForm((Stage) btnAdd.getScene().getWindow(), userId, null);
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
@@ -599,6 +541,26 @@ public class Home {
                     label.setStyle("-fx-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;");
                 }
             });
+
+            Platform.runLater(() -> {
+                Set<Node> legendItems = todoPieChart.lookupAll(".chart-legend-item");
+                int i = 0;
+                String[] legendColors = new String[] {
+                        "#ffe79e", // Pending
+                        "#b2eced", // In Progress
+                        "#c9ed9f", // Completed
+                        "#fcc5c5"  // Overdue
+                };
+
+                for (Node item : legendItems) {
+                    Node symbol = item.lookup(".chart-legend-item-symbol");
+                    if (symbol != null && i < legendColors.length) {
+                        symbol.setStyle("-fx-background-color: " + legendColors[i] + ";");
+                        i++;
+                    }
+                }
+            });
+
 
 
         });

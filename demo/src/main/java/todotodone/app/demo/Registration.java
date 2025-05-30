@@ -3,6 +3,7 @@ package todotodone.app.demo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import todotodone.app.demo.util.AlertUtil;
@@ -16,23 +17,30 @@ import java.sql.SQLException;
 
 public class Registration {
 
-    @FXML
-    private Button btnRegister, btnSignIn;
+    @FXML private Button btnRegister, btnSignIn;
+
+    @FXML private PasswordField pfPassword, pfConfirmPassword;
+    @FXML private TextField tfUsername, tfPassVisible, tfConfirmPassVisible;
+
+    @FXML private ImageView picture, imgEye, imgEye1;
+
+    private boolean isPassVisible = false;
+    private boolean isConfirmVisible = false;
 
     @FXML
-    private PasswordField pfPassword, pfConfirmPassword;
-
-    @FXML
-    private TextField tfUsername;
-
-    @FXML
-    private ImageView picture;
+    void initialize() {
+        // Hide visible fields initially
+        tfPassVisible.setVisible(false);
+        tfPassVisible.setManaged(false);
+        tfConfirmPassVisible.setVisible(false);
+        tfConfirmPassVisible.setManaged(false);
+    }
 
     @FXML
     void onBtnRegisterClick(ActionEvent event) {
         String username = tfUsername.getText().trim();
-        String password = pfPassword.getText();
-        String confirmPassword = pfConfirmPassword.getText();
+        String password = isPassVisible ? tfPassVisible.getText() : pfPassword.getText();
+        String confirmPassword = isConfirmVisible ? tfConfirmPassVisible.getText() : pfConfirmPassword.getText();
 
         if (username.length() > 20) {
             AlertUtil.showError("Username must be 20 characters or less.");
@@ -96,7 +104,7 @@ public class Registration {
             }
 
         } catch (SQLException e) {
-            AlertUtil.showError("Database Error" + e.getMessage());
+            AlertUtil.showError("Database Error: " + e.getMessage());
         }
     }
 
@@ -105,4 +113,45 @@ public class Registration {
         SceneSwitcher.switchToLoginForm((Stage) btnSignIn.getScene().getWindow());
     }
 
+    @FXML
+    void onEyeClick(javafx.scene.input.MouseEvent event) {
+        isPassVisible = !isPassVisible;
+
+        if (isPassVisible) {
+            tfPassVisible.setText(pfPassword.getText());
+            tfPassVisible.setVisible(true);
+            tfPassVisible.setManaged(true);
+            pfPassword.setVisible(false);
+            pfPassword.setManaged(false);
+            imgEye.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/hide.png")));
+        } else {
+            pfPassword.setText(tfPassVisible.getText());
+            pfPassword.setVisible(true);
+            pfPassword.setManaged(true);
+            tfPassVisible.setVisible(false);
+            tfPassVisible.setManaged(false);
+            imgEye.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/show.png")));
+        }
+    }
+
+    @FXML
+    void onEyeClick1(javafx.scene.input.MouseEvent event) {
+        isConfirmVisible = !isConfirmVisible;
+
+        if (isConfirmVisible) {
+            tfConfirmPassVisible.setText(pfConfirmPassword.getText());
+            tfConfirmPassVisible.setVisible(true);
+            tfConfirmPassVisible.setManaged(true);
+            pfConfirmPassword.setVisible(false);
+            pfConfirmPassword.setManaged(false);
+            imgEye1.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/hide.png")));
+        } else {
+            pfConfirmPassword.setText(tfConfirmPassVisible.getText());
+            pfConfirmPassword.setVisible(true);
+            pfConfirmPassword.setManaged(true);
+            tfConfirmPassVisible.setVisible(false);
+            tfConfirmPassVisible.setManaged(false);
+            imgEye1.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/view.png")));
+        }
+    }
 }
