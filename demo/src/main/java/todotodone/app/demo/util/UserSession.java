@@ -18,7 +18,7 @@ public class UserSession {
         instance = new UserSession(username, userId);
     }
 
-    //
+    //Digunakan untuk mengambil data sesi yang sedang aktif
     public static UserSession getInstance() {
         return instance;
     }
