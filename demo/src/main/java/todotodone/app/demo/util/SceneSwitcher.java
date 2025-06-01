@@ -42,7 +42,7 @@ public class SceneSwitcher {
         }
     }
 
-
+    // pindah ke tampilan Home sambil mengirim username dan userId ke controller Home
     public static void switchToHomeForm(Stage currentStage, String username, int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/home.fxml"));
@@ -68,6 +68,7 @@ public class SceneSwitcher {
             e.printStackTrace();
         }
     }
+
 
     public static void popTodoForm(Stage ownerStage, int userId, Home.TodoItem todoToEdit) {
         try {
