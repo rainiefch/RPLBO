@@ -160,10 +160,10 @@ public class ChangePassword {
 
     @FXML
     void onBtnCancelClick(ActionEvent event) {
-        if (username != null) { //kalo ga ada username, berarti dia di login, belum masuk.
+        if (username != null) { //kalo ga ada username, berarti dia di login, belum masuk
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             SceneSwitcher.switchToHomeForm(stage, username, userId);
-        } else { // dia udh login
+        } else { // dia udah login
             SceneSwitcher.switchToLoginForm((Stage) btnCancel.getScene().getWindow());
         }
     }
