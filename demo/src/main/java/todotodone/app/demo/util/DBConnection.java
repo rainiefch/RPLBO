@@ -21,6 +21,7 @@ public class DBConnection {
         return connection;
     }
 
+    //untuk menyambungkan aplikasi ke database SQLite
     private static void connect() throws SQLException {
         try {
             Class.forName("org.sqlite.JDBC");
