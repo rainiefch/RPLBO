@@ -13,7 +13,7 @@ public class UserSession {
         this.userId = userId;
     }
 
-    //
+    // Digunakan saat login berhasil untuk menyimpan data user ke dalam ses
     public static void initializeSession(String username, int userId) {
         instance = new UserSession(username, userId);
     }
