@@ -92,19 +92,19 @@ public class Registration {
         String password = isPassVisible ? tfPassVisible.getText() : pfPassword.getText();
         String confirmPassword = isConfirmVisible ? tfConfirmPassVisible.getText() : pfConfirmPassword.getText();
 
-        //username ga boleh lebih dr 20
+        //username ga boleh lebih dari 20
         if (username.length() > 20) {
             AlertUtil.showError("Username must be 20 characters or less.");
             return;
         }
 
-        //harus isi semua
+        //hapus semua jadi kosong
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             AlertUtil.showError("All fields must be filled!");
             return;
         }
 
-        //semua konstrain pw jadi 1
+        //semua konstrain password jadi 1
         if (password.length() < 10 || !password.matches(".*[A-Z].*") ||
                 !password.matches(".*\\d.*") || !password.matches(".*[^a-zA-Z0-9].*")) {
             AlertUtil.showError("Password must be at least 10 characters long, contain uppercase, number,and symbol.");
