@@ -146,6 +146,7 @@ public class CategoryForm {
             return;
         }
 
+        //category gaboleh lebih dr 20 kata
         if (name.length() > 20) {
             AlertUtil.showError("Name must not exceed 20 characters.");
             return;
