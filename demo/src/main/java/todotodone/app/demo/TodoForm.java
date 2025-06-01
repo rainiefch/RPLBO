@@ -110,7 +110,7 @@ public class TodoForm {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e) { //kl gagal konek kategori dari db
             System.err.println("Failed to load categories from database: " + e.getMessage());
             cbCategory.getItems().addAll("Work", "Personal", "Others");
         }
@@ -126,14 +126,14 @@ public class TodoForm {
     }
 
     @FXML
-    void onBtnUploadFileClick(ActionEvent event) {
+    void onBtnUploadFileClick(ActionEvent event) { //buat upload file
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose File");
         selectedFile = fileChooser.showOpenDialog(btnUpload.getScene().getWindow());
 
         if (selectedFile != null) {
             lblChosenFile.setText(selectedFile.getName());
-        } else {
+        } else { //kl gada filenya
             lblChosenFile.setText("No file chosen");
         }
     }
