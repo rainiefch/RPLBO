@@ -31,10 +31,10 @@ public class Login {
     @FXML
     private ImageView picture, imgEye;
 
-     //untuk cek pwnya lg visible ato ga
+     //untuk cek pwnya lg visible atau tidak
     private boolean passwordVisible = false;
 
-    //Untuk pindah antar text field username -> password -> klik sign in button
+    //Untuk pindah antar text field username -> password -> klik sign in buttom
     @FXML
     public void initialize() {
         tfUsername.requestFocus();
@@ -71,7 +71,7 @@ public class Login {
         String username = tfUsername.getText().trim();
         String password = passwordVisible ? tfPasswordVisible.getText().trim() : pfPassword.getText().trim();
 
-        // konstrain text field ga boleh kosong
+        // konstrain text field tidak boleh kosong
         if (username.isEmpty() || password.isEmpty()) {
             AlertUtil.showError("Username and password cannot be empty.");
             return;
