@@ -14,7 +14,7 @@ public class SceneSwitcher {
     public static void switchToLoginForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/login.fxml", "Login");
     }
-    //
+    // untuk pindah ke tampilan registrasi (registration.fxml) dan memberi judul jendela "Register"
     public static void switchToRegistrationForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/registration.fxml", "Register");
     }
