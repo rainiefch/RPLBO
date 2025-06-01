@@ -85,7 +85,7 @@ public class Login {
             stmt.setString(1, username);
             stmt.setString(2, password);
 
-            try (ResultSet rs = stmt.executeQuery()) { //nyoba bisa ga
+            try (ResultSet rs = stmt.executeQuery()) { //coba dlu bisa ngga
                 if (rs.next()) { // kalo isa
                     // id sm username buat dibawa ke home
                     int userId = rs.getInt("id_user");
@@ -115,7 +115,7 @@ public class Login {
         SceneSwitcher.switchToRegistrationForm((Stage) btnRegister.getScene().getWindow());
     }
 
-    // untuk ubah visible pw
+    // untuk ubah visible password
     @FXML
     void onEyeClick(javafx.scene.input.MouseEvent event) {
         passwordVisible = !passwordVisible;
