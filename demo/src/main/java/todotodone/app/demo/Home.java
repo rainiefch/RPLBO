@@ -235,18 +235,38 @@ public class Home {
             }
         }
 
+//        filteredTodoItems.sort((a, b) -> {
+//            boolean aOverdue = "Overdue".equals(a.status);
+//            boolean bOverdue = "Overdue".equals(b.status);
+//
+//            if (aOverdue && !bOverdue) return 1;
+//            if (!aOverdue && bOverdue) return -1;
+//            return a.dueDate.compareTo(b.dueDate);
+//        });
         filteredTodoItems.sort((a, b) -> {
-            boolean aOverdue = "Overdue".equals(a.status);
-            boolean bOverdue = "Overdue".equals(b.status);
+            int priorityA = getTodoPriority(a);
+            int priorityB = getTodoPriority(b);
 
-            if (aOverdue && !bOverdue) return 1;
-            if (!aOverdue && bOverdue) return -1;
-            return a.dueDate.compareTo(b.dueDate);
+            if (priorityA != priorityB) {
+                return Integer.compare(priorityA, priorityB);
+            }
+            return a.dueDate.compareTo(b.dueDate); // urut per tanggal dalam kelompok yang sama
         });
+
 
         displayTodos();
     }
 
+    private int getTodoPriority(TodoItem item) {
+        if ("Completed".equals(item.status)) {
+            return 2;
+        } else if ("Overdue".equals(item.status)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
     // buat display list todo
     private void displayTodos() {
         gridPane.getChildren().removeIf(node ->
