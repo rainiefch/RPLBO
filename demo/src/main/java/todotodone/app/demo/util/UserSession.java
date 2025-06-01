@@ -28,7 +28,7 @@ public class UserSession {
         return username;
     }
 
-    //
+    //Mengambil userId dari sesi saat ini
     public int getUserId() {
         return userId;
     }
