@@ -54,18 +54,45 @@ public class TodoForm {
         this.userId = userID;
     };
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-
     @FXML
     void initialize() {
         initializeComboBoxes();
         btnAdd.setText("Add");
         btnDelete.setVisible(false);
+        txtTitle.requestFocus();
+
+        txtTitle.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                cbCategory.requestFocus();
+            }
+        });
+
+        cbCategory.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                dtpDueDate.requestFocus();
+            }
+        });
+
+        dtpDueDate.getEditor().setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                txtDescription.requestFocus();
+            }
+        });
+
+        txtDescription.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                btnUpload.requestFocus();
+            }
+        });
+
+        btnUpload.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                btnAdd.fire();
+            }
+        });
     }
 
+    //ambil catfgory dr db
     private void initializeComboBoxes() {
         cbCategory.getItems().clear();
 
@@ -133,7 +160,7 @@ public class TodoForm {
 
     @FXML
     void onCbClick(ActionEvent event) {
-        initializeComboBoxes();
+//        initializeComboBoxes();
     }
 
     private void showImagePopup() {
@@ -165,6 +192,7 @@ public class TodoForm {
         selectedFile = null;
     }
 
+    //masukin data todo dr homepage ke formnya
     public void setTodoData(Home.TodoItem todo) {
         this.isEditing = true;
         this.editingTodoId = todo.id;

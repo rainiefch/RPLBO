@@ -33,16 +33,31 @@ public class CategoryForm {
 
     public void initialize() {
         loadCategoryList();
+
         btnAdd.setText("Add");
         btnDelete.setVisible(false);
 
         gridCategoryList.prefWidthProperty().bind(scrollCategoryList.widthProperty().subtract(20));
-        gridCategoryList.minHeightProperty().bind(gridCategoryList.heightProperty());
+
         scrollCategoryList.setFitToWidth(true);
         scrollCategoryList.setFitToHeight(false);
+
+        txtCategoryName.requestFocus();
+
+        txtCategoryName.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                txtCategoryDesc.requestFocus();
+            }
+        });
+
+        txtCategoryDesc.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                btnAdd.fire();
+            }
+        });
     }
 
-
+    //munculin categori ke list
     public void loadCategoryList() {
         gridCategoryList.getChildren().removeIf(node -> {
             Integer rowIndex = GridPane.getRowIndex(node);
@@ -78,6 +93,7 @@ public class CategoryForm {
         }
     }
 
+    //ngambil category dari db
     private List<Category> getCategoriesForUser(int userId) {
         List<Category> categories = new ArrayList<>();
         String sql = "SELECT id_category, name_category, desc_category FROM category WHERE id_user = ? OR id_user = 1 ORDER BY name_category ASC";
@@ -103,6 +119,7 @@ public class CategoryForm {
         return categories;
     }
 
+    // masukin data category ke form
     private void populateFormFromCategory(Category category) {
         editingCategoryId = category.getId();
         txtCategoryName.setText(category.getName());
@@ -122,6 +139,11 @@ public class CategoryForm {
             return;
         }
 
+        if (isCategoryNameDuplicate(name)) {
+            AlertUtil.showError("Category name already exists. Please choose a different name.");
+            return;
+        }
+
         if (name.length() > 20) {
             AlertUtil.showError("Name must not exceed 20 characters.");
             return;
@@ -131,6 +153,7 @@ public class CategoryForm {
             AlertUtil.showError("Description must not exceed 50 characters.");
             return;
         }
+
 
         try (Connection conn = DBConnection.getConnection()) {
             String sql;
@@ -214,4 +237,48 @@ public class CategoryForm {
         btnAdd.setText("Add");
         btnDelete.setVisible(false);
     }
+
+        //ngecek dah ada category yg namanya dan idusernya sama nggak di db
+    private boolean isCategoryNameDuplicate(String name) {
+        String sql = "SELECT COUNT(*) FROM category WHERE name_category = ? AND id_user = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, name);
+            stmt.setInt(2, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+
+                    if (isEditing && editingCategoryId != null) {
+                        String checkSql = "SELECT id_category FROM category WHERE name_category = ? AND id_user = ?";
+                        try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                            checkStmt.setString(1, name);
+                            checkStmt.setInt(2, userId);
+                            try (ResultSet checkRs = checkStmt.executeQuery()) {
+                                while (checkRs.next()) {
+                                    int existingId = checkRs.getInt("id_category");
+                                    if (existingId != editingCategoryId) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                        return false;
+                    }
+
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            AlertUtil.showError("Database error: " + e.getMessage());
+            return true;
+        }
+
+        return false;
+    }
+
 }

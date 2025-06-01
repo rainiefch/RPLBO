@@ -55,6 +55,7 @@ public class Home {
         this.userId = userId;
     }
 
+    //untuk data todo
     public class TodoItem {
         int id;
         String title, status, dueDate, category, description, attachment;
@@ -70,14 +71,16 @@ public class Home {
         }
     }
 
+    //supaya semua data dr db ke display
     @FXML
     void initialize() {
-        setupGridPane();
-        initializeComboBoxes();
-        setupSearchAndFilter();
-        refreshTodos();
+        setupGridPane(); //  buat display todo
+        initializeComboBoxes(); // buat ngisi cb filter
+        setupSearchAndFilter(); //
+        refreshTodos(); //ambil data todo dr db
     }
 
+    // gridpane buat todos
     private void setupGridPane() {
         gridPane.getRowConstraints().clear();
         for (int i = 0; i < 3; i++) {
@@ -88,6 +91,7 @@ public class Home {
         }
     }
 
+    //ngisi cb untuk filter
     private void initializeComboBoxes() {
         cbFilterStatus.setItems(FXCollections.observableArrayList("All Status", "Pending", "In Progress", "Completed", "Overdue"));
         cbFilterStatus.getSelectionModel().selectFirst();
@@ -113,7 +117,6 @@ public class Home {
         Category.getSelectionModel().selectFirst();
     }
 
-
     private void setupSearchAndFilter() {
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> filterTodos());
         btnSearch.setOnMouseClicked(e -> filterTodos());
@@ -121,6 +124,7 @@ public class Home {
         Category.valueProperty().addListener((obs, oldVal, newVal) -> filterTodos());
     }
 
+    //buat ngecek kalo todonya overdue, tiap ngeload todo dr db bakal dicek
     private boolean isOverdue(String dueDateStr) {
         try {
             java.time.LocalDate dueDate = java.time.LocalDate.parse(dueDateStr);
@@ -147,6 +151,7 @@ public class Home {
         }
     }
 
+    // buat ngambil todo dr db
     private void fetchAllTodos() {
         todoItems.clear();
         String sql = "SELECT id_todo, title, status, due_date, category, description, attachment FROM todo WHERE id_user = ?";
@@ -156,7 +161,7 @@ public class Home {
 
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
-            List<TodoItem> overdueList = new ArrayList<>();
+            List<TodoItem> overdueList = new ArrayList<>(); //list diakses sm piechart
 
             while (rs.next()) {
                 TodoItem item = new TodoItem(
@@ -176,7 +181,7 @@ public class Home {
                 todoItems.add(item);
             }
 
-            if (!overdueList.isEmpty()) {
+            if (!overdueList.isEmpty()) { //kalo dia melebihi dl nanti diganti jd overdue
                 updateTodoStatuses(overdueList);
             }
 
@@ -185,6 +190,7 @@ public class Home {
         }
     }
 
+    //buat ganti status jd overdue
     private void updateTodoStatuses(List<TodoItem> todos) {
         String sql = "UPDATE todo SET status = 'Overdue' WHERE id_todo = ?";
 
@@ -206,6 +212,7 @@ public class Home {
         fetchAllTodos();
         filterTodos();
         updatePieChart();
+        initializeComboBoxes();
     }
 
     private void filterTodos() {
@@ -240,7 +247,7 @@ public class Home {
         displayTodos();
     }
 
-
+    // buat display list todo
     private void displayTodos() {
         gridPane.getChildren().removeIf(node ->
                 GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) >= 2
@@ -275,7 +282,7 @@ public class Home {
             GridPane.setMargin(titleLabel, new Insets(0, 0, 0, 20));
 
             ComboBox<String> statusCombo = new ComboBox<>();
-            statusCombo.getItems().addAll("Pending", "In Progress", "Completed", "Overdue");
+            statusCombo.getItems().addAll("Pending", "In Progress", "Completed");
             statusCombo.setValue(item.status);
             styleComboBox(statusCombo, statusCombo.getValue());
             gridPane.add(statusCombo, 2, rowIndex);
@@ -309,6 +316,7 @@ public class Home {
 
     }
 
+    //biar todonya bisa di klik
     private void setupClickHandlersForRow(TodoItem item, Label... clickableNodes) {
         for (Label node : clickableNodes) {
             node.setOnMouseClicked(event -> {
@@ -319,9 +327,10 @@ public class Home {
         }
     }
 
+    // ganti bg color buat kalo misalnya dia complete = ijo, overdue = merah, deadline = hari ini, atau besok = kuning
     private String getBackgroundColor(TodoItem item) {
-        if ("Completed".equals(item.status)) return "#e2f7d5";
-        if ("Overdue".equals(item.status)) return "#fcdede";
+        if ("Completed".equals(item.status)) return "#e2f7d5"; //ijo
+        if ("Overdue".equals(item.status)) return "#fcdede"; //merah
 
         try {
             java.time.LocalDateTime now = java.time.LocalDateTime.now();
@@ -332,7 +341,7 @@ public class Home {
             long hoursUntilDue = java.time.Duration.between(now, due).toHours();
 
             if (hoursUntilDue <= 24 && hoursUntilDue >= 0 || dueDate.equals(today)) {
-                return "#fff7cd";
+                return "#fff7cd"; //kuning
             }
         } catch (Exception e) {
             System.err.println("Error parsing due date: " + e.getMessage());
@@ -340,7 +349,6 @@ public class Home {
 
         return "#ffffff";
     }
-
 
     private void styleTodoLabel(Label label, TodoItem item) {
         String bgColor = getBackgroundColor(item);
@@ -358,36 +366,7 @@ public class Home {
         label.setPadding(new Insets(5));
     }
 
-
-//    private void styleTodoLabel(Label label, String status) {
-//        String bgColor;
-//
-//        switch (status) {
-//            case "Pending":
-//                bgColor = "#ffe79e";
-//                break;
-//            case "In Progress":
-//                bgColor = "#b2eced";
-//                break;
-//            case "Completed":
-//                bgColor = "#c9ed9f";
-//                break;
-//            case "Overdue":
-//                bgColor = "#fcc5c5";
-//                break;
-//            default:
-//                bgColor = "#ffffff";
-//        }
-//
-//        label.setStyle(String.format(
-//                "-fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: %s; -fx-cursor: hand;",
-//                bgColor
-//        ));
-//        label.setMaxWidth(Double.MAX_VALUE);
-//        label.setPadding(new Insets(5));
-//    }
-
-
+    // buat kasih warna combo bx status per todo
     private void styleComboBox(ComboBox<String> comboBox, String status) {
         String bgColor;
 
@@ -430,6 +409,7 @@ public class Home {
         gridPane.add(noItemsLabel, 0, 3, 7, 1);
     }
 
+    //kalo klik row baris todo, nanti masuk ke todoform, ngirim data todo yg diklik ke todoform
     private void openTodoForEditing(TodoItem todo) {
         try {
             SceneSwitcher.popTodoForm((Stage) btnAdd.getScene().getWindow(), userId, todo);
@@ -441,8 +421,7 @@ public class Home {
         }
     }
 
-
-
+    //ini manggil todoform tanpa data todo
     @FXML void onBtnAddClick(MouseEvent event) {
         SceneSwitcher.popTodoForm((Stage) btnAdd.getScene().getWindow(), userId, null);
         new java.util.Timer().schedule(
@@ -456,6 +435,7 @@ public class Home {
         );
     }
 
+    //manggil categoryform
     @FXML void onBtnCategoryClick(MouseEvent event) {
         SceneSwitcher.popCategoryForm((Stage) btnCategory.getScene().getWindow(), userId);
         new java.util.Timer().schedule(
@@ -473,6 +453,7 @@ public class Home {
         refreshTodos();
     }
 
+    //manggil profile
     @FXML void onBtnProfileClick(MouseEvent event) {
         Stage currentStage = (Stage) btnProfile.getScene().getWindow();
         SceneSwitcher.popProfileForm(currentStage, this.username, this.userId);
@@ -495,19 +476,23 @@ public class Home {
 
         for (TodoItem item : todoItems) {
             switch (item.status) {
-                case "Pending":
-                    pending++;
-                    break;
-                case "In Progress":
-                    progress++;
-                    break;
-                case "Completed":
-                    completed++;
-                    break;
-                case "Overdue":
-                    overdue++;
-                    break;
+                case "Pending": pending++; break;
+                case "In Progress": progress++; break;
+                case "Completed": completed++; break;
+                case "Overdue": overdue++; break;
             }
+        }
+
+        int total = pending + progress + completed + overdue;
+
+        if (total == 0) {
+            todoPieChart.setVisible(false);
+            todoPieChart.setManaged(false);
+            todoPieChart.setData(FXCollections.emptyObservableList());
+            return;
+        } else {
+            todoPieChart.setVisible(true);
+            todoPieChart.setManaged(true);
         }
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
@@ -522,7 +507,7 @@ public class Home {
 
         String[] sliceColors = new String[] {
                 "#ffe79e", // Pending
-                "b2eced", // In Progress
+                "#b2eced", // In Progress (fix typo, add #)
                 "#c9ed9f", // Completed
                 "#fcc5c5"  // Overdue
         };
@@ -536,45 +521,29 @@ public class Home {
                 }
             }
 
-            Platform.runLater(() -> {
-                for (Node label : todoPieChart.lookupAll(".chart-pie-label")) {
-                    label.setStyle("-fx-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;");
+            for (Node label : todoPieChart.lookupAll(".chart-pie-label")) {
+                label.setStyle("-fx-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;");
+            }
+
+            int i = 0;
+            for (Node legendItem : todoPieChart.lookupAll(".chart-legend-item")) {
+                Node symbol = legendItem.lookup(".chart-legend-item-symbol");
+                if (symbol != null && i < sliceColors.length) {
+                    symbol.setStyle("-fx-background-color: " + sliceColors[i] + ";");
+                    i++;
                 }
-            });
+            }
 
-            Platform.runLater(() -> {
-                Set<Node> legendItems = todoPieChart.lookupAll(".chart-legend-item");
-                int i = 0;
-                String[] legendColors = new String[] {
-                        "#ffe79e", // Pending
-                        "#b2eced", // In Progress
-                        "#c9ed9f", // Completed
-                        "#fcc5c5"  // Overdue
-                };
-
-                for (Node item : legendItems) {
-                    Node symbol = item.lookup(".chart-legend-item-symbol");
-                    if (symbol != null && i < legendColors.length) {
-                        symbol.setStyle("-fx-background-color: " + legendColors[i] + ";");
-                        i++;
-                    }
-                }
-            });
-
-
-
-        });
-
-        updatePiePercentLabels(pending, progress, completed, overdue);
-
-        Platform.runLater(() -> {
             Node title = todoPieChart.lookup(".chart-title");
             if (title != null) {
                 title.setStyle("-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;");
             }
         });
+
+        updatePiePercentLabels(pending, progress, completed, overdue);
     }
 
+    // styling piechart
     private void updatePiePercentLabels(int pending, int inProgress, int completed, int overdue) {
         int total = pending + inProgress + completed + overdue;
 

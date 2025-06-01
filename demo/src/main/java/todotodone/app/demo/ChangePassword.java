@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import todotodone.app.demo.util.AlertUtil;
 import todotodone.app.demo.util.DBConnection;
@@ -15,6 +16,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+// ini bisa diakses dengan 2 cara
+// 1. dr login -> kosongan, a ada data username sm iduser. jadi username textfieldnya ksoong
+// 2. setelah login, dari homepage profile. ada data id sm username, jadi nanti tf usernamenya ada isinya dan ga isa diganti
 public class ChangePassword {
 
     @FXML private Button btnCancel, btnChangePass;
@@ -32,8 +36,10 @@ public class ChangePassword {
     private String username;
     private Integer userId;
 
+    // yg dr login
     public ChangePassword() {}
 
+    // yg dr home page
     public void initializeForLoggedInUser(String username, Integer userId) {
         this.username = username;
         this.userId = userId;
@@ -44,30 +50,132 @@ public class ChangePassword {
         tfNewPassVisible.setManaged(false);
         tfConfirmPassVisible.setVisible(false);
         tfConfirmPassVisible.setManaged(false);
+        txtUsername.requestFocus();
+
+        txtUsername.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (isNewPassVisible) {
+                    tfNewPassVisible.requestFocus();
+                    tfNewPassVisible.positionCaret(tfNewPassVisible.getText().length());
+                } else {
+                    txtNewPass.requestFocus();
+                    txtNewPass.positionCaret(txtNewPass.getText().length());
+                }
+            }
+        });
+
+        txtNewPass.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (isConfPassVisible) {
+                    tfConfirmPassVisible.requestFocus();
+                    tfConfirmPassVisible.positionCaret(tfConfirmPassVisible.getText().length());
+                } else {
+                    txtConfPass.requestFocus();
+                    txtConfPass.positionCaret(txtConfPass.getText().length());
+                }
+            }
+        });
+
+        tfNewPassVisible.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (isConfPassVisible) {
+                    tfConfirmPassVisible.requestFocus();
+                    tfConfirmPassVisible.positionCaret(tfConfirmPassVisible.getText().length());
+                } else {
+                    txtConfPass.requestFocus();
+                    txtConfPass.positionCaret(txtConfPass.getText().length());
+                }
+            }
+        });
+
+        txtConfPass.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onBtnChangePassClick(new ActionEvent());
+            }
+        });
+
+        tfConfirmPassVisible.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onBtnChangePassClick(new ActionEvent());
+            }
+        });
+    }
+
+    @FXML
+    void initialize() {
+        tfNewPassVisible.setVisible(false);
+        tfNewPassVisible.setManaged(false);
+        tfConfirmPassVisible.setVisible(false);
+        tfConfirmPassVisible.setManaged(false);
+        txtUsername.requestFocus();
+
+        txtUsername.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (isNewPassVisible) {
+                    tfNewPassVisible.requestFocus();
+                    tfNewPassVisible.positionCaret(tfNewPassVisible.getText().length());
+                } else {
+                    txtNewPass.requestFocus();
+                    txtNewPass.positionCaret(txtNewPass.getText().length());
+                }
+            }
+        });
+
+        txtNewPass.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (isConfPassVisible) {
+                    tfConfirmPassVisible.requestFocus();
+                    tfConfirmPassVisible.positionCaret(tfConfirmPassVisible.getText().length());
+                } else {
+                    txtConfPass.requestFocus();
+                    txtConfPass.positionCaret(txtConfPass.getText().length());
+                }
+            }
+        });
+
+        tfNewPassVisible.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (isConfPassVisible) {
+                    tfConfirmPassVisible.requestFocus();
+                    tfConfirmPassVisible.positionCaret(tfConfirmPassVisible.getText().length());
+                } else {
+                    txtConfPass.requestFocus();
+                    txtConfPass.positionCaret(txtConfPass.getText().length());
+                }
+            }
+        });
+
+        txtConfPass.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onBtnChangePassClick(new ActionEvent());
+            }
+        });
+
+        tfConfirmPassVisible.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onBtnChangePassClick(new ActionEvent());
+            }
+        });
     }
 
     @FXML
     void onBtnCancelClick(ActionEvent event) {
-        if (username != null) {
+        if (username != null) { //kalo ga ada username, berarti dia di login, belum masuk.
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             SceneSwitcher.switchToHomeForm(stage, username, userId);
-        } else {
+        } else { // dia udh login
             SceneSwitcher.switchToLoginForm((Stage) btnCancel.getScene().getWindow());
         }
     }
 
     @FXML
     void onBtnChangePassClick(ActionEvent event) {
+        String inputUsername = txtUsername.getText().trim();
         String newPass = isNewPassVisible ? tfNewPassVisible.getText() : txtNewPass.getText();
         String confirmPass = isConfPassVisible ? tfConfirmPassVisible.getText() : txtConfPass.getText();
 
-        if (username.isEmpty() || newPass.isEmpty() || confirmPass.isEmpty()) {
+        if (inputUsername.isEmpty() || newPass.isEmpty() || confirmPass.isEmpty()) {
             AlertUtil.showError("All fields must be filled!");
-            return;
-        }
-
-        if (!newPass.equals(confirmPass)) {
-            AlertUtil.showError("Passwords do not match!");
             return;
         }
 
@@ -77,11 +185,16 @@ public class ChangePassword {
             return;
         }
 
+        if (!newPass.equals(confirmPass)) {
+            AlertUtil.showError("Passwords do not match!");
+            return;
+        }
+
         try (Connection conn = DBConnection.getConnection()) {
             String query = "UPDATE users SET password = ? WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, newPass);
-            stmt.setString(2, username);
+            stmt.setString(2, inputUsername);
 
             int rows = stmt.executeUpdate();
 
@@ -97,6 +210,7 @@ public class ChangePassword {
         }
     }
 
+
     @FXML
     void onEyeClick(MouseEvent event) {
         isNewPassVisible = !isNewPassVisible;
@@ -108,6 +222,8 @@ public class ChangePassword {
             txtNewPass.setVisible(false);
             txtNewPass.setManaged(false);
             imgEye.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/hide.png")));
+            tfNewPassVisible.requestFocus();
+            tfNewPassVisible.positionCaret(tfNewPassVisible.getText().length());
         } else {
             txtNewPass.setText(tfNewPassVisible.getText());
             txtNewPass.setVisible(true);
@@ -115,6 +231,8 @@ public class ChangePassword {
             tfNewPassVisible.setVisible(false);
             tfNewPassVisible.setManaged(false);
             imgEye.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/view.png")));
+            txtNewPass.requestFocus();
+            txtNewPass.positionCaret(txtNewPass.getText().length());
         }
     }
 
@@ -129,6 +247,8 @@ public class ChangePassword {
             txtConfPass.setVisible(false);
             txtConfPass.setManaged(false);
             imgEye1.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/hide.png")));
+            tfConfirmPassVisible.requestFocus();
+            tfConfirmPassVisible.positionCaret(tfConfirmPassVisible.getText().length());
         } else {
             txtConfPass.setText(tfConfirmPassVisible.getText());
             txtConfPass.setVisible(true);
@@ -136,6 +256,8 @@ public class ChangePassword {
             tfConfirmPassVisible.setVisible(false);
             tfConfirmPassVisible.setManaged(false);
             imgEye1.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/view.png")));
+            txtConfPass.requestFocus();
+            txtConfPass.positionCaret(txtConfPass.getText().length());
         }
     }
 }

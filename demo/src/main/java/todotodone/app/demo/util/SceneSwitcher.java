@@ -29,7 +29,7 @@ public class SceneSwitcher {
             Parent root = loader.load();
 
             ChangePassword controller = loader.getController();
-            controller.initializeForLoggedInUser(username, userId); // manually configure the form
+            controller.initializeForLoggedInUser(username, userId);
 
             Scene scene = new Scene(root);
             currentStage.setScene(scene);
@@ -74,7 +74,7 @@ public class SceneSwitcher {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/todoForm.fxml"));
             loader.setControllerFactory(param -> {
                 if (param == TodoForm.class) {
-                    return new TodoForm(userId); // set userId via constructor
+                    return new TodoForm(userId);
                 }
                 try {
                     return param.getDeclaredConstructor().newInstance();

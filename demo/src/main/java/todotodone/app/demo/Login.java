@@ -31,14 +31,47 @@ public class Login {
     @FXML
     private ImageView picture, imgEye;
 
+     //untuk cek pwnya lg visible ato ga
     private boolean passwordVisible = false;
 
+    //Untuk pindah antar text field username -> password -> klik sign in button
+    @FXML
+    public void initialize() {
+        tfUsername.requestFocus();
+
+        //Dari username ke password
+        tfUsername.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                if (passwordVisible) { // Kalo pw visible
+                    tfPasswordVisible.requestFocus();  // Pindah fokus
+                    tfPasswordVisible.positionCaret(tfPasswordVisible.getText().length()); // Posisi caret di paling akhir
+                } else { // kalo invisible
+                    pfPassword.requestFocus();
+                    pfPassword.positionCaret(pfPassword.getText().length());
+                }
+            }
+        });
+
+        // kalo visible trus enter -> klik isgn in btn
+        pfPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                onBtnSignInClick(new ActionEvent());
+            }
+        });
+        // kalo invisible trus enter -> klik isgn in btn
+        tfPasswordVisible.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                onBtnSignInClick(new ActionEvent());
+            }
+        });
+    }
 
     @FXML
     void onBtnSignInClick(ActionEvent event) {
         String username = tfUsername.getText().trim();
         String password = passwordVisible ? tfPasswordVisible.getText().trim() : pfPassword.getText().trim();
 
+        // konstrain text field ga boleh kosong
         if (username.isEmpty() || password.isEmpty()) {
             AlertUtil.showError("Username and password cannot be empty.");
             return;
@@ -52,8 +85,9 @@ public class Login {
             stmt.setString(1, username);
             stmt.setString(2, password);
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
+            try (ResultSet rs = stmt.executeQuery()) { //nyoba bisa ga
+                if (rs.next()) { // kalo isa
+                    // id sm username buat dibawa ke home
                     int userId = rs.getInt("id_user");
                     String uname = rs.getString("username");
 
@@ -81,6 +115,7 @@ public class Login {
         SceneSwitcher.switchToRegistrationForm((Stage) btnRegister.getScene().getWindow());
     }
 
+    // untuk ubah visible pw
     @FXML
     void onEyeClick(javafx.scene.input.MouseEvent event) {
         passwordVisible = !passwordVisible;
@@ -92,6 +127,8 @@ public class Login {
             pfPassword.setVisible(false);
             pfPassword.setManaged(false);
             imgEye.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/hide.png")));
+            tfPasswordVisible.requestFocus();
+            tfPasswordVisible.positionCaret(tfPasswordVisible.getText().length());
         } else {
             pfPassword.setText(tfPasswordVisible.getText());
             pfPassword.setVisible(true);
@@ -99,20 +136,8 @@ public class Login {
             tfPasswordVisible.setVisible(false);
             tfPasswordVisible.setManaged(false);
             imgEye.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/view.png")));
+            pfPassword.requestFocus();
+            pfPassword.positionCaret(pfPassword.getText().length());
         }
-    }
-
-
-
-    private void showAlert(Alert.AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-    public static String getLoggedInUsername() {
-        return loggedInUsername;
     }
 }

@@ -27,51 +27,91 @@ public class Registration {
     private boolean isPassVisible = false;
     private boolean isConfirmVisible = false;
 
+    // ubah cursos ke text field
     @FXML
     void initialize() {
-        // Hide visible fields initially
         tfPassVisible.setVisible(false);
         tfPassVisible.setManaged(false);
         tfConfirmPassVisible.setVisible(false);
         tfConfirmPassVisible.setManaged(false);
+        tfUsername.requestFocus();
+
+        tfUsername.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                if (isPassVisible) {
+                    tfPassVisible.requestFocus();
+                    tfPassVisible.positionCaret(tfPassVisible.getText().length());
+                } else {
+                    pfPassword.requestFocus();
+                    pfPassword.positionCaret(pfPassword.getText().length());
+                }
+            }
+        });
+
+        pfPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                if (isConfirmVisible) {
+                    tfConfirmPassVisible.requestFocus();
+                    tfConfirmPassVisible.positionCaret(tfConfirmPassVisible.getText().length());
+                } else {
+                    pfConfirmPassword.requestFocus();
+                    pfConfirmPassword.positionCaret(pfConfirmPassword.getText().length());
+                }
+            }
+        });
+
+        tfPassVisible.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                if (isConfirmVisible) {
+                    tfConfirmPassVisible.requestFocus();
+                    tfConfirmPassVisible.positionCaret(tfConfirmPassVisible.getText().length());
+                } else {
+                    pfConfirmPassword.requestFocus();
+                    pfConfirmPassword.positionCaret(pfConfirmPassword.getText().length());
+                }
+            }
+        });
+
+        pfConfirmPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                onBtnRegisterClick(new ActionEvent());
+            }
+        });
+
+        tfConfirmPassVisible.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                onBtnRegisterClick(new ActionEvent());
+            }
+        });
     }
 
+    // register
     @FXML
     void onBtnRegisterClick(ActionEvent event) {
         String username = tfUsername.getText().trim();
         String password = isPassVisible ? tfPassVisible.getText() : pfPassword.getText();
         String confirmPassword = isConfirmVisible ? tfConfirmPassVisible.getText() : pfConfirmPassword.getText();
 
+        //username ga boleh lebih dr 20
         if (username.length() > 20) {
             AlertUtil.showError("Username must be 20 characters or less.");
             return;
         }
 
+        //harus isi semua
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             AlertUtil.showError("All fields must be filled!");
             return;
         }
 
-        if (password.length() < 10) {
-            AlertUtil.showError("Password must be at least 10 characters long.");
+        //semua konstrain pw jadi 1
+        if (password.length() < 10 || !password.matches(".*[A-Z].*") ||
+                !password.matches(".*\\d.*") || !password.matches(".*[^a-zA-Z0-9].*")) {
+            AlertUtil.showError("Password must be at least 10 characters long, contain uppercase, number,and symbol.");
             return;
         }
 
-        if (!password.matches(".*[A-Z].*")) {
-            AlertUtil.showError("Password must contain at least one uppercase letter.");
-            return;
-        }
-
-        if (!password.matches(".*[^a-zA-Z0-9].*")) {
-            AlertUtil.showError("Password must contain at least one special character.");
-            return;
-        }
-
-        if (!password.matches(".*\\d.*")) {
-            AlertUtil.showError("Password must contain at least one number.");
-            return;
-        }
-
+        // pw sama confirmnya harus sama
         if (!password.equals(confirmPassword)) {
             AlertUtil.showError("Passwords do not match!");
             return;
@@ -83,12 +123,13 @@ public class Registration {
                 checkStmt.setString(1, username);
                 ResultSet rs = checkStmt.executeQuery();
 
-                if (rs.next() && rs.getInt(1) > 0) {
+                if (rs.next() && rs.getInt(1) > 0) { //gaboleh sama usernamenya
                     AlertUtil.showError("Username already exists.");
                     return;
                 }
             }
 
+            // kalo ga sama baru masukin ke d
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
@@ -108,11 +149,13 @@ public class Registration {
         }
     }
 
+    // ngubah ke window sign in/login
     @FXML
     void onBtnSignInClick(ActionEvent event) {
         SceneSwitcher.switchToLoginForm((Stage) btnSignIn.getScene().getWindow());
     }
 
+    /// kode visible password
     @FXML
     void onEyeClick(javafx.scene.input.MouseEvent event) {
         isPassVisible = !isPassVisible;
@@ -124,16 +167,21 @@ public class Registration {
             pfPassword.setVisible(false);
             pfPassword.setManaged(false);
             imgEye.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/hide.png")));
+            tfPassVisible.requestFocus();
+            tfPassVisible.positionCaret(tfPassVisible.getText().length());
         } else {
             pfPassword.setText(tfPassVisible.getText());
             pfPassword.setVisible(true);
             pfPassword.setManaged(true);
             tfPassVisible.setVisible(false);
             tfPassVisible.setManaged(false);
-            imgEye.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/show.png")));
+            imgEye.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/view.png")));
+            pfPassword.requestFocus();
+            pfPassword.positionCaret(pfPassword.getText().length());
         }
     }
 
+    // ubah visible change password
     @FXML
     void onEyeClick1(javafx.scene.input.MouseEvent event) {
         isConfirmVisible = !isConfirmVisible;
@@ -145,6 +193,9 @@ public class Registration {
             pfConfirmPassword.setVisible(false);
             pfConfirmPassword.setManaged(false);
             imgEye1.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/hide.png")));
+            tfConfirmPassVisible.requestFocus();
+            tfConfirmPassVisible.positionCaret(tfConfirmPassVisible.getText().length());
+
         } else {
             pfConfirmPassword.setText(tfConfirmPassVisible.getText());
             pfConfirmPassword.setVisible(true);
@@ -152,6 +203,8 @@ public class Registration {
             tfConfirmPassVisible.setVisible(false);
             tfConfirmPassVisible.setManaged(false);
             imgEye1.setImage(new Image(getClass().getResourceAsStream("/todotodone/app/demo/imgs/view.png")));
+            pfConfirmPassword.requestFocus();
+            pfConfirmPassword.positionCaret(pfConfirmPassword.getText().length());
         }
     }
 }
