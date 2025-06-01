@@ -10,19 +10,19 @@ import todotodone.app.demo.*;
 import java.io.IOException;
 
 public class SceneSwitcher {
-
+    //untuk pindah ke tampilan login (login.fxml) dan memberi judul jendela "Login"
     public static void switchToLoginForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/login.fxml", "Login");
     }
-
+    //
     public static void switchToRegistrationForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/registration.fxml", "Register");
     }
-
+    //
     public static void switchToChangePasswordForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
-
+    //
     public static void switchToChangePasswordFormLoggedIn(Stage currentStage, String username, Integer userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/changePassword.fxml"));
