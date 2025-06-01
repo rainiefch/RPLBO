@@ -6,13 +6,14 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String DB_NAME = "todotodone.db";
-//    private static final String DB_PATH = "/resource/" + DB_NAME;
+
     private static final String DB_URL = "jdbc:sqlite:" + new java.io.File(DB_NAME).getAbsolutePath();
 
     private static Connection connection = null;
 
     private DBConnection() {}
 
+    // untuk mengambil koneksi database, dan akan membuat koneksi baru jika belum ada atau sudah tertutup.
     public static synchronized Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             connect();
@@ -34,6 +35,7 @@ public class DBConnection {
         }
     }
 
+    //
     public static void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
