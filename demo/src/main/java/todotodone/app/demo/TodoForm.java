@@ -231,17 +231,17 @@ public class TodoForm {
             AlertUtil.showError("All fields are required: Title, Category, Due Date, and Description.");
             return;
         }
-
+        //gbs lebih dari 50 kata
         if (title.length() > 50) {
             AlertUtil.showError("Title must not exceed 50 characters.");
             return;
         }
-
+        //gbs lebih dari 200 kata
         if (description.length() > 200) {
             AlertUtil.showError("Description must not exceed 200 characters.");
             return;
         }
-
+        //dl gabisa di waktu yg udh lewat
         java.time.LocalDate today = java.time.LocalDate.now();
         if (dueDateValue.isBefore(today)) {
             AlertUtil.showError("Due date cannot be in the past.");
@@ -296,7 +296,7 @@ public class TodoForm {
         }
     }
 
-    @FXML
+    @FXML //buat delete todo
     void onBtnDeleteClick(ActionEvent event) {
         if (editingTodoId == null) {
             AlertUtil.showError("No To-Do selected.");
