@@ -104,7 +104,7 @@ public class Registration {
             return;
         }
 
-        //semua konstrain password jadi 1
+        //semua konstrain password jadi satu
         if (password.length() < 10 || !password.matches(".*[A-Z].*") ||
                 !password.matches(".*\\d.*") || !password.matches(".*[^a-zA-Z0-9].*")) {
             AlertUtil.showError("Password must be at least 10 characters long, contain uppercase, number,and symbol.");
@@ -123,7 +123,7 @@ public class Registration {
                 checkStmt.setString(1, username);
                 ResultSet rs = checkStmt.executeQuery();
 
-                if (rs.next() && rs.getInt(1) > 0) { //gaboleh sama usernamenya
+                if (rs.next() && rs.getInt(1) > 0) { //gaboleh sama untuk usernamenya
                     AlertUtil.showError("Username already exists.");
                     return;
                 }
