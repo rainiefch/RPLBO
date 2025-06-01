@@ -129,7 +129,7 @@ public class Registration {
                 }
             }
 
-            // kalo ga sama baru masukin ke d
+            // kalo ada eror di proses query baru masuk ke catch
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
