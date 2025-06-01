@@ -14,6 +14,7 @@ public class Profile {
     private String username;
     private Integer userId;
 
+    // untuk button logout
     @FXML
     private Button btnChangePass, btnLogout;
 
