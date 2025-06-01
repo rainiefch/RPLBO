@@ -134,6 +134,7 @@ public class CategoryForm {
         String name = txtCategoryName.getText().trim();
         String description = txtCategoryDesc.getText().trim();
 
+        //nama sm desc kl kosong
         if (name.isEmpty() || description.isEmpty()) {
             AlertUtil.showError("Name and Description must not be empty.");
             return;
