@@ -152,6 +152,7 @@ public class CategoryForm {
             return;
         }
 
+        //desc gaboleh lebih dr 50 kata
         if (description.length() > 50) {
             AlertUtil.showError("Description must not exceed 50 characters.");
             return;
