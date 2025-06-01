@@ -29,7 +29,7 @@ public class SceneSwitcher {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
 
-    //
+    //mengubah tampilan aplikasi ke form "Change Password" untuk pengguna yang sudah login.
     public static void switchToChangePasswordFormLoggedIn(Stage currentStage, String username) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/changePassword.fxml"));
@@ -49,7 +49,7 @@ public class SceneSwitcher {
         }
     }
 
-
+    //
     public static void switchToHomeForm(Stage currentStage, String username, int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/home.fxml"));
