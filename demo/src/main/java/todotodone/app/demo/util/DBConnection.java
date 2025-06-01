@@ -21,7 +21,7 @@ public class DBConnection {
         return connection;
     }
 
-    // Dipakai untuk membuat koneksi baru ke database SQLite.
+    // Dipakai untuk membuat koneksi baru ke database SQLite
     private static void connect() throws SQLException {
         try {
             Class.forName("org.sqlite.JDBC");
