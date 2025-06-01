@@ -140,6 +140,7 @@ public class CategoryForm {
             return;
         }
 
+        //kl category udh ada gaboleh sama
         if (isCategoryNameDuplicate(name)) {
             AlertUtil.showError("Category name already exists. Please choose a different name.");
             return;
