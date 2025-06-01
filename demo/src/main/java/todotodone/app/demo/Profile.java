@@ -18,6 +18,7 @@ public class Profile {
     @FXML
     private Button btnChangePass, btnLogout;
 
+    // label hello
     @FXML
     private Label lblHello;
 
