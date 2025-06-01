@@ -2,7 +2,7 @@ package todotodone.app.demo.util;
 
 //Kelas untuk menyimpan data sesi pengguna yang sedang login
 public class UserSession {
-    private static UserSession instance;
+    private static UserSession instance;// Menyimpan satu-satunya objek UserSession yang aktif
     private String username;
     private int userId;
 
