@@ -30,7 +30,7 @@ public class CategoryForm {
         this.userId = userId;
     }
 
-
+    // buat kl enter langsung ke add
     public void initialize() {
         loadCategoryList();
 
