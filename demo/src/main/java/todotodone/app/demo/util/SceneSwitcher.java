@@ -159,7 +159,7 @@ public class SceneSwitcher {
         }
     }
 
-    //
+    // Fungsi untuk berpindah tampilan (scene) ke halaman baru berdasarkan file FXML yang diberikan
     private static void switchScene(Stage stage, String fxmlPath, String title) {
         try {//
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));
