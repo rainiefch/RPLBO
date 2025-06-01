@@ -7,7 +7,8 @@ public class UserSession {
     private int userId;
 
 
-    //
+    //Constructor ini cuma bisa dipanggil dari dalam kelas ini saja
+    // Dipakai untuk membuat sesi baru
     private UserSession(String username, int userId) {
         this.username = username;
         this.userId = userId;
