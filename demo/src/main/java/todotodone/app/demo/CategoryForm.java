@@ -111,7 +111,7 @@ public class CategoryForm {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e) { //kl db gabisa connect ntar ke catch
             e.printStackTrace();
             AlertUtil.showError("Failed to load categories: " + e.getMessage());
         }
