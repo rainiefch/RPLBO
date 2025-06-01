@@ -73,9 +73,9 @@
                         <Font name="Montserrat Bold" size="31.0" />
                     </font>
                 </Button>
-                <Label fx:id="lblRplbo" text="©RPLBO" textFill="#7d1919" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                <Label fx:id="lblRplbo" text="©RPLBO" textFill="#7d1919" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9">
                     <font>
-                        <Font name="System Bold Italic" size="15.0" />
+                        <Font name="System Bold Italic" size="18.0" />
                     </font>
                 </Label>
             <Button fx:id="btnRegister" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtnRegisterClick" prefHeight="40.0" prefWidth="644.0" style="-fx-background-color: white;" text="Don't have account? Register Here" textAlignment="CENTER" textFill="MAROON" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="8">
