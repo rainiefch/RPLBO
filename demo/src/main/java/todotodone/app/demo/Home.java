@@ -222,10 +222,11 @@ public class Home {
 
         filteredTodoItems.clear();
 
-        for (TodoItem item : todoItems) {
+        for (TodoItem item : todoItems) { //search hanya berlaku unntuk judul
             boolean matchesSearch = search.isEmpty() ||
-                    item.title.toLowerCase().contains(search) ||
-                    item.description.toLowerCase().contains(search);
+                    item.title.toLowerCase().contains(search)
+//                    || item.description.toLowerCase().contains(search)
+                    ;
 
             boolean matchesStatus = "All Status".equals(selectedStatus) || item.status.equals(selectedStatus);
             boolean matchesCategory = "All Category".equals(selectedCategory) || item.category.equals(selectedCategory);
