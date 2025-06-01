@@ -49,8 +49,39 @@ public class Login {
     private TextField tfUsername;
 
     @FXML
+<<<<<<< Updated upstream
     void onBtnForgotPassClick(ActionEvent event) {
         showAlert(Alert.AlertType.INFORMATION, "Info", "Fitur 'Forgot Password' belum tersedia.");
+=======
+    public void initialize() {
+        tfUsername.requestFocus();
+
+        //Dari username ke password
+        tfUsername.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                if (passwordVisible) { // Kalo pw visible
+                    tfPasswordVisible.requestFocus();  // Pindah fokus
+                    tfPasswordVisible.positionCaret(tfPasswordVisible.getText().length()); // Posisi caret di paling akhir
+                } else { // kalo invisible
+                    pfPassword.requestFocus();
+                    pfPassword.positionCaret(pfPassword.getText().length());
+                }
+            }
+        });
+
+        // kalo visible trus enter -> klik isgn in button
+        pfPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                onBtnSignInClick(new ActionEvent());
+            }
+        });
+        // kalo invisible trus enter -> klik isgn in btn
+        tfPasswordVisible.setOnKeyPressed(event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+                onBtnSignInClick(new ActionEvent());
+            }
+        });
+>>>>>>> Stashed changes
     }
 
     @FXML

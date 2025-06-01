@@ -31,6 +31,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< Updated upstream
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -40,6 +41,17 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/asus/Documents/prakrpl/RPLBO&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/prtekkom/UG5/RPLBO",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+>>>>>>> Stashed changes
   }
 }</component>
   <component name="RecentsManager">
@@ -47,6 +59,7 @@
       <recent name="C:\Users\asus\Documents\prakrpl\RPLBO" />
     </key>
   </component>
+<<<<<<< Updated upstream
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="RPLBO" />
@@ -59,6 +72,15 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+=======
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+      </set>
+    </attachedChunks>
+>>>>>>> Stashed changes
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -73,6 +95,12 @@
       <workItem from="1746580725711" duration="11000" />
       <workItem from="1746581468538" duration="7000" />
       <workItem from="1746583975193" duration="9000" />
+<<<<<<< Updated upstream
+=======
+      <workItem from="1748225832344" duration="20000" />
+      <workItem from="1748577370340" duration="6000" />
+      <workItem from="1748766123021" duration="255000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
