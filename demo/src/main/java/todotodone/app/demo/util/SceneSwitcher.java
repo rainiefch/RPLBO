@@ -10,19 +10,19 @@ import todotodone.app.demo.*;
 import java.io.IOException;
 
 public class SceneSwitcher {
-
+    //untuk pindah ke tampilan login (login.fxml) dan beri judul jendela "Login"
     public static void switchToLoginForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/login.fxml", "Login");
     }
-
+    // untuk pindah ke tampilan registrasi (registration.fxml) dan beri judul jendela "Register"
     public static void switchToRegistrationForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/registration.fxml", "Register");
     }
-
+    //untuk pindah ke tampilan ubah password (changePassword.fxml) dan beri judul jendela "Change Password"
     public static void switchToChangePasswordForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
-
+    //pindah ke tampilan ubah password untuk pengguna yang sudah login, sambil meneruskan data username dan userId
     public static void switchToChangePasswordFormLoggedIn(Stage currentStage, String username, Integer userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/changePassword.fxml"));
@@ -42,7 +42,7 @@ public class SceneSwitcher {
         }
     }
 
-
+    // pindah ke tampilan Home sambil mengirim username dan userId ke controller Home
     public static void switchToHomeForm(Stage currentStage, String username, int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/home.fxml"));
@@ -69,6 +69,7 @@ public class SceneSwitcher {
         }
     }
 
+    // nampilin popup form untuk nambah atau edit to-do item milik user
     public static void popTodoForm(Stage ownerStage, int userId, Home.TodoItem todoToEdit) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/todoForm.fxml"));
@@ -104,7 +105,7 @@ public class SceneSwitcher {
         }
     }
 
-
+    // nampilin popup form untuk mengelola kategori, dengan membawa userId ke controller
     public static void popCategoryForm(Stage ownerStage, int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/categoryForm.fxml"));
@@ -133,6 +134,7 @@ public class SceneSwitcher {
         }
     }
 
+    //nampilin popup form profil dan mengirimkan username serta userId ke controller Profile
     public static Stage popProfileForm(Stage ownerStage, String username, Integer userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/profile.fxml"));
@@ -160,7 +162,7 @@ public class SceneSwitcher {
     }
 
 
-
+    //untuk mengganti tampilan utama (scene) aplikasi dengan tampilan lain
     private static void switchScene(Stage stage, String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));
@@ -176,6 +178,7 @@ public class SceneSwitcher {
         }
     }
 
+    //untuk menampilkan jendela popup
     private static void showPopup(Stage owner, String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));
