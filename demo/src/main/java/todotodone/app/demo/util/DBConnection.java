@@ -21,6 +21,7 @@ public class DBConnection {
         return connection;
     }
 
+    //untuk menyambungkan aplikasi ke database SQLite
     private static void connect() throws SQLException {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -35,7 +36,7 @@ public class DBConnection {
         }
     }
 
-    //
+    //untuk menutup koneksi ke database
     public static void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

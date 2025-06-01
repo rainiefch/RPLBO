@@ -162,7 +162,7 @@ public class SceneSwitcher {
     }
 
 
-
+    //untuk mengganti tampilan utama (scene) aplikasi dengan tampilan lain
     private static void switchScene(Stage stage, String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));
@@ -178,6 +178,7 @@ public class SceneSwitcher {
         }
     }
 
+    //
     private static void showPopup(Stage owner, String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));
