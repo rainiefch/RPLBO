@@ -33,7 +33,7 @@ public class UserSession {
         return userId;
     }
 
-    //
+    // Menghapus sesi pengguna (dijalankan saat logout)
     public static void clearSession() {
         instance = null;
     }
