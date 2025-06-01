@@ -164,6 +164,7 @@ public class TodoForm {
 //        initializeComboBoxes();
     }
 
+    //kl masukin image trs imagenya di klik
     private void showImagePopup() {
         try {
             Stage popupStage = new Stage();
@@ -180,7 +181,7 @@ public class TodoForm {
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.showAndWait();
         } catch (Exception e) {
-            AlertUtil.showError("Failed to preview image.");
+            AlertUtil.showError("Failed to preview image."); //gbs munculin preview
         }
     }
 
@@ -225,6 +226,7 @@ public class TodoForm {
         String description = txtDescription.getText();
         String attachmentPath = selectedFile != null ? selectedFile.getAbsolutePath() : null;
 
+        //data yg di add gaboleh empty
         if (title.isEmpty() || category == null || dueDateValue == null || description.isEmpty()) {
             AlertUtil.showError("All fields are required: Title, Category, Due Date, and Description.");
             return;
