@@ -92,19 +92,19 @@ public class Registration {
         String password = isPassVisible ? tfPassVisible.getText() : pfPassword.getText();
         String confirmPassword = isConfirmVisible ? tfConfirmPassVisible.getText() : pfConfirmPassword.getText();
 
-        //username ga boleh lebih dr 20
+        //username ga boleh lebih dari 20
         if (username.length() > 20) {
             AlertUtil.showError("Username must be 20 characters or less.");
             return;
         }
 
-        //harus isi semua
+        //hapus semua jadi kosong
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             AlertUtil.showError("All fields must be filled!");
             return;
         }
 
-        //semua konstrain pw jadi 1
+        //semua konstrain password jadi satu
         if (password.length() < 10 || !password.matches(".*[A-Z].*") ||
                 !password.matches(".*\\d.*") || !password.matches(".*[^a-zA-Z0-9].*")) {
             AlertUtil.showError("Password must be at least 10 characters long, contain uppercase, number,and symbol.");
@@ -123,13 +123,13 @@ public class Registration {
                 checkStmt.setString(1, username);
                 ResultSet rs = checkStmt.executeQuery();
 
-                if (rs.next() && rs.getInt(1) > 0) { //gaboleh sama usernamenya
+                if (rs.next() && rs.getInt(1) > 0) { //gaboleh sama untuk usernamenya
                     AlertUtil.showError("Username already exists.");
                     return;
                 }
             }
 
-            // kalo ga sama baru masukin ke d
+            // kalo ada eror di proses query baru masuk ke catch
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
@@ -149,7 +149,7 @@ public class Registration {
         }
     }
 
-    // ngubah ke window sign in/login
+    //  ke window sign in/login
     @FXML
     void onBtnSignInClick(ActionEvent event) {
         SceneSwitcher.switchToLoginForm((Stage) btnSignIn.getScene().getWindow());
