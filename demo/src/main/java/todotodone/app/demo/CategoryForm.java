@@ -182,9 +182,9 @@ public class CategoryForm {
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
-                AlertUtil.showError("Default category cannot be edited");
+                AlertUtil.showError("Default category cannot be edited"); //category bawaan gbs diapus
             } else {
-                AlertUtil.showInfo(editingCategoryId == null ? "Category added!" : "Category updated!");
+                AlertUtil.showInfo(editingCategoryId == null ? "Category added!" : "Category updated!"); //nambah kategori baru
             }
 
             resetForm();
