@@ -163,6 +163,7 @@ public class CategoryForm {
             String sql;
             PreparedStatement stmt;
 
+            //kl mau add category baru
             if (editingCategoryId == null) {
                 sql = "INSERT INTO category (name_category, desc_category, id_user) VALUES (?, ?, ?)";
                 stmt = conn.prepareStatement(sql);
@@ -170,6 +171,7 @@ public class CategoryForm {
                 stmt.setString(2, description);
                 stmt.setInt(3, userId);
             } else {
+                //kl category udh ada isinya
                 sql = "UPDATE category SET name_category = ?, desc_category = ? WHERE id_category = ? AND id_user = ?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, name);
