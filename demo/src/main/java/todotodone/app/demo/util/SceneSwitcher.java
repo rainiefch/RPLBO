@@ -178,7 +178,6 @@ public class SceneSwitcher {
         }
     }
 
-    //
     private static void showPopup(Stage owner, String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));
