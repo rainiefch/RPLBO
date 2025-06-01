@@ -10,15 +10,15 @@ import todotodone.app.demo.*;
 import java.io.IOException;
 
 public class SceneSwitcher {
-    //untuk pindah ke tampilan login (login.fxml) dan memberi judul jendela "Login"
+    //untuk pindah ke tampilan login (login.fxml) dan beri judul jendela "Login"
     public static void switchToLoginForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/login.fxml", "Login");
     }
-    // untuk pindah ke tampilan registrasi (registration.fxml) dan memberi judul jendela "Register"
+    // untuk pindah ke tampilan registrasi (registration.fxml) dan beri judul jendela "Register"
     public static void switchToRegistrationForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/registration.fxml", "Register");
     }
-    //
+    //untuk pindah ke tampilan ubah password (changePassword.fxml) dan beri judul jendela "Change Password"
     public static void switchToChangePasswordForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
