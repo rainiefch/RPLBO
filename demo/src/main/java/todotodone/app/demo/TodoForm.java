@@ -110,7 +110,7 @@ public class TodoForm {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e) { //kl gagal konek kategori dari db
             System.err.println("Failed to load categories from database: " + e.getMessage());
             cbCategory.getItems().addAll("Work", "Personal", "Others");
         }
@@ -126,14 +126,14 @@ public class TodoForm {
     }
 
     @FXML
-    void onBtnUploadFileClick(ActionEvent event) {
+    void onBtnUploadFileClick(ActionEvent event) { //buat upload file
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose File");
         selectedFile = fileChooser.showOpenDialog(btnUpload.getScene().getWindow());
 
         if (selectedFile != null) {
             lblChosenFile.setText(selectedFile.getName());
-        } else {
+        } else { //kl gada filenya
             lblChosenFile.setText("No file chosen");
         }
     }
@@ -146,16 +146,16 @@ public class TodoForm {
         }
 
         String fileName = selectedFile.getName().toLowerCase();
-        if (fileName.endsWith(".pdf")) {
+        if (fileName.endsWith(".pdf")) { //file bs pdf
             try {
                 java.awt.Desktop.getDesktop().open(selectedFile);
             } catch (Exception e) {
-                AlertUtil.showError("Unable to open PDF file.");
+                AlertUtil.showError("Unable to open PDF file."); //kl gabisa open pdf
             }
         } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
-            showImagePopup();
+            showImagePopup(); //file bs jpg jpeg
         } else {
-            AlertUtil.showError("Unsupported file format.");
+            AlertUtil.showError("Unsupported file format."); //ga support format file
         }
     }
 
@@ -164,6 +164,7 @@ public class TodoForm {
 //        initializeComboBoxes();
     }
 
+    //kl masukin image trs imagenya di klik
     private void showImagePopup() {
         try {
             Stage popupStage = new Stage();
@@ -180,7 +181,7 @@ public class TodoForm {
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.showAndWait();
         } catch (Exception e) {
-            AlertUtil.showError("Failed to preview image.");
+            AlertUtil.showError("Failed to preview image."); //gbs munculin preview
         }
     }
 
@@ -225,21 +226,22 @@ public class TodoForm {
         String description = txtDescription.getText();
         String attachmentPath = selectedFile != null ? selectedFile.getAbsolutePath() : null;
 
+        //data yg di add gaboleh empty
         if (title.isEmpty() || category == null || dueDateValue == null || description.isEmpty()) {
             AlertUtil.showError("All fields are required: Title, Category, Due Date, and Description.");
             return;
         }
-
+        //gbs lebih dari 50 kata
         if (title.length() > 50) {
             AlertUtil.showError("Title must not exceed 50 characters.");
             return;
         }
-
+        //gbs lebih dari 200 kata
         if (description.length() > 200) {
             AlertUtil.showError("Description must not exceed 200 characters.");
             return;
         }
-
+        //dl gabisa di waktu yg udh lewat
         java.time.LocalDate today = java.time.LocalDate.now();
         if (dueDateValue.isBefore(today)) {
             AlertUtil.showError("Due date cannot be in the past.");
@@ -294,7 +296,7 @@ public class TodoForm {
         }
     }
 
-    @FXML
+    @FXML //buat delete todo
     void onBtnDeleteClick(ActionEvent event) {
         if (editingTodoId == null) {
             AlertUtil.showError("No To-Do selected.");
