@@ -9,6 +9,7 @@ public class DBCategory {
 
     private DBCategory() {}
 
+    //
     public static DBCategory getInstance() {
         if (instance == null) {
             instance = new DBCategory();
@@ -16,6 +17,7 @@ public class DBCategory {
         return instance;
     }
 
+    //
     public static class Category {
         private int id;
         private String name;
@@ -40,14 +42,17 @@ public class DBCategory {
         }
     }
 
+    // Mengambil semua data kategori dari database dan mengembalikannya dalam bentuk list
     public List<Category> getAllCategories() {
         List<Category> list = new ArrayList<>();
         String sql = "SELECT id_category, name_category, desc_category FROM category";
 
+        //
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
+            //
             while (rs.next()) {
                 list.add(new Category(
                         rs.getInt("id_category"),
