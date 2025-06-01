@@ -29,6 +29,7 @@ public class UserSession {
         return userId;
     }
 
+    //Menghapus session pengguna saat logout.
     public static void clearSession() {
         instance = null;
     }
