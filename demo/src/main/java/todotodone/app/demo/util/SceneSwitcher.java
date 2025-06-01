@@ -134,7 +134,7 @@ public class SceneSwitcher {
         }
     }
 
-    //
+    //nampilin popup form profil dan mengirimkan username serta userId ke controller Profile
     public static Stage popProfileForm(Stage ownerStage, String username, Integer userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/profile.fxml"));
