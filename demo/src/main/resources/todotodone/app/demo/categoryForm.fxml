@@ -12,68 +12,74 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="257.0" prefWidth="453.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.CategoryForm">
+<AnchorPane prefHeight="489.0" prefWidth="532.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todotodone.app.demo.CategoryForm">
    <children>
-      <GridPane layoutX="-1.0" layoutY="-1.0" prefHeight="372.0" prefWidth="453.0">
+      <GridPane layoutX="-1.0" layoutY="-1.0" prefHeight="489.0" prefWidth="532.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="24.333341598510742" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.99999173482257" minWidth="10.0" prefWidth="90.66664632161458" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.9999593098958" minWidth="10.0" prefWidth="320.66668701171875" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="9.0" prefWidth="10.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="113.33333587646484" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="389.0" minWidth="10.0" prefWidth="357.66666412353516" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.3333740234375" minWidth="3.0" prefWidth="20.666646321614564" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="76.33333969116211" minHeight="10.0" prefHeight="72.99999618530273" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="125.99999237060548" minHeight="0.0" prefHeight="21.000007629394517" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="125.99999237060548" minHeight="10.0" prefHeight="97.33335367838541" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="125.99999237060548" minHeight="10.0" prefHeight="21.33331298828125" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="147.33333333333331" minHeight="7.999989827473954" prefHeight="47.33332316080728" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="143.00001525878906" minHeight="7.666659037272126" prefHeight="47.33333841959637" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="90.33331298828128" minHeight="8.666651407877623" prefHeight="27.666666666666686" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="125.99999237060548" minHeight="0.0" prefHeight="16.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="199.66665649414062" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="125.99999237060548" minHeight="10.0" prefHeight="13.333343505859375" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="147.33333333333331" minHeight="7.999989827473954" prefHeight="56.33331298828125" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="143.00001525878906" minHeight="7.666659037272126" prefHeight="46.333343505859375" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="90.33331298828128" minHeight="8.666651407877623" prefHeight="17.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="83.66665649414062" minHeight="10.0" prefHeight="38.666646321614564" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="25.333343505859375" minHeight="10.0" prefHeight="24.666656494140625" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-             <Label fx:id="lblJudul" alignment="CENTER" contentDisplay="BOTTOM" prefHeight="127.0" prefWidth="453.0" style="-fx-background-color: maroon;" text="CATEGORY FORM" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="4">
+             <Label fx:id="lblJudul" alignment="CENTER" contentDisplay="BOTTOM" prefHeight="77.0" prefWidth="532.0" style="-fx-background-color: maroon;" text="CATEGORY FORM" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="4">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="40.0" />
                </font></Label>
             <Label text="Name" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
             <Label text="Description" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtCategoryName" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField fx:id="txtCategoryDesc" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <TextField fx:id="txtCategoryName" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="txtCategoryDesc" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                <children>
-                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onBtnDeleteClick" prefHeight="29.0" prefWidth="69.0" style="-fx-background-color: grey;" text="Delete" textFill="WHITE">
+                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onBtnDeleteClick" prefHeight="39.0" prefWidth="99.0" style="-fx-background-color: grey;" text="Delete" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="29.0" prefWidth="69.0" text="Cancel">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="39.0" prefWidth="97.0" text="Cancel">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onBtnAddClick" prefHeight="29.0" prefWidth="72.0" style="-fx-background-color: maroon;" text="Add" textFill="WHITE">
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onBtnAddClick" prefHeight="39.0" prefWidth="94.0" style="-fx-background-color: maroon;" text="Add" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
                </children>
                <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <ScrollPane fx:id="scrollCategoryList" prefHeight="95.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <ScrollPane fx:id="scrollCategoryList" prefHeight="200.0" prefWidth="475.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <content>
-                  <GridPane fx:id="gridCategoryList"  vgap="5.0">
+                  <GridPane fx:id="gridCategoryList" prefHeight="100.0" prefWidth="475.0" vgap="5.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="114.33330535888672" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.6666946411133" minWidth="10.0" prefWidth="275.6666946411133" />
@@ -84,10 +90,10 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: maroon;" GridPane.columnSpan="2" GridPane.vgrow="NEVER" />
+                        <HBox prefHeight="30.0" prefWidth="490.0" style="-fx-background-color: maroon;" GridPane.columnSpan="2" GridPane.vgrow="NEVER" />
                         <Label text="Category" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -95,7 +101,7 @@
                         </Label>
                         <Label text="Description" textFill="WHITE" GridPane.columnIndex="1">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
