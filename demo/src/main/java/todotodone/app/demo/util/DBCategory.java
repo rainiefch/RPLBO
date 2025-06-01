@@ -17,7 +17,7 @@ public class DBCategory {
         return instance;
     }
 
-    //
+    // Kelas model untuk menyimpan data kategori
     public static class Category {
         private int id;
         private String name;
