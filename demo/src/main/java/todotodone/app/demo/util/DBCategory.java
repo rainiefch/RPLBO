@@ -48,7 +48,7 @@ public class DBCategory {
         List<Category> list = new ArrayList<>();
         String sql = "SELECT id_category, name_category, desc_category FROM category";
 
-        //
+        //Membuka koneksi ke database, menjalankan query, dan membaca hasilnya
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
