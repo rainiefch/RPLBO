@@ -23,7 +23,8 @@ public class SceneSwitcher {
         switchScene(currentStage, "/todotodone/app/demo/registration.fxml", "Register");
     }
 
-    //
+    //mengubah tampilan aplikasi ke form Ganti Password.
+    // Digunakan jika pengguna ngin mengganti kata sandi.
     public static void switchToChangePasswordForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
