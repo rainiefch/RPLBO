@@ -17,7 +17,8 @@ public class SceneSwitcher {
         switchScene(currentStage, "/todotodone/app/demo/login.fxml", "Login");
     }
 
-    //
+    // untuk mengubah tampilan aplikasi ke form Registrasi.
+    // Dipanggil saat pengguna ingin mendaftar akun baru.
     public static void switchToRegistrationForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/registration.fxml", "Register");
     }
