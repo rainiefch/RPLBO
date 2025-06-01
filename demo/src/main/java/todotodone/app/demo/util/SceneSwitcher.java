@@ -69,7 +69,7 @@ public class SceneSwitcher {
         }
     }
 
-    // Menampilkan popup form untuk menambah atau mengedit to-do item milik user
+    // nampilin popup form untuk nambah atau edit to-do item milik user
     public static void popTodoForm(Stage ownerStage, int userId, Home.TodoItem todoToEdit) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/todoForm.fxml"));
@@ -105,7 +105,7 @@ public class SceneSwitcher {
         }
     }
 
-
+    // nampilin popup form untuk mengelola kategori, dengan membawa userId ke controller
     public static void popCategoryForm(Stage ownerStage, int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/categoryForm.fxml"));
@@ -134,6 +134,7 @@ public class SceneSwitcher {
         }
     }
 
+    //
     public static Stage popProfileForm(Stage ownerStage, String username, Integer userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/profile.fxml"));
