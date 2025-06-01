@@ -45,22 +45,6 @@ public class Home {
     private final List<TodoItem> todoItems = new ArrayList<>();
     private final List<TodoItem> filteredTodoItems = new ArrayList<>();
 
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
-//
-//    public int getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public String getUsername() {
-//        return username;
-//    }
-
     public Home() {}
 
     public Home(String username, int userId) {
