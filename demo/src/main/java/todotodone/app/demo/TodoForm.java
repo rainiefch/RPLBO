@@ -55,6 +55,7 @@ public class TodoForm {
     };
 
     @FXML
+    //kl ke enter ke add jg
     void initialize() {
         initializeComboBoxes();
         btnAdd.setText("Add");

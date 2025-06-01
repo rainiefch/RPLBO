@@ -30,7 +30,7 @@ public class CategoryForm {
         this.userId = userId;
     }
 
-
+    // buat kl enter langsung ke add
     public void initialize() {
         loadCategoryList();
 
@@ -111,7 +111,7 @@ public class CategoryForm {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e) { //kl db gabisa connect ntar ke catch
             e.printStackTrace();
             AlertUtil.showError("Failed to load categories: " + e.getMessage());
         }
@@ -134,21 +134,25 @@ public class CategoryForm {
         String name = txtCategoryName.getText().trim();
         String description = txtCategoryDesc.getText().trim();
 
+        //nama sm desc kl kosong
         if (name.isEmpty() || description.isEmpty()) {
             AlertUtil.showError("Name and Description must not be empty.");
             return;
         }
 
+        //kl category udh ada gaboleh sama
         if (isCategoryNameDuplicate(name)) {
             AlertUtil.showError("Category name already exists. Please choose a different name.");
             return;
         }
 
+        //category gaboleh lebih dr 20 kata
         if (name.length() > 20) {
             AlertUtil.showError("Name must not exceed 20 characters.");
             return;
         }
 
+        //desc gaboleh lebih dr 50 kata
         if (description.length() > 50) {
             AlertUtil.showError("Description must not exceed 50 characters.");
             return;
@@ -159,6 +163,7 @@ public class CategoryForm {
             String sql;
             PreparedStatement stmt;
 
+            //kl mau add category baru
             if (editingCategoryId == null) {
                 sql = "INSERT INTO category (name_category, desc_category, id_user) VALUES (?, ?, ?)";
                 stmt = conn.prepareStatement(sql);
@@ -166,6 +171,7 @@ public class CategoryForm {
                 stmt.setString(2, description);
                 stmt.setInt(3, userId);
             } else {
+                //kl category udh ada isinya
                 sql = "UPDATE category SET name_category = ?, desc_category = ? WHERE id_category = ? AND id_user = ?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, name);
@@ -176,9 +182,9 @@ public class CategoryForm {
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
-                AlertUtil.showError("Default category cannot be edited");
+                AlertUtil.showError("Default category cannot be edited"); //category bawaan gbs diapus
             } else {
-                AlertUtil.showInfo(editingCategoryId == null ? "Category added!" : "Category updated!");
+                AlertUtil.showInfo(editingCategoryId == null ? "Category added!" : "Category updated!"); //nambah kategori baru
             }
 
             resetForm();
