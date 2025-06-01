@@ -25,6 +25,7 @@ public class UserSession {
         return username;
     }
 
+    //Mengambil ID dari pengguna yang sedang login.
     public int getUserId() {
         return userId;
     }
