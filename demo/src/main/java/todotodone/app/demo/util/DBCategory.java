@@ -23,6 +23,7 @@ public class DBCategory {
         private String name;
         private String description;
 
+        // Konstruktor untuk membuat objek Category dengan id, nama, dan deskripsi
         public Category(int id, String name, String description) {
             this.id = id;
             this.name = name;
