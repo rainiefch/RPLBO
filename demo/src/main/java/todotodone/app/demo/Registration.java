@@ -149,7 +149,7 @@ public class Registration {
         }
     }
 
-    // ngubah ke window sign in/login
+    //  ke window sign in/login
     @FXML
     void onBtnSignInClick(ActionEvent event) {
         SceneSwitcher.switchToLoginForm((Stage) btnSignIn.getScene().getWindow());

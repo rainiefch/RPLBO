@@ -17,8 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 // ini bisa diakses dengan 2 cara
-// 1. dr login -> kosongan, a ada data username sm iduser. jadi username textfieldnya ksoong
-// 2. setelah login, dari homepage profile. ada data id sm username, jadi nanti tf usernamenya ada isinya dan ga isa diganti
+// 1. dr login -> kosongan, a ada data username sm iduser. jadi username textfieldnya kosongg
+// 2. setelah login, dari homepage profile. ada data id sm username, jadi nanti tf usernamenya ada isinya dan ga digbibsa digaanti
 public class ChangePassword {
 
     @FXML private Button btnCancel, btnChangePass;
