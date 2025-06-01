@@ -53,7 +53,7 @@ public class DBCategory {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            //
+            //Untuk setiap baris hasil query, buat objek Category dan masukkan ke list
             while (rs.next()) {
                 list.add(new Category(
                         rs.getInt("id_category"),
