@@ -146,16 +146,16 @@ public class TodoForm {
         }
 
         String fileName = selectedFile.getName().toLowerCase();
-        if (fileName.endsWith(".pdf")) {
+        if (fileName.endsWith(".pdf")) { //file bs pdf
             try {
                 java.awt.Desktop.getDesktop().open(selectedFile);
             } catch (Exception e) {
-                AlertUtil.showError("Unable to open PDF file.");
+                AlertUtil.showError("Unable to open PDF file."); //kl gabisa open pdf
             }
         } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
-            showImagePopup();
+            showImagePopup(); //file bs jpg jpeg
         } else {
-            AlertUtil.showError("Unsupported file format.");
+            AlertUtil.showError("Unsupported file format."); //ga support format file
         }
     }
 
