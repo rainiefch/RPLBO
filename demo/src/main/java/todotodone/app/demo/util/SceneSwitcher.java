@@ -49,7 +49,7 @@ public class SceneSwitcher {
         }
     }
 
-    //
+    //mengubah tampilan aplikasi ke form "Home" setelah pengguna login.
     public static void switchToHomeForm(Stage currentStage, String username, int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/home.fxml"));
