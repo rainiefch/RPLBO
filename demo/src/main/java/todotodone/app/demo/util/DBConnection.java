@@ -22,6 +22,7 @@ public class DBConnection {
     }
 
     // Dipakai untuk membuat koneksi baru ke database SQLite
+    // Kalau driver SQLite tidak ditemukan atau gagal terhubung, akan muncul error.
     private static void connect() throws SQLException {
         try {
             Class.forName("org.sqlite.JDBC");
