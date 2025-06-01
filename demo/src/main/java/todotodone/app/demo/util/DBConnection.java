@@ -37,7 +37,7 @@ public class DBConnection {
         }
     }
 
-    //untuk menutup koneksi ke database ika koneksi masih terbuka.
+    //untuk menutup koneksi ke database jika koneksi masih terbuka jika sudaha selesai digunakan
     public static void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

@@ -11,18 +11,23 @@ import java.io.IOException;
 
 public class SceneSwitcher {
 
+    // untuk mengubah tampilan (scene) aplikasi ke form Login.
+    // Dipanggil saat pengguna ingin masuk/login.
     public static void switchToLoginForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/login.fxml", "Login");
     }
 
+    //
     public static void switchToRegistrationForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/registration.fxml", "Register");
     }
 
+    //
     public static void switchToChangePasswordForm(Stage currentStage) {
         switchScene(currentStage, "/todotodone/app/demo/changePassword.fxml", "Change Password");
     }
 
+    //
     public static void switchToChangePasswordFormLoggedIn(Stage currentStage, String username) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/todotodone/app/demo/changePassword.fxml"));
